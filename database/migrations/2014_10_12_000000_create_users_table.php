@@ -17,14 +17,16 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('password')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('provider_name')->nullable();
             $table->string('provider_id')->nullable();
-            $table->integer('country_id');
-            $table->integer('category_id');
-            $table->string('role');
+            $table->integer('country_id')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->string('role')->nullable();
+            
             $table->string('facebook_token')->nullable();
-            $table->string('password')->nullable()->change();
+           
             $table->string('avatar')->nullable();
 
             $table->rememberToken();
