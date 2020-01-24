@@ -2,7 +2,6 @@
 use Illuminate\Support\Str;
 use Alaouy\Youtube\Facades\Youtube;
 
-
  function fetch_youtube_data($url){
 
      if(Str::contains($url, '/user')){
@@ -17,18 +16,31 @@ use Alaouy\Youtube\Facades\Youtube;
         $channel = Youtube::getChannelById($channelId);
        
      }
-     
-     $channelData=$channel;
+
      $videoList = Youtube::listChannelVideos($channelId, 40);
 
+
+     $key = 'has-badge';    //check if channel is verified by youtube
+     $channelVerified = file_get_contents($url);
+     
+     if( stripos($channelVerified, $key) !== FALSE )
+         $verified=true ;
+     else
+     $verified=false;
+     
+     $channelData=$channel;
      $name=$channelData->snippet->title;
      $imageUrl=$channelData->snippet->thumbnails->medium->url;
-     $country=$channelData->snippet->country;
+
+   
+     if (isset($channelData->snippet->country)){   //check if country is set
+      $country=$channelData->snippet->country;
+     }
+    else
+     $country="Middle East";
      $views=$channelData->statistics->viewCount;
      $subscribers=$channelData->statistics->subscriberCount;
-     
      $videoCount=$channelData->statistics->videoCount;
-     $activities = Youtube::getActivitiesByChannelId($channelId);
 
      $data=[
          'name'=>$name,
@@ -37,7 +49,10 @@ use Alaouy\Youtube\Facades\Youtube;
          'views'=>$views,
          'subscribers'=>$subscribers,
          'videoCount'=>$videoCount,
+         'verified'=>$verified
      ];
-     return $data ;
+
+
+     return $data;
 
 }
