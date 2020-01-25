@@ -112,6 +112,10 @@ return $number;
     return false;
 }
 function listCountries(){
-    $countries = DB::table('countries')->select('id','country_name')->get();
+    $countries = DB::table('countries')->get();
     return $countries;
+}
+function listCategories(){
+    $categories = DB::table('categories')->get();
+    return $categories;
 }

@@ -17,8 +17,10 @@ class InfluencerController extends Controller
         return view('influencers.showYoutube',['data'=>$data]);
     }
     function create()
-    {
-        return view('influencers.create');
+
+    {   $countries= listCountries();
+        $categories= listCategories();
+        return view('influencers.create',['countries' => $countries,'categories'=>$categories]);
     }
     function store($request){
 

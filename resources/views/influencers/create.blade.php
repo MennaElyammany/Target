@@ -1,27 +1,42 @@
 @extends('layouts.app')
 @section('content')
-<form>
+<h1 class="text-center"> Add Your Information </h1>
+<form method="POST" action="/influencers">
+
+
 <div class="form-group">
     <label>Select Country</label>
-    <select name="country_id" class="mdb-select md-form">
+    <select name="country_id" class="mdb-select md-form form-control form-control-md">
   <option value="" disabled selected>--</option>
-  @php 
-  $countries=listCountries();
-   echo $countries;
-  @endphp
- 
-
-
-</select>
-  </div> 
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
+  @foreach($countries as $country)
+  <option value="{{$country->id}}">{{$country->country_name}}</option>
+  @endforeach
+</select> 
+</div>
+<div class="form-group">
+    <label>Select Category</label>
+    <select name="category_id" class="mdb-select md-form form-control">
+  <option value="" disabled selected>--</option>
+  @foreach($categories as $category)
+  <option value="{{$category->id}}">{{$category->category_name}}</option>
+  @endforeach
+</select> 
+</div>
+<div class="form-group">
+    <label>Add Your Youtube Channel</label>
+    <input name="channel_url" class="form-control" type="text">
+</div>
+<div class="form-group">
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="role" id="inlineRadio1" value="influencer">
+  <label class="form-check-label" for="inlineRadio1">Influencer</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="role" id="inlineRadio2" value="client">
+  <label class="form-check-label" for="inlineRadio2">Client</label>
+</div>
+</div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
 @endsection
