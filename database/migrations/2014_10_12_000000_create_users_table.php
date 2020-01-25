@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('provider_name')->nullable();
             $table->string('provider_id')->nullable();
-            $table->integer('country_id');
+            $table->integer('country_id')->nullable();
             $table->integer('category_id');
             $table->string('role');
             $table->string('facebook_token')->nullable();
