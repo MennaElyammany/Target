@@ -21,16 +21,14 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('provider_name')->nullable();
             $table->string('provider_id')->nullable();
-            $table->integer('country_id')->nullable();
-            $table->integer('category_id')->nullable();
             $table->string('role')->nullable();
-            
             $table->string('facebook_token')->nullable();
-           
             $table->string('avatar')->nullable();
-
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('country_id')->references('id')->on('countries')->nullable();
+            $table->integer('category_id')->references('id')->on('categories')->nullable();
+
         });
     }
 

@@ -111,3 +111,7 @@ return $number;
     else
     return false;
 }
+function listCountries(){
+    $countries = DB::table('countries')->select('id','country_name')->get();
+    return $countries;
+}
