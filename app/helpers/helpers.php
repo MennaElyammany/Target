@@ -20,17 +20,13 @@ use Alaouy\Youtube\Facades\Youtube;
      $videoList = Youtube::listChannelVideos($channelId, 40);
 
 
-     $key = 'has-badge';    //check if channel is verified by youtube
-     $channelVerified = file_get_contents($url);
-     
-     if( stripos($channelVerified, $key) !== FALSE )
-         $verified=true ;
-     else
-     $verified=false;
+  
+     $verified=checkVerification($url);
      
      $channelData=$channel;
      $name=$channelData->snippet->title;
      $imageUrl=$channelData->snippet->thumbnails->medium->url;
+     $imageUrlSmall=$channelData->snippet->thumbnails->default->url;
 
    
      if (isset($channelData->snippet->country)){   //check if country is set
@@ -41,7 +37,32 @@ use Alaouy\Youtube\Facades\Youtube;
      $views=$channelData->statistics->viewCount;
      $subscribers=$channelData->statistics->subscriberCount;
      $videoCount=$channelData->statistics->videoCount;
+     $about=$channelData->snippet->description;
 
+     $subscriptions = count( Youtube::getActivitiesByChannelId($channelId));
+     $videoList = Youtube::listChannelVideos($channelId, 40); //fetch channel videos
+    $videoInf=[];
+    foreach($videoList as $index=>$video){
+       
+        $info = Youtube::getVideoInfo($video->id->videoId); //get each video Info
+        $videoIframe=$info->player->embedHtml;
+        $videoIframe=substr($videoIframe,strpos($videoIframe,'src'),-122);
+
+        $videoViews=$info->statistics->viewCount;
+        $videoLikes=$info->statistics->likeCount;
+        $videoComments=$info->statistics->commentCount;
+        $videoDislikes=$info->statistics->dislikeCount;
+        
+        $newVideo=new stdClass();
+        $newVideo->videoIframe=$videoIframe;
+        $newVideo->videoViews=$videoViews;
+        $newVideo->videoLikes=$videoLikes;
+        $newVideo->videoComments=$videoComments;
+        $newVideo->videoDislikes=$videoDislikes;
+        array_push($videoInf,$newVideo);           //generate array of objects of video info
+       
+    }
+    
      $data=[
          'name'=>$name,
          'imageUrl'=>$imageUrl,
@@ -49,10 +70,44 @@ use Alaouy\Youtube\Facades\Youtube;
          'views'=>$views,
          'subscribers'=>$subscribers,
          'videoCount'=>$videoCount,
-         'verified'=>$verified
+         'verified'=>$verified,
+         'imageUrlSmall'=>$imageUrlSmall,
+         'subscriptions'=>$subscriptions,
+         'about'=>$about,
+         'videoList'=>$videoInf,
      ];
 
 
      return $data;
 
+}
+function convertNumber($number){
+    if($number>=1000000){
+        $number=($number/1000000);
+        if(is_float($number))
+          $number=number_format($number,1);
+       $number=$number .'M';
+    }
+    else if($number>=1000){
+        $number=($number/1000);
+        if(is_float($number))
+        $number=number_format($number,1);
+     $number=$number .'K';
+    }
+   
+else
+$number=$number;
+
+return $number;
+}
+
+ function checkVerification($url){
+
+    $key = 'has-badge';    //check if channel is verified by youtube
+    $channelVerified = file_get_contents($url);
+    
+    if( stripos($channelVerified, $key) !== FALSE )
+        return true ;
+    else
+    return false;
 }
