@@ -2,8 +2,7 @@
 @section('content')
 <h1 class="text-center"> Add Your Information </h1>
 <form method="POST" action="/influencers">
-
-
+@csrf
 <div class="form-group">
     <label>Select Country</label>
     <select name="country_id" class="mdb-select md-form form-control form-control-md">
@@ -24,7 +23,7 @@
 </div>
 <div class="form-group">
     <label>Add Your Youtube Channel</label>
-    <input name="channel_url" class="form-control" type="text">
+    <input name="youtube_url" class="form-control" type="text">
 </div>
 <div class="form-group">
 <div class="form-check form-check-inline">

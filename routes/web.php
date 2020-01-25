@@ -22,9 +22,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-// Route::get('/influencers', 'InfluencerController@index')->name('influencers.index')->middleware('auth');
-// Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
+Route::group(['middleware'=>'auth'], function(){
+//  Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
+// Route::get('/influencers/{influencer}', 'InfluencerController@show');
 Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
+Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
+
+ });
+
+
 
 
