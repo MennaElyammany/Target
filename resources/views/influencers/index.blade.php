@@ -17,17 +17,25 @@
     <hr>
 
 @foreach($influencers as $influencer)
-<!-- $country_name = getCountryName($influencer->country_id);
-$category_name = getCategoryName($influencer->category_id); -->
-<div style=" float:left;
-    width:300px;margin-left:10px">
-<img class="card-img-top" src={{$influencer->avatar}}>
-{{ $influencer->name}}
-<!-- $category_name -->
+
+
+
+<div class="card influencer" style="width: 18rem;">
+  <img class="card-img-top" src="{{$influencer->avatar}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ $influencer->name}}</h5>
+    <h5 class="card-title">{{ $influencer->followers}}</h5>
+    @php
+    $category_name = getCategoryName($influencer->category_id);
+    $country_name = getCountryName($influencer->country_id);
+    echo "<i class = "fas fa-map-market-alt mr-l"></i>";
+    echo "<h5 class='card-title'>".$country_name[0]->country_name."</h5>";
+    echo "<h5 class='card-title'>".$category_name[0]->category_name."</h5>";
+    @endphp
+  </div>
 </div>
 @endforeach
-
-        {{$influencers->links()}} 
+{{$influencers->links()}} 
 
 </div>
 @endsection

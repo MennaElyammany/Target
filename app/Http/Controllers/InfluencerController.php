@@ -51,6 +51,7 @@ class InfluencerController extends Controller
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
         $influencer->avatar = $influencer_data['imageUrl'];
+        $influencer->followers = $influencer_data['subscribers'];
         $influencer->save();
         return redirect()->route('influencers.index');
     }
