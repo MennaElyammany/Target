@@ -59,7 +59,7 @@
 <body>
     <div id="app">
         <nav class="navbar fixed-top navbar-expand-md navbar-light shadow-sm pb-2" >
-            
+            <img src="goal.png" width='45'>
             <a class="navbar-brand" style="color:#112d4e" href="#">Target</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
