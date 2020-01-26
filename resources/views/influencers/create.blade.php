@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @section('content')
-<h1 class="text-center"> Hello {{$influencer->name}}, Please Add Your Information </h1>
+<h3 class="text-center"> Hello {{$influencer->name}}, please add Your information here. </h1>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form method="POST" action="/influencers">
 @csrf
 <div class="form-group">
@@ -11,6 +20,7 @@
   <option value="{{$country->id}}">{{$country->country_name}}</option>
   @endforeach
 </select> 
+
 </div>
 <div class="form-group">
     <label>Select Category</label>

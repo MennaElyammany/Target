@@ -30,7 +30,7 @@ class LoginController extends Controller
 
         if ($existingUser) {
             auth()->login($existingUser, true);
-            return redirect()->route('home');
+            return redirect()->route('influencers.index');
 
         } else {
             $newUser                    = new User;
@@ -70,7 +70,7 @@ class LoginController extends Controller
 
         if ($existingUser) {
             auth()->login($existingUser, true);
-            return redirect()->route('home');
+            return redirect()->route('influencers.index');
         } else {
             $newUser                    = new User;
             $newUser->provider_name     = 'google';

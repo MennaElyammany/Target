@@ -25,7 +25,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::group(['middleware'=>'auth'], function(){
-Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
+// Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
 // Route::get('/influencers/{influencer}', 'InfluencerController@show');
 
 Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');

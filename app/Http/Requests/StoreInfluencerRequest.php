@@ -23,10 +23,18 @@ class StoreInfluencerRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
                 'country_id'=> 'required',
                 'category_id'=>'required',
                 'role'=> 'required',
+                'youtube_url'=>
+                     'regex:~
+                     ^(?:https?://)?                           # Optional protocol
+                      (?:www[.])?                              # Optional sub-domain
+                      (?:youtube[.]com/channel/) # Mandatory domain name (w/ query string in .com)
+                      ([^&]{24})                               # Video id of 11 characters as capture group 1
+                       ~x',
                 ];
     }
 }
