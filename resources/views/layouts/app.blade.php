@@ -75,6 +75,7 @@
                     <li class="nav-item active">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">My Influencers<span class="sr-only">(current)</span></a>
                     </li>
+                    
                     <li class="nav-item active">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
                     </li>
