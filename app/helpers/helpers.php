@@ -120,8 +120,10 @@ function listCategories(){
     return $categories;
 }
 function getCountryName($id){
-    $country_name = DB::table('country')->where('id',$id)->get('name');
+    $country_name = DB::table('countries')->where('id',$id)->get('country_name');
+    return $country_name;
 }
 function getCategoryName($id){
-    $category_name = DB::table('category')->where('id',$id)->get('name');
+    $category_name = DB::table('categories')->where('id',$id)->get('category_name');
+    return $category_name;
 }
