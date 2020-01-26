@@ -22,18 +22,19 @@ class InfluencerController extends Controller
         $number_of_influencers/=4;
        if(request()->has('category_id')){
            $influencers = User::where('role','Influencer')
-           ->where('category_id',request('category_id'))->paginate(20)
+           ->where('category_id',request('category_id'))->paginate(10)
            ->appends('category_id',request('category_id'));
         }
        else{
 
-        $influencers = User::where('role','Influencer')->paginate(20);
+        $influencers = User::where('role','Influencer')->paginate(3);
        }
        return view('influencers.index',['influencers' => $influencers,'number'=>$number_of_influencers]);
     }
     function show($id)
-    {
-        // $data= fetch_youtube_data('https://www.youtube.com/channel/UC3gVtE-5etYKM-cdzBY225A');
+    {   $influencer= User::findOrFail($id);
+        $url=$influencer['youtube_url'];
+        $data= fetch_youtube_data($url);
 
         // return view('influencers.showYoutube',['data'=>$data]);
     }
@@ -41,7 +42,8 @@ class InfluencerController extends Controller
 
     {   $countries= listCountries();
         $categories= listCategories();
-        return View::make('influencers.create',['countries' => $countries,'categories'=>$categories]);
+        $influencer=Auth::user();
+        return View::make('influencers.create',['countries' => $countries,'categories'=>$categories,'influencer'=>$influencer]);
     }
     function store(StoreInfluencerRequest $request){
         $influencer = Auth::user();
@@ -51,6 +53,7 @@ class InfluencerController extends Controller
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
         $influencer->avatar = $influencer_data['imageUrl'];
+        $influencer->followers = $influencer_data['subscribers'];
         $influencer->save();
         return redirect()->route('influencers.index');
     }
