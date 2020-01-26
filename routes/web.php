@@ -27,6 +27,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware'=>'auth'], function(){
 //  Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
 // Route::get('/influencers/{influencer}', 'InfluencerController@show');
+
+Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
 Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
@@ -34,4 +36,10 @@ Route::post('/influencers', 'InfluencerController@store')->name('influencers.sto
 
 
 
-
+Route::get('/influencers/about',function(){
+    return view('about');
+});
+Route::get('/influencers/contactUs',function(){
+    return view('contactUs');
+});
+Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
