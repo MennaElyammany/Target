@@ -18,6 +18,11 @@ class UserController extends Controller
         }
         return view('influencers.index',['influencers' => $users]);
         }
+
+    // function store(Request $request){
+    //     $influencer = new User();
+    //     $channelURL = fetch_youtube_data($request->$url);
+    // }
     
     
 }
