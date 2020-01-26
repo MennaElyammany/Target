@@ -22,12 +22,12 @@ class InfluencerController extends Controller
         $number_of_influencers/=4;
        if(request()->has('category_id')){
            $influencers = User::where('role','Influencer')
-           ->where('category_id',request('category_id'))->paginate(20)
+           ->where('category_id',request('category_id'))->paginate(10)
            ->appends('category_id',request('category_id'));
         }
        else{
 
-        $influencers = User::where('role','Influencer')->paginate(20);
+        $influencers = User::where('role','Influencer')->paginate(3);
        }
        return view('influencers.index',['influencers' => $influencers,'number'=>$number_of_influencers]);
     }
