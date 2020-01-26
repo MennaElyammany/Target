@@ -12,9 +12,24 @@ use Auth;
 
 class InfluencerController extends Controller
 {
-    function index(){
+    
+    function index(Request $request){
+        //$influencers = User::where('role','Influencer');
+        // foreach($influencers as $influencer){
+        //     $influencer_data = fetch_youtube_data($influencer->youube
+        // }
+        $number_of_influencers = User::where('role','Influencer')->count();
+        $number_of_influencers/=4;
+       if(request()->has('category_id')){
+           $influencers = User::where('role','Influencer')
+           ->where('category_id',request('category_id'))->paginate(20)
+           ->appends('category_id',request('category_id'));
+        }
+       else{
 
-        return view('influencer.index');
+        $influencers = User::where('role','Influencer')->paginate(20);
+       }
+       return view('influencers.index',['influencers' => $influencers,'number'=>$number_of_influencers]);
     }
     function show($id)
     {
@@ -34,6 +49,8 @@ class InfluencerController extends Controller
         $influencer->category_id = $request->category_id;
         $influencer->role = $request->role;
         $influencer->youtube_url = $request->youtube_url;
+        $influencer_data = fetch_youtube_data($request->youtube_url);
+        $influencer->avatar = $influencer_data['imageUrl'];
         $influencer->save();
         return redirect()->route('influencers.index');
     }

@@ -119,3 +119,9 @@ function listCategories(){
     $categories = DB::table('categories')->get();
     return $categories;
 }
+function getCountryName($id){
+    $country_name = DB::table('country')->where('id',$id)->get('name');
+}
+function getCategoryName($id){
+    $category_name = DB::table('category')->where('id',$id)->get('name');
+}
