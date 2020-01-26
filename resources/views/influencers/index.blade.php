@@ -10,11 +10,27 @@
 </style>
 <div class="container-float">
     <h1>List of influencers</h1>
-    Filter:
-    <a href="/influencers/?category_id=1">Fashion</a>|
-    <a href="/influencers/?category_id=2">Singers</a>|
+    <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Categories
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/influencers/?category_id=1">Beauty</a>
+    <a class="dropdown-item" href="/influencers/?category_id=2">Food</a>
+    <a class="dropdown-item" href="/influencers/?category_id=3">Vlogs</a>
+    <a class="dropdown-item" href="/influencers/?category_id=4">Gaming</a>
+    <a class="dropdown-item" href="/influencers/?category_id=5">Entertainment</a>
+    <a class="dropdown-item" href="/influencers/?category_id=6">Science</a>
+    <a class="dropdown-item" href="/influencers/?category_id=7">Music</a>
     <a href="/influencers">Reset</a>
     <hr>
+  </div>
+  <hr>
+  <a href="/influencers">Reset</a>
+</div>
+
+
+
 
 @foreach($influencers as $influencer)
 
