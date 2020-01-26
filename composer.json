@@ -9,8 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "facebook/graph-sdk": "^5.7",
         "alaouy/youtube": "^2.2",
+        "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
