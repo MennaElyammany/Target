@@ -26,7 +26,8 @@ class InfluencerController extends Controller
 
     {   $countries= listCountries();
         $categories= listCategories();
-        return View::make('influencers.create',['countries' => $countries,'categories'=>$categories]);
+        $influencer=Auth::user();
+        return View::make('influencers.create',['countries' => $countries,'categories'=>$categories,'influencer'=>$influencer]);
     }
     function store(StoreInfluencerRequest $request){
         $influencer = Auth::user();

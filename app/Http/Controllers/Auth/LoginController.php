@@ -38,8 +38,6 @@ class LoginController extends Controller
             $newUser->email             = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->avatar            = $user->getAvatar();
-            $newUser->country_id        = 1;
-            $newUser->category_id        = 1;
             $newUser->role              = 'influencer';
             $newUser->facebook_token    =$user->token;
             $newUser->save();
@@ -77,6 +75,7 @@ class LoginController extends Controller
             $newUser->email             = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->avatar            = $user->getAvatar();
+            $newUser->role              = 'influencer';
             $newUser->save();
     
             auth()->login($newUser, true);
@@ -87,13 +86,24 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    public function redirectTo(){
+        
+        // User role
+        $role = Auth::user()->role; 
+        
+        // Check user role
+        switch ($role) {
+            case 'influencer':
+                    return '/influencers/create';
+                break;
+            case 'client':
+                    return '/influencers/create';
+                break; 
+            default:
+                    return '/influencers/create'; 
+                break;
+        }
+    }
     /**
      * Create a new controller instance.
      *

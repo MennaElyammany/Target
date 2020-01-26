@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h1 class="text-center"> Add Your Information </h1>
+<h1 class="text-center"> Hello {{$influencer->name}}, Please Add Your Information </h1>
 <form method="POST" action="/influencers">
 @csrf
 <div class="form-group">
