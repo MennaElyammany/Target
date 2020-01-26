@@ -56,6 +56,7 @@
                     <li class="nav-item active">
                     <a class="nav-link text-light" href="{{ url('/') }}">My Influencers<span class="sr-only">(current)</span></a>
                     </li>
+                    
                     <li class="nav-item active">
                     <a class="nav-link text-light" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
                     </li>

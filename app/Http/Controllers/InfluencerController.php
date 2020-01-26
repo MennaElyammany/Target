@@ -11,8 +11,9 @@ class InfluencerController extends Controller
         return view('influencer.index');
     }
     function show($id)
-    {
-        $data= fetch_youtube_data('https://www.youtube.com/channel/UC3gVtE-5etYKM-cdzBY225A');
+    {   $influencer= User::findOrFail($id);
+        $url=$influencer['youtube_url'];
+        $data= fetch_youtube_data($url);
 
         return view('influencers.showYoutube',['data'=>$data]);
     }
