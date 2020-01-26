@@ -30,6 +30,8 @@ class LoginController extends Controller
 
         if ($existingUser) {
             auth()->login($existingUser, true);
+            return redirect()->route('home');
+
         } else {
             $newUser                    = new User;
             $newUser->provider_name     = 'facebook';
@@ -43,10 +45,11 @@ class LoginController extends Controller
             $newUser->save();
     
             auth()->login($newUser, true);
+            return redirect()->route('influencers.create');
+
 
         
     }
-    return redirect()->route('influencers.create');
     }
 
     public function redirectToProviderGoogle()
@@ -67,6 +70,7 @@ class LoginController extends Controller
 
         if ($existingUser) {
             auth()->login($existingUser, true);
+            return redirect()->route('home');
         } else {
             $newUser                    = new User;
             $newUser->provider_name     = 'google';
@@ -79,8 +83,9 @@ class LoginController extends Controller
             $newUser->save();
     
             auth()->login($newUser, true);
+            return redirect()->route('influencers.create');
+
     }
-    return redirect()->route('influencers.create');
 }
     
 
@@ -94,13 +99,13 @@ class LoginController extends Controller
         // Check user role
         switch ($role) {
             case 'influencer':
-                    return '/influencers/create';
+                    return '/home';
                 break;
             case 'client':
-                    return '/influencers/create';
+                    return '/home';
                 break; 
             default:
-                    return '/influencers/create'; 
+                    return '/home'; 
                 break;
         }
     }
