@@ -7,14 +7,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Target') }}</title>
+    <title>Target</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans|Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('fontawesome-free/css/all.min.css')}}">
 
@@ -22,8 +22,34 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
     .navbar{
-        background-color:#758184;
+        background-color:#f9f7f7;
 
+    }
+    .navbar-brand{
+        margin-left: 10px!important;
+        font-family: 'Pacifico', cursive;
+        font-size: 35px;
+        margin-right:2px;
+        /* font-weight: bold; */
+        letter-spacing:0.5px;
+    }
+    .btn{
+        background-color:#3f72af;
+        margin:5px;
+        width:85px;
+
+    }
+    .nav-item{
+        font-family: 'Merriweather Sans', sans-serif;
+        /* margin-top:2px; */
+        margin-left:5px;
+        font-size:18px;
+    }
+    .color{
+        color:#3f72af;
+    }
+    .margin{
+        margin-left:500px;
     }
     
 
@@ -32,53 +58,38 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar fixed-top navbar-expand-md navbar-light shadow-sm" >
-            <div class="container">
+        <nav class="navbar fixed-top navbar-expand-md navbar-light shadow-sm pb-2" >
             
-                <a class="navbar-brand navbar-text" href="{{ url('/') }}" >
-             <h1 style="color:#d8b5b5; " class="font-weight-bold" >Target  </h1>
-
-                </a>
-                
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+            <a class="navbar-brand" style="color:#112d4e" href="#">Target</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+  </button>
+     <!-- Right Side Of Navbar -->
+     <ul class="navbar-nav margin">
                    <li class="nav-item active">
-                   @auth<a class="nav-link text-light" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
-                  </li>                   
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Requests<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">My Influencers<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/contactUs') }}">Contact Us<span class="sr-only">(current)</span></a>
 
-                    <li class="nav-item active">
-                    <a class="nav-link text-light" href="{{ url('/') }}">Requests<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                    <a class="nav-link text-light" href="{{ url('/') }}">My Influencers<span class="sr-only">(current)</span></a>
-                    </li> @endauth
-                    <li class="nav-item active">
-                    <a class="nav-link text-light" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                    <a class="nav-link text-light" href="{{ url('/influencers/contactUs') }}">Contact Us<span class="sr-only">(current)</span></a>
-                    </li>
-                    </ul>
-                    <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn  my-2 my-sm-0" type="submit" style="border-color:#d8b5b5">Search</button>
-                    </form>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                 
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link " href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <li class="nav-item" style="margin-left:450px;">
+                                <a class="nav-link btn color text-light" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link btn color text-light" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -90,13 +101,13 @@
                                    <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:#758184;" >
+                                <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:#f9f7f7;" >
                                    
-                                <a class="dropdown-item"  href="{{ url('/') }}" onmouseover="this.style.backgroundColor='#758184'"><span style="color:white; ">Profile</span></a>
+                                <a class="dropdown-item"  href="{{ url('/') }}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">Profile</span></a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" onmouseover="this.style.backgroundColor='#758184'">
-                                                  <span style="color:white;" >{{ __('Logout') }} </span>
+                                                     document.getElementById('logout-form').submit();" onmouseover="this.style.backgroundColor='#f9f7f7'">
+                                                  <span style="color:#112d4e;" >{{ __('Logout') }} </span>
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
