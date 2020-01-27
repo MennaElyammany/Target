@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+
 class RegisterController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -22,8 +26,64 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    public function showRegistrationForm(request $request)
+    {
+        return view('auth.register',['role'=>$request->role]);
+    }
 
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
+
+    /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard();
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+         // User role
+         $role = $user->role; 
+        
+         // Check user role
+         switch ($role) {
+             case 'influencer':
+                     return redirect()->route('influencers.create');
+                 break;
+             case 'client':
+                    return redirect()->route('influencers.index');
+                 break; 
+             default:
+                     return '/influencers'; 
+                 break;
+         }
+    }
   
     public function redirectTo(){
         
@@ -36,10 +96,10 @@ class RegisterController extends Controller
                     return '/influencers/create';
                 break;
             case 'client':
-                    return '/influencers/create';
+                    return '/influencers';
                 break; 
             default:
-                    return '/influencers/create'; 
+                    return '/influencers'; 
                 break;
         }
     }
@@ -81,9 +141,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role'=>$data['role']
         ]);
-        return redirect()->route('influencers.create');
-
 
     }
 }

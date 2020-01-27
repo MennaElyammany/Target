@@ -8,7 +8,7 @@
     
 }
 </style>
-<div class="container-float">
+<div class="container-float mt-3">
     <h1>List of influencers</h1>
     <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

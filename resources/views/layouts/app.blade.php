@@ -42,16 +42,16 @@
 
     }
     .btn{
-        background-color:#3f72af;
+        /* background-color:#3f72af;
         margin:5px;
-        width:85px;
+        width:85px; */
 
     }
     .nav-item{
         font-family: 'Merriweather Sans', sans-serif;
         /* margin-top:2px; */
         margin-left:5px;
-        font-size:18px;
+        font-size:20px;
     }
     .color{
         color:#3f72af;
@@ -84,57 +84,56 @@
          <span class="navbar-toggler-icon"></span>
   </button>
      <!-- Right Side Of Navbar -->
-     <ul class="navbar-nav margin">
+     <ul class="navbar-nav ml-auto row">
                    <li class="nav-item active">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Requests<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">My Influencers<span class="sr-only">(current)</span></a>
                     </li>
-                    
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item active">
-                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/contactUs') }}">Contact Us<span class="sr-only">(current)</span></a>
+                    <li class="nav-item ">
+                    <a class="nav-link mt-2 " style="color:#112d4e;" href="{{ url('/influencers/contactUs') }}">Contact Us<span class="sr-only">(current)</span></a>
 
                  
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item" style="margin-left:450px;">
-                                <a class="nav-link btn color text-light" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <li class="nav-item mr-3" style="margin-left:300px;">
+                                <a class="nav-link btn btn-success text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
+                            <!-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link btn color text-light" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif -->
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                  <span class="nav-text text-light" >  {{ Auth::user()->name }}</span>
-                                  <image src="minions.jpg" class="rounded-circle" width="50px" height="50px">
+                        <li class="nav-item dropdown" style="margin-left:200px;">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                          <span class="nav-text text-light" >  {{ Auth::user()->name }}</span>
+                          <image src="minions.jpg" class="rounded-circle" width="50px" height="50px">
 
-                                   <span class="caret"></span>
-                                </a>
+                           <span class="caret"></span>
+                        </a>
 
-                                <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:#f9f7f7;" >
-                                   
-                                <a class="dropdown-item"  href="{{ url('/') }}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">Profile</span></a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" onmouseover="this.style.backgroundColor='#f9f7f7'">
-                                                  <span style="color:#112d4e;" >{{ __('Logout') }} </span>
-                                    </a>
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:#f9f7f7;" >
+                           
+                        <a class="dropdown-item"  href="{{ url('/') }}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">Profile</span></a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();" onmouseover="this.style.backgroundColor='#f9f7f7'">
+                                          <span style="color:#112d4e;" >{{ __('Logout') }} </span>
+                            </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
                         @endguest
                     </ul>
                 </div>
