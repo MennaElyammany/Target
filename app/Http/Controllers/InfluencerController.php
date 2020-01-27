@@ -54,7 +54,6 @@ class InfluencerController extends Controller
         $influencer = Auth::user();
         $influencer->country_id = $request->country_id;
         $influencer->category_id = $request->category_id;
-        $influencer->role = $request->role;
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
         $influencer->avatar = $influencer_data['imageUrl'];

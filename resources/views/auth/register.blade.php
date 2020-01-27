@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -59,16 +60,22 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
+                            <input type="hidden" name="role" value={{$role}}>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
-                                </button>
+                                </button> 
+                                
                             </div>
+                            <h5 class='mt-3 offset-md-4'>or                                
+                            <a href="{{ url('/login/facebook?role=' . $role)}}" class="btn btn-secondary">Signup With Facebook</a>
+                            <a href="{{ url('/login/google?role=' . $role)}}" class="btn btn-secondary">Signup With Google</a></h5>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
