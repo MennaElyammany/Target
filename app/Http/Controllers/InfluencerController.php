@@ -25,6 +25,11 @@ class InfluencerController extends Controller
            ->where('category_id',request('category_id'))->paginate(10)
            ->appends('category_id',request('category_id'));
         }
+        if(request()->has('country_id')){
+            $influencers = User::where('role','Influencer')
+            ->where('country_id',request('country_id'))->paginate(10)
+            ->appends('country_id',request('country_id'));
+         }
        else{
 
         $influencers = User::where('role','Influencer')->paginate(3);
