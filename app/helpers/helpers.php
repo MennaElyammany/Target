@@ -127,3 +127,22 @@ function getCategoryName($id){
     $category_name = DB::table('categories')->where('id',$id)->get('category_name');
     return $category_name;
 }
+
+ function redirectTo(){
+        
+    // User role
+    $role = Auth::user()->role; 
+    
+    // Check user role
+    switch ($role) {
+        case 'influencer':
+                return '/influencers/create';
+            break;
+        case 'client':
+                return '/influencers';
+            break; 
+        default:
+                return '/home'; 
+            break;
+    }
+}

@@ -9,6 +9,9 @@ use Socialite;
 use App\User;
 use Facebook\Facebook;
 use Illuminate\Http\Request;
+use Google_Client;
+// use Google_Service_YouTube;
+use Google_Service_People;
 
 
 class LoginController extends Controller
@@ -55,10 +58,14 @@ class LoginController extends Controller
     }
 
     public function redirectToProviderGoogle(request $request)
-    {
+    {           //my code
         session(['role' => $request->role]);
         return Socialite::driver('google')->stateless()->redirect();
         
+            //internet code        
+        // return Socialite::driver('google')
+        // ->scopes(['openid', 'profile', 'email', Google_Service_People::CONTACTS_READONLY])
+        // ->redirect();
     }
 
     /**
@@ -67,8 +74,32 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function handleProviderGoogleCallback()
-    {    $role=session('role');
-        $user = Socialite::driver('google')->user();
+    {  $role=session('role');
+        $user = Socialite::driver('google')->stateless()->user();
+        //from internet
+        // $user = Socialite::driver('google')->user();
+        // // Set token for the Google API PHP Client
+        // $google_client_token = [
+        //     'access_token' => $user->token,
+        //     'refresh_token' => $user->refreshToken,
+        //     'expires_in' => $user->expiresIn
+        // ];
+    
+        // $client = new Google_Client();
+        // $client->setApplicationName("Laravel");
+        // $client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
+        // $client->setAccessToken(json_encode($google_client_token));
+    
+        // $service = new Google_Service_People($client);
+    
+        // $optParams = array('requestMask.includeField' => 'person.phone_numbers,person.names,person.email_addresses');
+        // $results = $service->people_connections->listPeopleConnections('people/me',$optParams);
+    
+        // dd($results);
+
+        //my code
+
+        
         // dd($user);
         $existingUser = User::where('email', $user->getEmail())->first();
 
@@ -92,30 +123,30 @@ class LoginController extends Controller
         else
   return view('auth.login',['msg'=> 'You are not regitered.']);
        }
-    }
 
-    
+    }
 
     use AuthenticatesUsers;
 
-    public function redirectTo(){
-        
-        // User role
-        $role = Auth::user()->role; 
-        
-        // Check user role
-        switch ($role) {
-            case 'influencer':
-                    return '/influencers/create';
-                break;
-            case 'client':
-                    return '/influencers';
-                break; 
-            default:
-                    return '/home'; 
-                break;
-        }
-    }
+    // public function listYouTubeChannel($token,$user) {
+    //     $client = new Google_Client();
+    //         // Set token for the Google API PHP Client
+    // $google_client_token = [
+    //     'access_token' => $user->token,
+    //     'refresh_token' => $user->refreshToken,
+    //     'expires_in' => $user->expiresIn
+    // ];
+    //     // $client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
+    //     $client->setApplicationName('Iti Blog');
+    //     $client->setScopes('https://www.googleapis.com/auth/youtube.readonly');
+    //     // Set to name/location of your client_secrets.json file.
+    //     $client->setAuthConfig('C:\Users\HP\Documents\GitHub\Target\app\Http\Controllers\Auth\client_secret.json');
+    //     $client->setAccessToken(json_encode($google_client_token));
+    //     $service = new Google_Service_YouTube($client);
+    //     $params = array_filter(array('mine' => true));
+    //     $response = $service->channels->listChannels('snippet,contentDetails,statistics',$params);
+    //     dd($response);
+    // }
     /**
      * Create a new controller instance.
      *
