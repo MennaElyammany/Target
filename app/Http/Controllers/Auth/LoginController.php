@@ -21,7 +21,7 @@ class LoginController extends Controller
     public function handleProviderFacebookCallback()
     {
         // session_start();
-         $user = Socialite::driver('facebook')->stateless()->user();
+         $user = Socialite::driver('facebook')->user();
          $role=session('role');
         // dd($user);
         $fb=new Facebook(config('facebook.config'));
@@ -57,7 +57,7 @@ class LoginController extends Controller
     public function redirectToProviderGoogle(request $request)
     {
         session(['role' => $request->role]);
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
         
     }
 
