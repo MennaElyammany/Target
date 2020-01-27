@@ -33,3 +33,4 @@ Route::get('/influencers/contactUs',function(){
     return view('contactUs');
 });
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
+Route::get('/requests/{user}',' RequestController@show');
