@@ -1,100 +1,105 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
+@section('content')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Target
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+            <section class="mt-0">
+            <div class="container-fluid">
+            <div class="row" style="background-color:#f3f9fb;">
+            <div class="col-lg-12">
+            <div id="carousel" class="container">
+                <div id="carouselContent" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner mt-3" role="listbox">
+                        <div class="carousel-item active text-center p-4">
+                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">Find your influencers</h1>
+            <p class="text-center text paragraph-size"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. <br> Sociis natoque penatibus et magnis.</p>
+                        </div>
+                        <div class="carousel-item text-center p-4">
+                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">Find your influencers</h1>
+            <p class="text-center text paragraph-size"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. <br> Sociis natoque penatibus et magnis.</p>
+                            
+                        </div>
+                        <div class="carousel-item text-center p-4">
+                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">Find your influencers</h1>
+            <p class="text-center text paragraph-size"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. <br> Sociis natoque penatibus et magnis.</p>
+                            
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselContent" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselContent" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
+
+
+            <div><br><br><br></div> 
+            </div>
+            <div class="mx-auto mb-5">
+            <a class="btn btn-outline-primary btn-lg mr-3" href="{{ route('register',['role'=>'influencer']) }}">Register As Influencer</a>
+            <a class="btn btn-outline-success btn-lg" href="{{ route('register',['role'=>'client']) }}">Register As Client</a>
+</div>
+            </div>
+
+            </div>
+            </div>
+            </section>
+        <div id="footer" class=" footer container-fluid p-5">
+                <div class="row">
+                                <div class="row">
+                                                <div class=" col-lg-4">
+                                                                <div class="ml-3 p">
+                                                                                <h6 class="footer-target">Target</h6>
+                                                                                <br><i class="fab fa-instagram"></i>
+
+
+
+                                
+                                                                </div>
+                                                               
+                                
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                                <div>
+                                                                                <h6>Contact Info</h6>
+                                                                                <br>
+                                                                                <p>Address: <br>Street Name, City , Country</p>   
+                                                                                <p>Telephone: <br>+0983928378</p>
+                                                                                <p>Email: <br>email@email.com</p>
+                                
+                                                                </div>
+                                                                
+                                
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                                <div>
+                                                                                <h6>Quick Links</h6>
+                                                                                <br>
+                                                                                <a class="text-dark mb-5" href="">About</a>
+                                                                                <br>
+                                                                                <a class="text-dark mb-5" href="">Terms of use</a>
+                                                                                <br>
+                                                                                <a class="text-dark mt-5" href="">Contacts</a>
+                                
+                                                                </div>
+                                                               
+                                                                  
+                                                        </div>
+        
+
+                                </div>
+
+                        </div>
+
+                        </div>
+
+                        
+
+        
+
+                </div>
+
         </div>
-    </body>
-</html>
+@endsection 
