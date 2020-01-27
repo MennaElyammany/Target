@@ -13,29 +13,39 @@ use Auth;
 class InfluencerController extends Controller
 {
     
-    function index(Request $request){
-        //$influencers = User::where('role','Influencer');
-        // foreach($influencers as $influencer){
-        //     $influencer_data = fetch_youtube_data($influencer->youube
-        // }
-        $number_of_influencers = User::where('role','Influencer')->count();
-        $number_of_influencers/=4;
-       if(request()->has('category_id')){
-           $influencers = User::where('role','Influencer')
-           ->where('category_id',request('category_id'))->paginate(10)
-           ->appends('category_id',request('category_id'));
+    function index(Request $request){        
+        $influencers = User::where('role','Influencer');
+        if(request()->has('category_id')){
+            $influencers = $influencers->where('category_id',request('category_id'));
         }
         if(request()->has('country_id')){
-            $influencers = User::where('role','Influencer')
-            ->where('country_id',request('country_id'))->paginate(10)
-            ->appends('country_id',request('country_id'));
-         }
-       else{
-
-        $influencers = User::where('role','Influencer')->paginate(3);
-       }
-       return view('influencers.index',['influencers' => $influencers,'number'=>$number_of_influencers]);
+            $influencers = $influencers->where('country_id',request('country_id'));
+        }
+        $influencers = $influencers->paginate(5)
+                    ->appends([
+                        'category_id' => request('category_id'),
+                        'country_id' => request('country_id'),
+                    ]);
+        return view('influencers.index',compact('influencers'));
+        // $influencers = User::where('role','Influencer');        
+        // if(request()->has('category_id')){
+        //   $influencers = $influencers->where('category_id',request('category_id'))
+        //   ->paginate(3)
+        //   ->appends('category_id',request('category_id'));
+        
+        // }
+        // else if(request()->has('country_id')){
+        //     $influencers = $influencers->where('country_id',request('country_id'))
+        //     ->paginate(5)
+        //     ->appends('country_id',request('country_id'));
+        //  }
+        // else{
+        //     $influencers = User::where('role','Influencer')->paginate(2);
+        // }
+        // // return view('influencers.index')->with('influencers',$influencers);
+        // return view('influencers.index',['influencers' => $influencers]);
     }
+
     function show($id)
     {   $influencer= User::findOrFail($id);
         $url=$influencer['youtube_url'];
