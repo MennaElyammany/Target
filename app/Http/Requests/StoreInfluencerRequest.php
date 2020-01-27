@@ -27,7 +27,6 @@ class StoreInfluencerRequest extends FormRequest
         return [
                 'country_id'=> 'required',
                 'category_id'=>'required',
-                'role'=> 'required',
                 'youtube_url'=>
                      'regex:~
                      ^(?:https?://)?                           # Optional protocol

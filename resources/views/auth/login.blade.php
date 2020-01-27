@@ -58,7 +58,7 @@
                                 </button>
                                 <a href="/login/facebook" class="btn btn-dark text-white">Login With Facebook</a>
                                 <a href="/login/google" class="btn btn-dark text-white">Login With Google</a>
-
+                               
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
@@ -67,6 +67,15 @@
                             </div>
                         </div>
                     </form>
+                    @isset($msg)
+                                    <div class="text-danger col-12 mt-3 offset-md-4" role="alert">
+                                    <strong>{{$msg}} </strong>
+                                    </div>
+                                    <div class="mx-auto my-2 col-12 ">
+                                     <a class="btn btn-outline-primary btn-lg offset-md-4" href="{{ route('register',['role'=>'influencer']) }}">Register As Influencer</a>
+                                     <a class="btn btn-outline-success btn-lg" href="{{ route('register',['role'=>'client']) }}">Register As Client</a>
+                                    </div>
+                                @endisset
                 </div>
             </div>
         </div>

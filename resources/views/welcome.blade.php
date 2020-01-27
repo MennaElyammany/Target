@@ -37,7 +37,12 @@
 
             <div><br><br><br></div> 
             </div>
+            <div class="mx-auto mb-5">
+            <a class="btn btn-outline-primary btn-lg mr-3" href="{{ route('register',['role'=>'influencer']) }}">Register As Influencer</a>
+            <a class="btn btn-outline-success btn-lg" href="{{ route('register',['role'=>'client']) }}">Register As Client</a>
+</div>
             </div>
+
             </div>
             </div>
             </section>
