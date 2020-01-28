@@ -84,26 +84,31 @@
          <span class="navbar-toggler-icon"></span>
   </button>
      <!-- Right Side Of Navbar -->
-     <ul class="navbar-nav ml-auto row">
+     <ul class="navbar-nav mx-auto row">
                    <li class="nav-item active">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
+                    @role('Influencer')
                     <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Requests<span class="sr-only">(current)</span></a>
                     </li>
+                    @endrole
+                    @role('Client')
                     <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">My Influencers<span class="sr-only">(current)</span></a>
                     </li>
+                    @endrole
                     <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ">
                     <a class="nav-link mt-2 " style="color:#112d4e;" href="{{ url('/influencers/contactUs') }}">Contact Us<span class="sr-only">(current)</span></a>
-
-                 
+                    </li>
+                 </ul>
+                 <ul class="navbar-nav mr-2 ">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item mr-3" style="margin-left:300px;">
+                            <li class="nav-item">
                                 <a class="nav-link btn btn-success text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             <!-- @if (Route::has('register'))
@@ -112,7 +117,7 @@
                                 </li>
                             @endif -->
                         @else
-                        <li class="nav-item dropdown" style="margin-left:200px;">
+                        <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                           <span class="nav-text text-light" >  {{ Auth::user()->name }}</span>
                           <image src="minions.jpg" class="rounded-circle" width="50px" height="50px">
