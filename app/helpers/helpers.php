@@ -157,3 +157,13 @@ function findCountry($id){
     
     return  $country[0]->country_name;
 }
+
+
+function get_unread_messages(){
+    $messages=Auth::User()->unreadNotifications;
+    return $messages;
+}
+function get_all_messages(){
+    $messages=Auth::User()->notifications;
+    return $messages;
+}

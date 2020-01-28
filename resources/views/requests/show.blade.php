@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@role('Client')
+
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr>
@@ -44,7 +44,7 @@
     </tr>
 @endforeach
 
-@endrole
+
 
 <table class="table table-bordered">
   <thead class="thead-light">
@@ -90,6 +90,5 @@
 
   </tbody>
 </table>
-
 
 @endsection

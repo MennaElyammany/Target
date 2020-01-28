@@ -14,7 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/influencers/about',function(){
+    return view('about');
+});
+Route::get('/influencers/contactUs',function(){
+    return view('contactUs');
+});
 Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
 Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
@@ -42,12 +47,7 @@ Route::get('/influencers', 'InfluencerController@index')->name('influencers.inde
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
 
-Route::get('/influencers/about',function(){
-    return view('about');
-});
-Route::get('/influencers/contactUs',function(){
-    return view('contactUs');
-});
+
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
 
 
@@ -55,3 +55,4 @@ Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware
 Route::get('/requests','RequestController@show');
 Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
+Route::get('/message/read','RequestController@read');
