@@ -73,7 +73,7 @@
     </style>
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="margin-top:90px">
         <nav class="navbar fixed-top navbar-expand-md navbar-light shadow-sm pb-2" >
             <img src="goal.png" width='45'>
             <a class="navbar-brand" style="color:#112d4e" href="#">Target</a>
@@ -101,9 +101,11 @@
                     </li>
                     <li class="nav-item ">
                     <a class="nav-link mt-2 " style="color:#112d4e;" href="{{ url('/influencers/contactUs') }}">Contact Us<span class="sr-only">(current)</span></a>
+
                     </li>
                  </ul>
                  <ul class="navbar-nav mr-2 ">
+
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -115,6 +117,7 @@
                                 </li>
                             @endif -->
                         @else
+
                         <li class="nav-item  dropdown" >
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre >
                         <span class="nav-text " id="alert" >
@@ -140,6 +143,9 @@
                       </li>
 
                         <li class="nav-item dropdown" style="margin-left:200px;">
+
+                       <li class="nav-item dropdown">
+
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                           <span class="nav-text " >  {{ Auth::user()->name }}</span>
                           <image src="minions.jpg" class="rounded-circle" width="50px" height="50px">
@@ -166,7 +172,7 @@
                 </div>
             </div>
         </nav>
-        <br><br><br><br>
+    
         </div>
 
 
