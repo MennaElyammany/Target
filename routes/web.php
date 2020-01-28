@@ -14,7 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/influencers/about',function(){
+    return view('about');
+});
+Route::get('/influencers/contactUs',function(){
+    return view('contactUs');
+});
 Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
 Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
@@ -30,22 +35,24 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::group(['middleware'=>'auth'], function(){
-// Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
-// Route::get('/influencers/{influencer}', 'InfluencerController@show');
+ Route::group(['middleware'=>'auth'], function(){
+ Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
+ Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
 
-// Route::group(['middleware'=>'auth'], function(){
+ Route::get('/influencers/{influencer}', 'InfluencerController@show');
+
 Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
-Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
+});
+
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
-//  });
 
 
 
-Route::get('/influencers/about',function(){
-    return view('about');
-});
-Route::get('/influencers/contactUs',function(){
-    return view('contactUs');
-});
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
+
+
+
+Route::get('/requests','RequestController@show');
+Route::get('/requests/accept/{request}','RequestController@accept');
+Route::get('/requests/decline/{request}','RequestController@decline');
+Route::get('/message/read','RequestController@read');

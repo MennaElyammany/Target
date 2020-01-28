@@ -47,6 +47,7 @@ class RegisterController extends Controller
         $user->assignRole($user->role);  //assign role
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
+
     }
 
     /**

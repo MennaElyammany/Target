@@ -14,10 +14,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
+  
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans|Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('fontawesome-free/css/all.min.css')}}">
@@ -90,12 +87,13 @@
                     </li>
                     @role('Influencer')
                     <li class="nav-item ">
-                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Requests<span class="sr-only">(current)</span></a>
+                    <a class="nav-link mt-2 float-left" style="color:#112d4e;" href="{{ url('/requests') }}">Requests<span class="sr-only">(current)</span></a>
                     </li>
                     @endrole
                     @role('Client')
                     <li class="nav-item ">
-                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">My Influencers<span class="sr-only">(current)</span></a>
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/requests') }}">My Influencers<span class="sr-only">(current)</span></a>
+  
                     </li>
                     @endrole
                     <li class="nav-item ">
@@ -117,9 +115,33 @@
                                 </li>
                             @endif -->
                         @else
-                        <li class="nav-item dropdown">
+                        <li class="nav-item  dropdown" >
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre >
+                        <span class="nav-text " id="alert" >
+                        @if((count(get_unread_messages()))>0)
+                        <span  id="alertRead">
+                        <svg class="my-3" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"width="30" height="30"viewBox="0 0 172 172"style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#e74c3c"><path d="M86,20.64c-5.65719,0 -10.32,4.66281 -10.32,10.32v4.68969c-16.60875,4.085 -27.52,18.06 -27.52,36.80531v26.83469c0,7.47125 -4.4075,15.93688 -6.94719,20.16969l-6.235,9.3525c-0.69875,1.04812 -0.77938,2.41875 -0.17469,3.53406c0.60469,1.11531 1.77375,1.81406 3.03687,1.81406h96.32c1.26313,0 2.43219,-0.69875 3.03688,-1.81406c0.60469,-1.11531 0.52406,-2.4725 -0.17469,-3.53406l-6.14094,-9.21813c-4.74344,-7.88781 -7.04125,-14.37812 -7.04125,-19.83375v-26.83469c0,-18.97375 -10.91125,-33.12344 -27.52,-37.24875v-4.71656c0,-5.65719 -4.66281,-10.32 -10.32,-10.32zM86,27.52c1.90813,0 3.44,1.53188 3.44,3.44v3.60125c-1.12875,-0.09406 -2.27094,-0.16125 -3.44,-0.16125c-1.16906,0 -2.31125,0.06719 -3.44,0.16125v-3.60125c0,-1.90812 1.53188,-3.44 3.44,-3.44zM11.97281,32.59938c-7.67281,12.47 -11.97281,27.31844 -11.97281,43.08062c0,15.76219 4.3,30.61063 11.97281,43.08063l5.87219,-3.60125c-7.00094,-11.38156 -10.965,-24.96688 -10.965,-39.47938c0,-14.5125 3.96406,-28.09781 10.965,-39.47937zM160.02719,32.59938l-5.87219,3.60125c7.00094,11.38156 10.965,24.96687 10.965,39.47937c0,14.5125 -3.96406,28.09781 -10.965,39.47938l5.87219,3.60125c7.67281,-12.47 11.97281,-27.31844 11.97281,-43.08063c0,-15.76219 -4.3,-30.61062 -11.97281,-43.08062zM26.88844,41.76375c-6.26187,10.11844 -9.68844,21.37906 -9.68844,33.91625c0,12.63125 3.88344,24.24125 9.66156,33.87594l5.89906,-3.5475c-5.21375,-8.7075 -8.68063,-19.10812 -8.68063,-30.32844c0,-11.31437 2.99656,-21.15062 8.65375,-30.30156zM145.11156,41.76375l-5.84531,3.61469c5.65719,9.15094 8.65375,18.98719 8.65375,30.30156c0,11.22031 -3.46687,21.62094 -8.69406,30.32844l5.9125,3.5475c5.77813,-9.63469 9.66156,-21.24469 9.66156,-33.87594c0,-12.53719 -3.42656,-23.79781 -9.68844,-33.91625zM70.25125,141.04c2.67406,6.06031 8.7075,10.32 15.74875,10.32c7.04125,0 13.07469,-4.25969 15.74875,-10.32z"></path></g></g></svg>              
+                         </span>
+                         @else
+                       <i id="alertRead"class="far fa-bell float-left my-4"></i>
+                       @endif
+                       </span>
+                       <span class="caret"></span>
+                       </a>
+                       <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:#f9f7f7;" >
+                       @foreach($messages=get_all_messages() as $message)
+                       <a class="dropdown-item"  href="{{ url('/') }}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">
+                       {{$message->data['request_status']}}</span>
+                       </a>
+                       @endforeach
+                       
+                       </div>
+
+                      </li>
+
+                        <li class="nav-item dropdown" style="margin-left:200px;">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                          <span class="nav-text text-light" >  {{ Auth::user()->name }}</span>
+                          <span class="nav-text " >  {{ Auth::user()->name }}</span>
                           <image src="minions.jpg" class="rounded-circle" width="50px" height="50px">
 
                            <span class="caret"></span>
@@ -144,13 +166,38 @@
                 </div>
             </div>
         </nav>
-        <br><br><br>
+        <br><br><br><br>
         </div>
 
 
         <main class="y-4 mb-0">
             @yield('content')
         </main>
-   
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+               integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+               crossorigin="anonymous">
+</script>
+<script type="text/javascript">
+document.getElementById("alert").addEventListener('click',function(){
+    $.ajax({
+           type: "GET",
+           url: '/message/read',
+           data: "{}",
+           dataType: "json",
+           success:function(data) {
+alert(data)
+             document.getElementById('AlertRead').innerHtml=' <i id="alertRead"class="far fa-bell float-left my-4"></i>'
+
+           
+
+      }
+})
+});
+
+
+</script>
 </body>
 </html>
