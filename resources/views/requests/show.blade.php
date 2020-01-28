@@ -45,7 +45,7 @@
 @endforeach
 
 @endrole
-@role('Influencer')
+
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr>
@@ -75,11 +75,13 @@
       <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->type}}</p></td>
       <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->status}}</p></td>
       <td > <center><a class="btn btn-outline-primary  my-3" href="{{$request->website_url}}" role="button" >Visit Website</a> </center></td>
-      <td > <center><a class="btn btn-outline-secondary my-3 " href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
-      <a class="btn btn-outline-danger my-3 " href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
-      
+      @if($request->status=='accepted' ||$request->status=='declined')
+      <td > <center><a class="btn btn-outline-success my-3 disabled "aria-disabled="true"href="/requests/accept/{{$request->id}}" role="button" >{{$request->status}}</a></td>
+       @else
+       <td > <center><a class="btn btn-outline-secondary my-3 "href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
+      <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
        </center></td>
-
+@endif
       
 
 
@@ -88,6 +90,6 @@
 
   </tbody>
 </table>
-@endrole
+
 
 @endsection
