@@ -30,16 +30,16 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::group(['middleware'=>'auth'], function(){
-// Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
-// Route::get('/influencers/{influencer}', 'InfluencerController@show');
+ Route::group(['middleware'=>'auth'], function(){
+ Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
+ Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
 
-// Route::group(['middleware'=>'auth'], function(){
+ Route::get('/influencers/{influencer}', 'InfluencerController@show');
+
 Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
-Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
-Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
-//  });
+});
 
+Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
 
 Route::get('/influencers/about',function(){
@@ -49,4 +49,9 @@ Route::get('/influencers/contactUs',function(){
     return view('contactUs');
 });
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
-Route::get('/requests/{user}',' RequestController@show');
+
+
+
+Route::get('/requests','RequestController@show');
+Route::get('/requests/accept/{request}','RequestController@accept');
+Route::get('/requests/decline/{request}','RequestController@decline');
