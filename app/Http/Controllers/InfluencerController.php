@@ -78,11 +78,8 @@ class InfluencerController extends Controller
     
     function destroy($id)
     {
-        $influencer=User::findOrFail($id);
-        
-     
-        $influencer->delete();
-        
+        $influencer=User::findOrFail($id);    
+        $influencer->delete();        
         return redirect()->route('influencers.index');
         
     }
