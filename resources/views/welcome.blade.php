@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
             <section class="mt-0">
             <div class="container-fluid">
             <div class="row" style="Packground-color:#f3f9fb;">

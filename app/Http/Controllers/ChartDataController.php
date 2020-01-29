@@ -5,8 +5,11 @@ use Carbon;
 use DB;
 use Illuminate\Http\Request;
 use View;
+use Alaouy\Youtube\Facades\Youtube;
+
 class ChartDataController extends Controller
 {
+    
     
     
    function getMonths($id){
