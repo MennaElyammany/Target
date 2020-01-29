@@ -8,9 +8,10 @@
     
 }
 </style>
-<div class="container-float mt-3">
+<div class="container">
     <h1>List of influencers</h1>
-    <div class="dropdown">
+<div style="display: flex;">
+<div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Categories
   </button>
@@ -22,14 +23,36 @@
     <a class="dropdown-item" href="/influencers/?category_id=5">Entertainment</a>
     <a class="dropdown-item" href="/influencers/?category_id=6">Science</a>
     <a class="dropdown-item" href="/influencers/?category_id=7">Music</a>
-    <a href="/influencers">Reset</a>
-    <hr>
-  </div>
-  <hr>
-  <a href="/influencers">Reset</a>
+  </div>  
 </div>
 
 
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Countries
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>1])}}">Egypt</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>2])}}">Bahrain</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>3])}}">Iraq</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>4])}}">Jordan</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>5])}}">Kuwait</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>6])}}">Lebanon</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>7])}}">Oman</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>8])}}">Qatar</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>9])}}">Saudi Arabia</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>10])}}">Syria</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>11])}}">United Arab Emirates</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>12])}}">Tunisia</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>13])}}">Algeria</a>
+  <a class="dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>14])}}">Morocco</a>
+
+  </div>
+  
+  <a href="/influencers">Reset</a>
+</div>
+</div>
 
 
 @foreach($influencers as $influencer)

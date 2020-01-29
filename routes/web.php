@@ -38,3 +38,11 @@ Route::get('/message/read','RequestController@read');
 //User profile routes
 Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit') -> middleware('auth'); 
 Route::put('/users/{user}', 'UserController@update')->name('users.update') -> middleware('auth');
+
+
+//when we get the price
+//Route::get('/requests/checkout/{price}','RequestController@checkout')->name('requests.checkout');
+Route::get('/requests/checkout','RequestController@checkout')->name('requests.checkout');
+//Route::post('/requests/charge','RequestController@checkout')->name('requests.checkout');
+Route::post('/requests/charge','RequestController@charge');
+// ->name('requests.charge');
