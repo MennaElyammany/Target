@@ -7,7 +7,7 @@
             <div class="card-header">
                 <i class="fa fa-area-chart"></i> Engagement </div>
             <div class="card-body">
-                <canvas  width="100%" height="30"></canvas>
+            <!-- <h1>{{$engagement->engagement}}</h1> -->
             </div>
             <div class="card-footer small text-muted">Updated yesterday at @php  echo date('F j, Y', time() ) @endphp</div>
         </div>

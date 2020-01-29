@@ -9,9 +9,6 @@ use Alaouy\Youtube\Facades\Youtube;
 
 class ChartDataController extends Controller
 {
-    
-    
-    
    function getMonths($id){
         $dates= DB::table('subscribers_time')->where('influencer_id',$id)->pluck('time');
         $dates=json_decode($dates);
@@ -35,7 +32,6 @@ class ChartDataController extends Controller
       foreach($subscribers_count as $count){
         array_push($subscribers_count_array, $count);
       }
-    //   return $subscribers_count_array;
        $max_no = max($subscribers_count_array);
 	   $max = round(( $max_no + 10/5 ) / 10 ) * 10;
        $months= $this->getMonths($id);
@@ -55,6 +51,7 @@ class ChartDataController extends Controller
        
     }
     function chart($id){
-        return View::make('influencers.chart', ['id' => $id]);
+        // $engagement_views = calcEngagement();
+        return View::make('influencers.chart', ['id' => $id, 'engagement'=>$engagement_views]);
     }
 }

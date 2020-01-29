@@ -51,8 +51,6 @@ Route::post('/influencers', 'InfluencerController@store')->name('influencers.sto
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
 Route::get('/charts/{id}','ChartDataController@getSubscribers');
 Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influencers.chart');
-Route::get('/test','ChartDataController@calcEngagement');
-
 
 Route::get('/requests','RequestController@show');
 Route::get('/requests/accept/{request}','RequestController@accept');

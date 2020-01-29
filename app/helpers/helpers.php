@@ -209,11 +209,11 @@ function calcEngagement(){
 
     }
 
-    $engagement_rate = (($likes_sum+$dislikes_sum+$comments_sum)/$views_sum)*100;
+    $engagement_rate = round((($likes_sum+$dislikes_sum+$comments_sum)/$views_sum)*100,2,PHP_ROUND_HALF_UP);
     $avg_views=$views_sum/$videos_count;
     return $value= [
-        'engagement'-> $engagement_rate,
-        'average_views'->$avg_views
+        'engagement'=> $engagement_rate,
+        'average_views'=>$avg_views
 
 ];
 
