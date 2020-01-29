@@ -11,7 +11,7 @@ class InfluencerController extends Controller
 {
     
     function index(Request $request){        
-        $influencers = User::where('role','Influencer');
+        $influencers = User::where('role','Influencer')->where('youtube_url','!=',NULL);
         if(request()->has('category_id')){
             $influencers = $influencers->where('category_id',request('category_id'));
         }
