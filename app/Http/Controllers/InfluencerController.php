@@ -34,6 +34,7 @@ class InfluencerController extends Controller
         $influencer= User::findOrFail($id);
         $url=$influencer['youtube_url'];
         $data= fetch_youtube_data($url);
+        $data['influencer_id']=$id;
 
      return view('influencers.showYoutube',['data'=>$data]);
     }

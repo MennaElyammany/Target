@@ -44,15 +44,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
 });
 
-Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
-
+Route::POST('influencers/create','InfluencerController@create')->name('influencers.create');
 
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
 
-
-
-Route::get('/requests','RequestController@show');
+Route::post('/requests', 'RequestController@store')->name('requests.store');
+Route::get('/requests','RequestController@show')->name('requests.show');
 Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
 Route::get('/message/read','RequestController@read');
+Route::get('requests/create','RequestController@create')->name('requests.create');
