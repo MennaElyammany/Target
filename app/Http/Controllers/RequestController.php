@@ -105,6 +105,10 @@ class RequestController extends Controller
       Auth::User()->unreadNotifications()->update(['read_at' => now()]);
         
     }
-
-    
+    function checkout(){
+        return view('requests.checkout');
+    }
+    function charge(Request $request){
+        dd($request->stripeToken);
+    }
 }
