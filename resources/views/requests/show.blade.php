@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+@role('Client')
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr>
@@ -42,10 +42,12 @@
       <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->status}}</p></td>
     
     </tr>
-@endforeach
+    @endforeach
+    </tbody>
+</table>
 
-
-
+@endrole
+@role('Influencer')
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr>
@@ -63,7 +65,7 @@
   </thead>
   <tbody>
 
- 
+
 @foreach($requests as $request)
 
     <tr>
@@ -90,5 +92,5 @@
 
   </tbody>
 </table>
-
+@endrole
 @endsection

@@ -40,8 +40,8 @@ class RequestController extends Controller
        
         }
         $influencer=User::findOrFail($influencer_id);
-        Auth::user()->Requests()->sync($newrequest);
-        $influencer->Requests()->sync($newrequest);
+        Auth::user()->Requests()->attach($newrequest);
+        $influencer->Requests()->attach($newrequest);
         $this->notifyNewRequest($influencer_id);
         return redirect()->route('requests.show');
 
@@ -93,7 +93,7 @@ class RequestController extends Controller
         $user= User::findOrFail($id);
         $details=[
             'body'=>'You have a new ad request',
-           'status'=>$status,
+          
 
         ];
         $user->notify( new RequestChanged($details));
