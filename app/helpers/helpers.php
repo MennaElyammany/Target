@@ -7,6 +7,9 @@ use App\User;
      if(Str::contains($url, '/user')){
         $channelName=substr($url,strpos($url,'user/')+5);
         $channel = Youtube::getChannelByName($channelName);
+        // dd($channel);
+        // if (!$channel)                  return view('influencers.create',['msg'=> 'Youtube channel does not exist.']);
+
         $channelId=$channel->id;
 
      }
@@ -15,12 +18,13 @@ use App\User;
     
         $channelId=substr($url,strpos($url,'channel/')+8);
         $channel = Youtube::getChannelById($channelId);
-        
+        // dd($channel);
+        // if (!$channel)                       return redirect()->route('influencers.create');
+
        
      }
     
      $videoList = Youtube::listChannelVideos($channelId,40);
-
 
   
      $verified=checkVerification($url);
@@ -38,12 +42,16 @@ use App\User;
      $country="Middle East";
      $views=$channelData->statistics->viewCount;
      $subscribers=$channelData->statistics->subscriberCount;
+     if(!$subscribers) $subscribers=0;
      $videoCount=$channelData->statistics->videoCount;
      $about=$channelData->snippet->description;
-
-     $subscriptions = count( Youtube::getActivitiesByChannelId($channelId));
-     $videoList = Youtube::listChannelVideos($channelId,40); //fetch channel videos
-    $videoInf=[];
+     $activities=Youtube::getActivitiesByChannelId($channelId);
+     if(!$activities) $subscriptions=0;
+     else $subscriptions = count( $activities);
+     $videoList = Youtube::listChannelVideos($channelId, 40); //fetch channel videos
+     $videoInf=[];
+     if ($videoList)
+     {
     foreach($videoList as $index=>$video){
        
         $info = Youtube::getVideoInfo($video->id->videoId); //get each video Info
@@ -64,6 +72,7 @@ use App\User;
         array_push($videoInf,$newVideo);           //generate array of objects of video info
        
     }
+}
     
      $data=[
          'name'=>$name,
