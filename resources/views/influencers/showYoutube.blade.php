@@ -49,6 +49,7 @@
                                     echo '<i class="fas fa-check-circle"></i>'
                                     @endphp
                                     <img src="https://img.icons8.com/offices/30/000000/youtube-play.png" class="m-3 ">
+                                  <a href="{{ route('requests.create',['influencer_id'=> $data['influencer_id']]) }}" >  <i class="fas fa-file-signature text-dark " title="Request Influencer For Ad"></i></a>
                                 </h3>
                             </div>
                         </div>

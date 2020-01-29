@@ -33,6 +33,8 @@ Route::get('/requests','RequestController@show');
 Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
 Route::get('/message/read','RequestController@read');
+Route::get('requests/create','RequestController@create')->name('requests.create');
+
 });
 
 //User profile routes
