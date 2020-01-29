@@ -40,6 +40,7 @@ Route::post('/requests', 'RequestController@store')->name('requests.store');
 });
 
 //User profile routes
+Route::get('/users/{user}', 'UserController@show')->name('users.show') -> middleware('auth'); 
 Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit') -> middleware('auth'); 
 Route::put('/users/{user}', 'UserController@update')->name('users.update') -> middleware('auth');
 

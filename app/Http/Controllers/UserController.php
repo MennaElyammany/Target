@@ -14,6 +14,18 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    function show(User $user){
+
+        $user = Auth::user();
+        $resultCountry=getCountryName($user->country_id);
+        $resultCategory=getCategoryName($user->category_id);
+        $country_name=$resultCountry[0]->country_name;
+        $category_name=$resultCategory[0]->category_name;
+        return view('users.show', ['user'=>$user,'country_name'=>$country_name,'category_name'=>$category_name]);
+
+        
+    }
+
     public function edit(User $user)
     {   $countries= listCountries();
         $categories= listCategories();

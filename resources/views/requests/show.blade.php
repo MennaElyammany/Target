@@ -20,7 +20,7 @@
   @endphp
     <tr  style="width: 200px;">
       <td >
-    <div class="card border-0 float-left mp-0" style="width: 160px"order-0>
+    <div class="card border-0 float-left mp-0" style="width: 160px"border-0>
   <div class="row no-gutters">
     <div class="col-md-4 ">
       <img src="{{$influencer->avatar}}" class="card-img rounded-circle my-2 " alt="...">
