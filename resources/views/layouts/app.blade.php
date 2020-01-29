@@ -154,7 +154,7 @@
 
                         <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:#f9f7f7;" >
                            
-                        <a class="dropdown-item"  href="{{route('users.edit',['user' => Auth::user()->id ])}}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">Profile</span></a>
+                        <a class="dropdown-item"  href="{{route('users.show',['user' => Auth::user()->id ])}}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">Profile</span></a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();" onmouseover="this.style.backgroundColor='#f9f7f7'">
@@ -171,7 +171,7 @@
                 </div>
             </div>
         </nav>
-    
+   
         </div>
 
 
