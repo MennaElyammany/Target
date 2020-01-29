@@ -76,7 +76,7 @@
     <div id="app" style="margin-top:90px">
         <nav class="navbar fixed-top navbar-expand-md navbar-light shadow-sm pb-2" >
             <img src="goal.png" width='45'>
-            <a class="navbar-brand" style="color:#112d4e" href="#">Target</a>
+            <a class="navbar-brand" style="color:#112d4e" href="/">Target</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
   </button>
@@ -85,6 +85,11 @@
                    <li class="nav-item active">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
+                    @auth
+                    <li class="nav-item ">
+                    <a class="nav-link mt-2 float-left" style="color:#112d4e;" href="{{ url('/influencers') }}">Influencers<span class="sr-only">(current)</span></a>
+                    </li>
+                    @endauth
                     @role('Influencer')
                     <li class="nav-item ">
                     <a class="nav-link mt-2 float-left" style="color:#112d4e;" href="{{ url('/requests') }}">Requests<span class="sr-only">(current)</span></a>
@@ -142,7 +147,7 @@
 
                       </li>
 
-                        <li class="nav-item dropdown" style="margin-left:200px;">
+                        <li class="nav-item dropdown">
 
                        <li class="nav-item dropdown">
 
@@ -155,7 +160,7 @@
 
                         <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:#f9f7f7;" >
                            
-                        <a class="dropdown-item"  href="{{ url('/') }}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">Profile</span></a>
+                        <a class="dropdown-item"  href="{{route('users.edit',['user' => Auth::user()->id ])}}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">Profile</span></a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();" onmouseover="this.style.backgroundColor='#f9f7f7'">
