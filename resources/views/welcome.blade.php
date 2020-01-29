@@ -3,7 +3,7 @@
 
             <section class="mt-0">
             <div class="container-fluid">
-            <div class="row" style="background-color:#f3f9fb;">
+            <div class="row" style="Packground-color:#f3f9fb;">
             <div class="col-lg-12">
             <div id="carousel" class="container">
                 <div id="carouselContent" class="carousel slide" data-ride="carousel">
