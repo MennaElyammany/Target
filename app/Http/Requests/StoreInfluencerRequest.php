@@ -31,8 +31,7 @@ class StoreInfluencerRequest extends FormRequest
                      'regex:~
                      ^(?:https?://)?                           # Optional protocol
                       (?:www[.])?                              # Optional sub-domain
-                      (?:youtube[.]com/channel/) # Mandatory domain name (w/ query string in .com)
-                      ([^&]{24})                               # Video id of 11 characters as capture group 1
+                      (?:youtube[.]com/) # Mandatory domain name (w/ query string in .com)
                        ~x',
                 ];
     }

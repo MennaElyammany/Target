@@ -10,6 +10,11 @@
         </ul>
     </div>
 @endif
+@isset($msg)
+                                    <div class="text-danger col-12 mt-3 offset-md-4" role="alert">
+                                    <strong>{{$msg}} </strong>
+                                    </div>
+                                @endisset
 <form method="POST" action="/influencers">
 @csrf
 <div class="form-group">

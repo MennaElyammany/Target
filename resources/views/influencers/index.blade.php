@@ -65,6 +65,8 @@
   <h5 class="card-title influencer" style="margin-top:40px;" >{{ $influencer->name}}</h5>
 </div>
     @php
+    if(!$influencer->followers){
+      $influencer->followers = 0;}
     $subscribers = convertNumber($influencer->followers);
     echo "<h2><b>".$subscribers."</b></h2>";
     $category_name = getCategoryName($influencer->category_id);

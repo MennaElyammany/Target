@@ -6,6 +6,8 @@
 <form method="POST" action="{{route('users.update', $user)}}">
         <input type='text' hidden name="_token" value='{{csrf_token()}}'>
         <input type='text' hidden name="_method" value='PUT'>
+        <img class=" d-block" style="height: 100px;width: 100px;"  src="{{$user->avatar}}" alt="image">
+
         <div class="form-group">
           <label for="name">Name</label>
           <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value='{{$user->name}}'>
@@ -58,7 +60,6 @@
 </div>
 @endrole
 
-<img class="rounded-circle d-block" style="height: 100px;width: 100px;"  src="{{$user->avatar}}" alt="image">
 
         <!-- <div class="form-group">
         <label for="password">Password</label>
