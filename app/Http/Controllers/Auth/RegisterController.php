@@ -44,9 +44,10 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
-
+        $user->assignRole($user->role);  //assign role
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
+
     }
 
     /**
@@ -70,13 +71,12 @@ class RegisterController extends Controller
     {
          // User role
          $role = $user->role; 
-        
          // Check user role
          switch ($role) {
-             case 'influencer':
+             case 'Influencer':
                      return redirect()->route('influencers.create');
                  break;
-             case 'client':
+             case 'Client':
                     return redirect()->route('influencers.index');
                  break; 
              default:
@@ -84,26 +84,6 @@ class RegisterController extends Controller
                  break;
          }
     }
-  
-    public function redirectTo(){
-        
-        // User role
-        $role = Auth::user()->role; 
-        
-        // Check user role
-        switch ($role) {
-            case 'influencer':
-                    return '/influencers/create';
-                break;
-            case 'client':
-                    return '/influencers';
-                break; 
-            default:
-                    return '/influencers'; 
-                break;
-        }
-    }
-
     /**
      * Create a new controller instance.
      *

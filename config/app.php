@@ -163,7 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -229,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
     ],
 
 ];

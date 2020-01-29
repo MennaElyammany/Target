@@ -7,9 +7,6 @@ use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
 use Auth;
 
-
-
-
 class InfluencerController extends Controller
 {
     
@@ -47,11 +44,13 @@ class InfluencerController extends Controller
     }
 
     function show($id)
-    {   $influencer= User::findOrFail($id);
+    {  
+        
+        $influencer= User::findOrFail($id);
         $url=$influencer['youtube_url'];
         $data= fetch_youtube_data($url);
 
-        // return view('influencers.showYoutube',['data'=>$data]);
+     return view('influencers.showYoutube',['data'=>$data]);
     }
     function create()
 

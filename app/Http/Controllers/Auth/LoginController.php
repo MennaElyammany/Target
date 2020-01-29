@@ -51,6 +51,7 @@ class LoginController extends Controller
             $newUser->role= $role;
             $newUser->save();
             auth()->login($newUser, true);
+            $newUser->assignRole($newUser->role);  //assign role
             return redirect(redirectTo());
             }
             else
@@ -120,6 +121,7 @@ class LoginController extends Controller
             $newUser->role= $role;
             $newUser->save();
             auth()->login($newUser, true);
+            $newUser->assignRole($newUser->role);  //assign role
             return redirect(redirectTo());
         }
         else
