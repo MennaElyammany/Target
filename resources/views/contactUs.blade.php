@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-            <div class="container">
+            <div class="container ">
     <h1> Leave Us a Message</h1>
     <div class="progress" style="height: 1px;">
             <div class="progress-bar " role="progressbar" style="width: 25%; background-color:#d8b5b5;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>

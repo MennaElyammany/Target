@@ -48,7 +48,7 @@
 				data: {
 					labels: response.months, // The response got from the ajax request containing all month names in the database
 					datasets: [{
-						label: "Sessions",
+						label: "Subscribers",
 						lineTension: 0.3,
 						backgroundColor: "rgba(2,117,216,0.2)",
 						borderColor: "rgba(2,117,216,1)",

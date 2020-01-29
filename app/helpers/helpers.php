@@ -1,9 +1,9 @@
 <?php
 use Illuminate\Support\Str;
 use Alaouy\Youtube\Facades\Youtube;
-
+use App\User;
  function fetch_youtube_data($url){
-
+  
      if(Str::contains($url, '/user')){
         $channelName=substr($url,strpos($url,'user/')+5);
         $channel = Youtube::getChannelByName($channelName);
@@ -12,11 +12,13 @@ use Alaouy\Youtube\Facades\Youtube;
      }
      else if(Str::contains($url, '/channel'))
      {
+    
         $channelId=substr($url,strpos($url,'channel/')+8);
         $channel = Youtube::getChannelById($channelId);
+        
        
      }
-
+    
      $videoList = Youtube::listChannelVideos($channelId, 40);
 
 
@@ -126,4 +128,42 @@ function getCountryName($id){
 function getCategoryName($id){
     $category_name = DB::table('categories')->where('id',$id)->get('category_name');
     return $category_name;
+}
+
+ function redirectTo(){
+        
+    // User role
+    $role = Auth::user()->role; 
+    
+    // Check user role
+    switch ($role) {
+        case 'influencer':
+                return '/influencers/create';
+            break;
+        case 'client':
+                return '/influencers';
+            break; 
+        default:
+                return '/home'; 
+            break;
+    }
+}
+function findUser($id){
+     $influencer= User::findOrFail($id);
+return $influencer;
+}
+function findCountry($id){
+    $country = DB::table('countries')->select('country_name')->where('id','=',$id)->get();
+    
+    return  $country[0]->country_name;
+}
+
+
+function get_unread_messages(){
+    $messages=Auth::User()->unreadNotifications;
+    return $messages;
+}
+function get_all_messages(){
+    $messages=Auth::User()->notifications;
+    return $messages;
 }
