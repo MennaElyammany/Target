@@ -39,10 +39,12 @@ class RequestController extends Controller
      'influencer_id'=>$influencer_id,
 
     ]);
-    if($request->product_image){
-        $newrequest->update(['product_image'=>$request->file('product_image')->storeAs('product_images',$request->company_name)]);
-       
-        }
+  
+        if($request->product_image){
+         $newrequest->update(['product_image'=>$request->file('product_image')->store('product_images','public')]);
+            }
+            
+        
         $influencer=User::findOrFail($influencer_id);
         Auth::user()->Requests()->attach($newrequest);
         $influencer->Requests()->attach($newrequest);
