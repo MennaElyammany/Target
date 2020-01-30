@@ -25,9 +25,8 @@ class LoginController extends Controller
     public function handleProviderFacebookCallback()
     {
         // session_start();
-         $user = Socialite::driver('facebook')->user();
+         $user = Socialite::driver('facebook')->stateless()->user();
          $role=session('role');
-        // dd($user);
         $fb=new Facebook(config('facebook.config'));
         $fb->setDefaultAccessToken($user->token);
         $fields = "id,cover,name,first_name,last_name,hometown,age_range,birthday,location,likes,posts,friends,link,gender,email,name_format,locale,picture,timezone,updated_time,verified";
