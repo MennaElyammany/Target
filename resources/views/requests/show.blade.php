@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+@role('Influencer')
 <br><br>
 <div class="card mb-3 " style="max-width: 540px;">
   <div class="row no-gutters">
@@ -18,7 +18,11 @@
 
        </div>
         <p> <span class="font-weight-bold" >Requested Date:</span> {{$request->ad_date}}</p>
+        @if($request->modified_date)
+        <p> <span class="font-weight-bold text-danger" >new requested date</span> {{$request->modified_date}}</p>
+@endif
         <p> <span class="font-weight-bold" >Type:</span> {{$request->type}}</p>
+
         @if($request->status=='waiting')
         <form class="form-inline" method="POST" action="/requests/{{$request->id}}">
         @csrf
@@ -34,16 +38,33 @@
     </div>
      <button type="submit" class="btn  btn-outline-secondary my-3 mx-2">Send to client</button>
      <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
+     @else
+     <a class="btn btn-outline-primary my-3  "href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
+     <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
+     
+     
       @endif
      </form>
-
-      
-
-        
-
       </div>
     </div>
   </div>
 </div>
+@endrole
+@role('Client')
+<div class='container'>
+<form class="form-inline" method="POST" action="/requests/{{$request->id}}">
+        @csrf
+        @method('PATCH') 
+     
+       <div class="form-group my-2 ">
+    <label >Sechedule Date</label>
+    <input type="date" class="form-control mx-4" name="ad_date">
+      </select>
+    </div>
+     <button type="submit" class="btn  btn-outline-secondary my-3 mx-2">Send to Influencer</button>
+      
+     </form>
+</div>
+@endrole
 
 @endsection

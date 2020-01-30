@@ -176,3 +176,15 @@ function get_all_messages(){
     $messages=Auth::User()->notifications;
     return $messages;
 }
+function has_uncompleted_request($id){
+  
+    $requests=Auth::User()->Requests;
+    $completed=true;
+foreach($requests as $request)
+{
+    if($request->influencer_id==$id && $request->status!="completed")
+    $completed=false;
+}
+return $completed;
+
+}
