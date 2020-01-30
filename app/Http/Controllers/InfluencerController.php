@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
 use Auth;
+use Session;
 
 class InfluencerController extends Controller
 {
@@ -50,8 +51,12 @@ class InfluencerController extends Controller
         $url=$influencer['youtube_url'];
         $data= fetch_youtube_data($url);
         $data['influencer_id']=$id;
+        // Session::put('data', $data);
+        // $data= Session::get('data');
 
-     return view('influencers.showYoutube',['data'=>$data]);
+
+
+     return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
     }
     function create()
 

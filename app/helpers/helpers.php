@@ -176,8 +176,7 @@ function get_all_messages(){
     $messages=Auth::User()->notifications;
     return $messages;
 }
-function calcEngagement(){
-    $channel=fetch_youtube_data('https://www.youtube.com/channel/UC3gVtE-5etYKM-cdzBY225A');
+function calcEngagement($channel){
     $views=$channel['views'];
     $subscribers=$channel['subscribers'];
     $videos = $channel['videoList'];
@@ -187,10 +186,10 @@ function calcEngagement(){
     $comments_array=array();
     $videos_count=0;
     foreach($videos as $video=>$value){
-        $likes_per_video= $value->videoLikes;
-        $dislikes_per_video= $value->videoDislikes;
-        $views_per_video= $value->videoViews;
-        $comments_per_video= $value->videoComments;
+        $likes_per_video= $value['videoLikes'];
+        $dislikes_per_video= $value['videoDislikes'];
+        $views_per_video= $value['videoViews'];
+        $comments_per_video= $value['videoComments'];
         array_push($likes_array,$likes_per_video);
         array_push($dislikes_array,$dislikes_per_video);
         array_push($views_array,$views_per_video);
@@ -219,7 +218,7 @@ function calcEngagement(){
     }
 
     $engagement_rate = round((($likes_sum+$dislikes_sum+$comments_sum)/$views_sum)*100,2,PHP_ROUND_HALF_UP);
-    $avg_views=$views_sum/$videos_count;
+    $avg_views=convertNumber(round($views_sum/$videos_count));
     return $value= [
         'engagement'=> $engagement_rate,
         'average_views'=>$avg_views

@@ -50,8 +50,8 @@ class ChartDataController extends Controller
        return $subscribers_per_month;
        
     }
-    function chart($id){
-        // $engagement_views = calcEngagement();
-        return View::make('influencers.chart', ['id' => $id, 'engagement'=>$engagement_views]);
+    function chart(request $request, $id){
+        $result =calcEngagement($request->data);
+        return View::make('influencers.chart', ['id' => $id,'result'=>$result]);
     }
 }

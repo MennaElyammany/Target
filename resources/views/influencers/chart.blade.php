@@ -7,7 +7,17 @@
             <div class="card-header">
                 <i class="fa fa-area-chart"></i> Engagement </div>
             <div class="card-body">
-            <!-- <h1>{{$engagement->engagement}}</h1> -->
+            
+        <div  style=" display:inline-block; float:left;margin-right:150px;margin-left:200px;">
+        <center>
+            <h3> Engagement: <br> {{$result['engagement']}}%<h3>
+            </center>
+            </div>
+            <div>
+            <center>
+            <h3>Average Views: <br> {{$result['average_views']}}<h3>
+            </center>
+            </div>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at @php  echo date('F j, Y', time() ) @endphp</div>
         </div>
@@ -31,7 +41,7 @@
     </div>
 @endsection
 @section('scripts')
-<!-- <script src="{{url( 'vendor/jquery.min.js' )}}"></script> -->
+<script src="{{url( 'vendor/jquery.min.js' )}}"></script>
 
 <script src="{{url( 'vendor/Chart.min.js' )}}"></script>
 
@@ -40,9 +50,6 @@
    var ctx= document.getElementById('PieChart');
    console.log(ctx);
     var PieChart = new Chart(ctx, {
-    // type: 'doughnut',
-    // data: [100,150],
-    // options: options
     type: 'pie',
   data: {
     labels: ["Male", "Female"],
