@@ -146,10 +146,10 @@ function getCategoryName($id){
     
     // Check user role
     switch ($role) {
-        case 'influencer':
+        case 'Influencer':
                 return '/influencers/create';
             break;
-        case 'client':
+        case 'Client':
                 return '/influencers';
             break; 
         default:
