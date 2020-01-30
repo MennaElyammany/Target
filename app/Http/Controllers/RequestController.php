@@ -60,6 +60,8 @@ class RequestController extends Controller
 
         }
         else{
+           
+
             $notified_user=$request->client_id;
             if(request()->price!=$request->price)
             $request->update(['price'=>request()->price]);
@@ -75,6 +77,7 @@ class RequestController extends Controller
         
 
 
+        return redirect()->route('requests.index');
 
     }
     function accept($id){
@@ -84,6 +87,8 @@ class RequestController extends Controller
         $notified_user=$request->influencer_id;
         else
         $notified_user=$request->client_id;
+        if($request->modified_date!=null)
+        $request->ad_date=$request->modified_date;
         $request->status='accepted';
         $request->save();
         $this->sendNotification('accepted',$notified_user);
