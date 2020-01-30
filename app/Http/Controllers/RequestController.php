@@ -12,11 +12,15 @@ use App\Http\Requests\StoreAdrequestRequest;
 
 class RequestController extends Controller
 {
-    function show(){
+    function index(){
     
         $requests=Auth::user()->Requests;
       
-        return view('requests.show',['requests'=>$requests]);
+        return view('requests.index',['requests'=>$requests]);
+    }
+    function show($id){
+        $request= Request::findOrFail($id);
+        return view('requests.show',['request'=>$request]);
     }
     function create(){
       
@@ -43,12 +47,13 @@ class RequestController extends Controller
         Auth::user()->Requests()->attach($newrequest);
         $influencer->Requests()->attach($newrequest);
         $this->notifyNewRequest($influencer_id);
-        return redirect()->route('requests.show');
+        return redirect()->route('requests.index');
 
     }
     function accept($id){
        
         $request= Request::findOrFail($id);
+        $request->update(['price'=>request()->price]);
         if(Auth::user()->id==$request->client_id)
         $notified_user=$request->influencer_id;
         else
@@ -56,7 +61,7 @@ class RequestController extends Controller
         $request->status='accepted';
         $request->save();
         $this->sendNotification('accepted',$notified_user);
-        return back();
+        return redirect()->route('requests.index');
 
 
     }
