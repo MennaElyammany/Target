@@ -71,6 +71,8 @@ class InfluencerController extends Controller
         $influencer->category_id = $request->category_id;
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
+        // dd($influencer_data);
+        $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->avatar = $influencer_data['imageUrl'];
         $influencer->followers = $influencer_data['subscribers'];
         $influencer->save();
