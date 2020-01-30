@@ -50,10 +50,36 @@ class RequestController extends Controller
         return redirect()->route('requests.index');
 
     }
+    function requestModified($id){
+        $request= Request::findOrFail($id);
+        if(Auth::user()->id==$request->client_id){
+            $notified_user=$request->influencer_id;
+            $request->update(['modified_date'=>request()->ad_date]);
+            $request->update(['status'=>'modified']);
+            $this->notifyModifiedRequest($notified_user);
+
+        }
+        else{
+            $notified_user=$request->client_id;
+            if(request()->price!=$request->price)
+            $request->update(['price'=>request()->price]);
+            if(request()->ad_date!=$request->ad_date)
+            $request->update(['modified_date'=>request()->ad_date]);
+            $request->update(['status'=>'modified']);
+
+           $this->notifyModifiedRequest($notified_user);
+
+
+        }
+
+        
+
+
+
+    }
     function accept($id){
        
         $request= Request::findOrFail($id);
-        $request->update(['price'=>request()->price]);
         if(Auth::user()->id==$request->client_id)
         $notified_user=$request->influencer_id;
         else
@@ -98,6 +124,17 @@ class RequestController extends Controller
         $user= User::findOrFail($id);
         $details=[
             'body'=>'You have a new ad request',
+          
+
+        ];
+        $user->notify( new RequestChanged($details));
+        
+
+    }
+    function notifyModifiedRequest($id){
+        $user= User::findOrFail($id);
+        $details=[
+            'body'=>'Your request is updated please check it ',
           
 
         ];

@@ -135,7 +135,7 @@
                        </a>
                        <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color:#f9f7f7;" >
                        @foreach($messages=get_all_messages() as $message)
-                       <a class="dropdown-item"  href="{{ url('/requests/checkout') }}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">
+                       <a class="dropdown-item"  href="{{ url('/requests') }}" onmouseover="this.style.backgroundColor='#f9f7f7'"><span style="color:#112d4e; ">
                        {{$message->data['request_status']}}</span>
                        </a>
                        @endforeach

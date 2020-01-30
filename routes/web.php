@@ -31,12 +31,12 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCa
 Route::group(['middleware'=>'auth'], function(){
 Route::get('/requests','RequestController@index')->name('requests.index');
 Route::get('/requests/{request}','RequestController@show')->name('requests.show');
-Route::post('/requests/accept/{request}','RequestController@accept');
+Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
 Route::get('/message/read','RequestController@read');
 Route::get('requests/create','RequestController@create')->name('requests.create');
 Route::post('/requests', 'RequestController@store')->name('requests.store');
-
+Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 
 });
 

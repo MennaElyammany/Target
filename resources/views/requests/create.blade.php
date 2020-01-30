@@ -7,23 +7,23 @@
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+            <li>{{ $error }}</li>
             @endforeach
         </ul>
     </div>
 @endif
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="inputEmail4">Company Name</label>
+      <label>Company Name</label>
       <input type="text" class="form-control" name="company_name">
     </div>
     <div class="form-group col-md-6">
-      <label for="inputPassword4">Website Url</label>
+      <label >Website Url</label>
       <input type="text" class="form-control" name="website_url">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputAddress">Brand Description</label>
+    <label>Brand Description</label>
     <textarea class="form-control" name="description" rows="4"></textarea>
   </div>
   <div class="form-row">

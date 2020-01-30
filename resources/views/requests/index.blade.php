@@ -9,7 +9,9 @@
       <th scope="col"style="text-align:center">Engagement</th>
       <th scope="col"style="text-align:center">Price</th>
       <th scope="col"style="text-align:center">Type</th>
+      
       <th scope="col"style="text-align:center">Status</th>
+    
     </tr>
   </thead>
   <tbody>
@@ -40,6 +42,12 @@
       <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->price}}</p></td>
       <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->type}}</p></td>
       <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->status}}</p></td>
+      @if($request->price!=null||$request->modified_date!=null)
+      <td style="text-align:center">    
+      <a class="btn btn-outline-primary my-3 "href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
+     <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
+</td>
+@endif
     
     </tr>
     @endforeach

@@ -18,18 +18,23 @@
 
        </div>
         <p> <span class="font-weight-bold" >Requested Date:</span> {{$request->ad_date}}</p>
-
         <p> <span class="font-weight-bold" >Type:</span> {{$request->type}}</p>
         @if($request->status=='waiting')
-        <form class="form-inline" method="POST" action="/requests/accept/{{$request->id}}">
+        <form class="form-inline" method="POST" action="/requests/{{$request->id}}">
         @csrf
+        @method('PATCH') 
         <div class="form-group mb-2">
-       <label for="Price" class="sr-only">Enter Price</label>
-       <input type="text" name="price" placeholder="Price in $">
+       <label for="Price" >Enter Price</label>
+       <input type="text" name="price" class="mx-5" placeholder="Price in $">
        </div>
-     <button type="submit" class="btn  btn-outline-secondary mb-2">Accept</button>
+       <div class="form-group my-2 ">
+    <label >Sechedule Date</label>
+    <input type="date" class="form-control mx-4" name="ad_date">
+      </select>
+    </div>
+     <button type="submit" class="btn  btn-outline-secondary my-3 mx-2">Send to client</button>
      <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
-@endif
+      @endif
      </form>
 
       
