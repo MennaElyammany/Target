@@ -11,9 +11,7 @@
       <th scope="col"style="text-align:center">Type</th>
       <th scope="col"style="text-align:center">Status</th>
       <th scope="col"style="text-align:center">Action</th>
-      <th scope="col"style="text-align:center">Date</th>
-
-    
+      <th scope="col"style="text-align:center">Date</th>   
     </tr>
   </thead>
   <tbody>
@@ -44,19 +42,30 @@
       <td style="text-align:center"><p class="font-weight-bold my-4 text-danger">{{$request->price}}</p></td>
       <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->type}}</p></td>
       <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->status}}</p></td>
-      @if($request->status!='accepted')
+      @if($request->status=='modifiedByInf')
       <td style="text-align:center">    
       <a class="btn btn-outline-primary my-3 "href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
      <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
      <a class="btn btn-outline-danger my-3 "href="/requests/{{$request->id}}" role="button" >Edit Date</a>
 
 </td>
-
-@else
+@elseif($request->status=='accepted')
 <td style="text-align:center">    
       <a class="btn btn-outline-success my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Accepted</a>
 </td>
+@elseif($request->status=='declined')
+<td style="text-align:center">    
+      <a class="btn btn-outline-danger my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Declined</a>
+</td>
+@elseif($request->status=='completed')
+<td style="text-align:center">    
+      <a class="btn btn-outline-primary my-3 "href="" role="button" >Rate Your Experience</a>
+</td>
 
+@else
+<td style="text-align:center">    
+      <a class="btn btn-outline-danger my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Waiting</a>
+</td>
 @endif
 <td style="text-align:center"> 
 <p class="font-weight-bold ">{{$request->ad_date}}</p> 

@@ -5,7 +5,7 @@
 <div class="card mb-3 " style="max-width: 540px;">
   <div class="row no-gutters">
     <div class="col-md-4">
-      <img src="{{(asset('storage/'.$request->product_image))}}" class="card-img" alt="...">
+      <img src="{{asset('storage/'.$request->product_image)}}"class="card-img" alt="...">
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -38,6 +38,11 @@
     </div>
      <button type="submit" class="btn  btn-outline-secondary my-3 mx-2">Send to client</button>
      <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
+     @elseif($request->status =='accepted')
+     <label class="text-danger" >Notify Client When You Are Completed </label>
+     <a class="btn btn-outline-success my-3 "href="/requests/completed/{{$request->id}}" role="button" >Completed</a>
+     @elseif($request->status =='completed')
+     <h3 class="text-primary"> Rate Your Experience </h3>
      @else
      <a class="btn btn-outline-primary my-3  "href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
      <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>

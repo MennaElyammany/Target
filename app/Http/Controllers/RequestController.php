@@ -39,10 +39,12 @@ class RequestController extends Controller
      'influencer_id'=>$influencer_id,
 
     ]);
-    if($request->product_image){
-        $newrequest->update(['product_image'=>$request->file('product_image')->storeAs('product_images',$request->company_name)]);
-       
-        }
+  
+        if($request->product_image){
+         $newrequest->update(['product_image'=>$request->file('product_image')->store('product_images','public')]);
+            }
+            
+        
         $influencer=User::findOrFail($influencer_id);
         Auth::user()->Requests()->attach($newrequest);
         $influencer->Requests()->attach($newrequest);
@@ -55,7 +57,7 @@ class RequestController extends Controller
         if(Auth::user()->id==$request->client_id){
             $notified_user=$request->influencer_id;
             $request->update(['modified_date'=>request()->ad_date]);
-            $request->update(['status'=>'modified']);
+            $request->update(['status'=>'modifiedByClient']);
             $this->notifyModifiedRequest($notified_user);
 
         }
@@ -67,7 +69,7 @@ class RequestController extends Controller
             $request->update(['price'=>request()->price]);
             if(request()->ad_date!=$request->ad_date)
             $request->update(['modified_date'=>request()->ad_date]);
-            $request->update(['status'=>'modified']);
+            $request->update(['status'=>'modifiedByInf']);
 
            $this->notifyModifiedRequest($notified_user);
 
@@ -108,6 +110,18 @@ class RequestController extends Controller
         $request->save();
         $this->sendNotification('declined',$notified_user);
 
+        return back();
+
+
+    }
+    function completed($id){
+       
+        $request= Request::findOrFail($id);
+     
+         $notified_user=$request->client_id;
+        $request->status='completed';
+        $request->save();
+        $this->sendNotification('completed',$notified_user);
         return back();
 
 
