@@ -146,10 +146,10 @@ function getCategoryName($id){
     
     // Check user role
     switch ($role) {
-        case 'influencer':
+        case 'Influencer':
                 return '/influencers/create';
             break;
-        case 'client':
+        case 'Client':
                 return '/influencers';
             break; 
         default:
@@ -176,6 +176,18 @@ function get_all_messages(){
     $messages=Auth::User()->notifications;
     return $messages;
 }
+function has_uncompleted_request($id){
+  
+    $requests=Auth::User()->Requests;
+    $completed=true;
+foreach($requests as $request)
+{
+    if($request->influencer_id==$id && $request->status!="completed")
+    $completed=false;
+}
+return $completed;
+}
+
 function calcEngagement($channel){
     $views=$channel['views'];
     $subscribers=$channel['subscribers'];

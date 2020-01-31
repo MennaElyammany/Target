@@ -39,7 +39,7 @@
             @guest
             <div class="mx-auto mb-5">
             <a class="btn btn-outline-primary btn-lg mr-3" href="{{ route('register',['role'=>'Influencer']) }}">Register As Influencer</a>
-            <a class="btn btn-outline-success btn-lg" href="{{ route('register',['role'=>'Client']) }}">Register As Client</a>
+            <a class="btn btn-outline-secondary text-dark  btn-lg" href="{{ route('register',['role'=>'Client']) }}">Register As Client</a>
 </div>
             @endguest
 

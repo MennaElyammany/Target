@@ -22,6 +22,7 @@
     <td  style="text-align:center" ><p class="font-weight-bold "> Email </td>
     <td style="text-align:center">  {{ $user->email }} </td>
     </tr>
+    @role('Influencer')
     <tr   style="width: 200px;">
     <td  style="text-align:center" ><p class="font-weight-bold "> Country </td>
     <td style="text-align:center">  {{ $country_name }} </td>
@@ -38,6 +39,7 @@
     <td  style="text-align:center" ><p class="font-weight-bold "> Number of Followers </td>
     <td style="text-align:center">   {{ $user->followers }} </td>
     </tr>
+    @endrole
     </table>
 </div>
 </div>

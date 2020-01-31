@@ -3,7 +3,7 @@
 
 <div class="container pt-5">
 <h3>Update Profile</h3>
-<form method="POST" action="{{route('users.update', $user)}}">
+<form method="POST" enctype="multipart/form-data" action="{{route('users.update', $user)}}">
         <input type='text' hidden name="_token" value='{{csrf_token()}}'>
         <input type='text' hidden name="_method" value='PUT'>
 
@@ -57,6 +57,12 @@
     <label>Add Your Youtube Channel</label>
     <input name="youtube_url" value="{{ $user->youtube_url }}" class="form-control" type="text">
 </div>
+@endrole
+@role('Client')
+<div class="form-group">
+                                        <label for="avatar"> Attach avatar</label>
+                                        <input type="file" class="form-control-file" name="avatar" id="avatar" >
+                                    </div>
 @endrole
 
 

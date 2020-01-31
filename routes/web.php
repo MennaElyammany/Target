@@ -1,7 +1,7 @@
     <?php
 
 //Main routes
-Route::get('/', function () { return view('welcome');});
+Route::get('/', function () { return view('welcome');})->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/influencers/about',function(){return view('about');});
 Route::get('/influencers/contactUs',function(){ return view('contactUs');});
@@ -37,11 +37,14 @@ Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influe
 
 //Requests Routes
 Route::group(['middleware'=>'auth'], function(){
-Route::get('/requests','RequestController@show');
+Route::get('/requests','RequestController@index')->name('requests.index');
+Route::get('requests/create','RequestController@create')->name('requests.create');
+Route::get('/requests/{request}','RequestController@show')->name('requests.show');
 Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
 Route::get('/message/read','RequestController@read');
-Route::get('requests/create','RequestController@create')->name('requests.create');
+Route::post('/requests', 'RequestController@store')->name('requests.store');
+Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 
 });
 
