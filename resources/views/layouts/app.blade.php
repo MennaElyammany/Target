@@ -70,9 +70,9 @@
     </style>
 </head>
 <body>
-    <div id="app" style="margin-top:90px">
+    <div id="app" style="margin-top:90px;" >
         <nav class="navbar fixed-top navbar-expand-md navbar-light shadow-sm pb-2" >
-            <img src="storage/goal.png" width='45'>
+            <img src="{{asset('goal.png')}}" width='45'>
             <a class="navbar-brand" style="color:#112d4e" href="/">Target</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
@@ -111,13 +111,15 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link btn btn-success text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link btn btn-blue text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <!-- @if (Route::has('register'))
+                            @if (Route::has('register'))
+                            @if(Route::currentRouteName()!='welcome')
                                 <li class="nav-item">
-                                    <a class="nav-link btn-blue color text-light" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link btn btn-blue text-light mt-2" href="/">{{ __('Register') }}</a>
                                 </li>
-                            @endif -->
+                                @endif
+                            @endif
                         @else
 
                         <li class="nav-item  dropdown mr-2" >
@@ -150,7 +152,7 @@
 
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                           <span class="nav-text " >  {{ Auth::user()->name }}</span>
-                          <image src="minions.jpg" class="rounded-circle" width="50px" height="50px">
+                          <image src={{asset(Auth::user()->avatar)}} class="rounded-circle" width="50px" height="50px">
 
                            <span class="caret"></span>
                         </a>

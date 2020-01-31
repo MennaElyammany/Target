@@ -1,7 +1,7 @@
     <?php
 
 //Main routes
-Route::get('/', function () { return view('welcome');});
+Route::get('/', function () { return view('welcome');})->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/influencers/about',function(){return view('about');});
 Route::get('/influencers/contactUs',function(){ return view('contactUs');});
