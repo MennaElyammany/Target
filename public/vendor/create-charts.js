@@ -12,16 +12,13 @@
 		},
 		ajaxGetSubscribersPerMonth: function () {
 			var id = $(this).data('id');
-			// console.log(id);
-			// var token = $("meta[name='csrf-token']").attr("content");
-			var urlPath =  '/charts/1';
+		
+			var urlPath =  '/charts/'+id;
 			var request = $.ajax( {
 				method: 'GET',
 				url: urlPath,
 				data:{
 					'id':id,
-					// '_token': token,
-
 				},
 				success: function (){
 					console.log('uhuk');
@@ -32,7 +29,6 @@
 		} );
 
 			request.done( function ( response ) {
-				console.log( response );
 				charts.createCompletedJobsChart(response);
 			});
 		},
