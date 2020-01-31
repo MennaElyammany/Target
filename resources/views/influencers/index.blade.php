@@ -61,13 +61,13 @@ margin-left:20px;}
 </div>
 
 </div>
-<div style="margin-top:25px;" class="container-fluid">
+<div style="margin-top:25px;" class="container-fluid ml-5">
 @foreach($influencers as $influencer)
 <div class="card">
 <div style="display:flex;">
 <img class="rounded-circle" style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
 <div style="display:flex;margin-top:30px;width:150px;height:50px;">
-<h5 style="font-weight:bold;letter-spacing:1px;font-size:20px;" class="card-title">{{$influencer->name}}</h5>
+<h5 style="font-weight:bold;letter-spacing:1px;font-size:22px;" class="card-title">{{$influencer->name}}</h5>
 <div style='float:left;'>
     @if($influencer->verified)
     <img src='verified.png'style='margin-left:10px;width:20px;height:20px;'>
@@ -79,7 +79,7 @@ margin-left:20px;}
 </div>
   <div class="card-body">
   
-    <h1 class="card-title">{{$influencer->followers}}</h1>
+    <h3 class="card-title">{{$influencer->followers}}</h3>
 </div>
 </div>
 @endforeach
