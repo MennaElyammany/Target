@@ -2,6 +2,7 @@
 
 	var charts = {
 		init: function () {
+
 			// -- Set new default font family and font color to mimic Bootstrap's default styling
 			Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 			Chart.defaults.global.defaultFontColor = '#292b2c';
@@ -13,7 +14,7 @@
 		ajaxGetSubscribersPerMonth: function () {
 			var id = $(this).data('id');
 		
-			var urlPath =  '/charts/1';
+			var urlPath =  '/charts/16';
 			var request = $.ajax( {
 				method: 'GET',
 				url: urlPath,
@@ -89,6 +90,7 @@
 			});
 		}
 	};
+
 
 	charts.init();
 
