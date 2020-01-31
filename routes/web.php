@@ -27,6 +27,14 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCa
  Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
 });
 
+Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
+
+
+
+Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
+Route::get('/charts/{id}','ChartDataController@getSubscribers');
+Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influencers.chart');
+
 //Requests Routes
 Route::group(['middleware'=>'auth'], function(){
 Route::get('/requests','RequestController@index')->name('requests.index');
