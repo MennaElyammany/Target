@@ -2,14 +2,14 @@
 use Illuminate\Support\Str;
 use Alaouy\Youtube\Facades\Youtube;
 use App\User;
+use Auth;
+
  function fetch_youtube_data($url){
   
      if(Str::contains($url, '/user')){
         $channelName=substr($url,strpos($url,'user/')+5);
         $channel = Youtube::getChannelByName($channelName);
-        // dd($channel);
-        // if (!$channel)                  return view('influencers.create',['msg'=> 'Youtube channel does not exist.']);
-
+       
         $channelId=$channel->id;
 
      }
@@ -18,17 +18,13 @@ use App\User;
     
         $channelId=substr($url,strpos($url,'channel/')+8);
         $channel = Youtube::getChannelById($channelId);
-        // dd($channel);
-        // if (!$channel)                       return redirect()->route('influencers.create');
-
-       
+    
      }
     
+     
      $videoList = Youtube::listChannelVideos($channelId,40);
-
   
      $verified=checkVerification($url);
-     
      $channelData=$channel;
      $name=$channelData->snippet->title;
      $imageUrl=$channelData->snippet->thumbnails->medium->url;
@@ -167,8 +163,8 @@ function findCountry($id){
     return  $country[0]->country_name;
 }
 
-
 function get_unread_messages(){
+
     $messages=Auth::User()->unreadNotifications;
     return $messages;
 }
