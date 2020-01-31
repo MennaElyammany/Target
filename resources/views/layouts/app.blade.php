@@ -14,7 +14,8 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-  
+    
+
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans|Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('fontawesome-free/css/all.min.css')}}">
@@ -33,7 +34,6 @@
         font-family: 'Pacifico', cursive;
         font-size: 35px;
         margin-right:2px;
-        /* font-weight: bold; */
         letter-spacing:0.5px;
     }
     .footer-target{
@@ -46,7 +46,6 @@
     }
     .nav-item{
         font-family: 'Merriweather Sans', sans-serif;
-        /* margin-top:2px; */
         margin-left:5px;
         font-size:20px;
     }
@@ -70,9 +69,9 @@
     </style>
 </head>
 <body>
-    <div id="app" style="margin-top:90px">
+    <div id="app" style="margin-top:90px;" >
         <nav class="navbar fixed-top navbar-expand-md navbar-light shadow-sm pb-2" >
-            <img src="storage/goal.png" width='45'>
+            <img src="{{asset('goal.png')}}" width='45'>
             <a class="navbar-brand" style="color:#112d4e" href="/">Target</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
@@ -111,13 +110,15 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link btn btn-success text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link btn btn-blue text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <!-- @if (Route::has('register'))
+                            @if (Route::has('register'))
+                            @if(Route::currentRouteName()!='welcome')
                                 <li class="nav-item">
-                                    <a class="nav-link btn-blue color text-light" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link btn btn-blue text-light mt-2" href="/">{{ __('Register') }}</a>
                                 </li>
-                            @endif -->
+                                @endif
+                            @endif
                         @else
 
                         <li class="nav-item  dropdown mr-2" >
@@ -150,7 +151,7 @@
 
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                           <span class="nav-text " >  {{ Auth::user()->name }}</span>
-                          <image src="minions.jpg" class="rounded-circle" width="50px" height="50px">
+                          <image src={{asset(Auth::user()->avatar)}} class="rounded-circle" width="50px" height="50px">
 
                            <span class="caret"></span>
                         </a>
@@ -181,22 +182,10 @@
         <main class="y-4 mb-0">
             @yield('content')
         </main>
-        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-               integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-               crossorigin="anonymous">
-</script> -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        @yield('script')
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+    @yield('scripts')
 
 
 

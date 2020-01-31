@@ -89,7 +89,10 @@
                     </div>
 
                    <h6> <img src="https://img.icons8.com/offices/30/000000/globe.png">  {{$data['country']}} </h6>
-
+                   <br>
+                   <center>
+                   <a href="{{route('influencers.chart',['id' => $id,'data'=>$data])}}"  class="btn btn-outline-info">View Report</a>
+                   </center>
                 </div>
             </div>
         </div>
