@@ -24,10 +24,10 @@ class UserController extends Controller
 
         $user = Auth::user();
         // $rating = new Rating;
-        // $rating->rating = 5;
+        // $rating->rating = 3;
         // $rating->user_id = $user->id;
         // $user->ratings()->save($rating);
-        // dd($user->ratings);
+        // dd($user->averageRating);
 
         if(!empty($user->country_id)&&!empty($user->category_id))
         {
@@ -95,4 +95,11 @@ class UserController extends Controller
 
 }
 
+public function review(User $user)
+{
+
+
+//
+
+}
 }
