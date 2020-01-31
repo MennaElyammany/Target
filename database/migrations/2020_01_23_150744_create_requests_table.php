@@ -16,7 +16,7 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->enum('status',['waiting','accepted','declined']);
+            $table->enum('status',['waiting','accepted','declined','modified','completed']);
             $table->integer('price');
             $table->enum('type',['image','video','story']);
             $table->text('description');
