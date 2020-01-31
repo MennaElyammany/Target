@@ -1,20 +1,23 @@
 @extends('layouts.app')
 @section('content')
-
+{{$influencers}}
 <style>
 .influencer{
     float:left;
     
 }
-.font{
-  font-family: 'Pacifico';
-}
+.card {
+display:inline-block!important;
+float:left!important;
+margin-bottom:10px;
+width: 300px;
+margin-left:20px;}
+
 </style>
-<div class="container">
-    <h1 style="font-family: 'Pacifico', cursive;font-size: 35px;padding-top:30px;">List of influencers</h1>
-<div style="display: flex;">
+<div class="container-fluid">
+<div style="display:flex;padding-top:35px;">
 <div class="dropdown">
-    <button class="font btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Categories
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -31,7 +34,7 @@
 
 
 <div class="dropdown">
-    <button class="font btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Countries
   </button>
   <div class="font dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -54,55 +57,32 @@
   
   <a href="/influencers" class="font">Remove filter</a>
 </div>
-</div>
-<br><b>
 
+</div>
+
+</div>
+<div style="margin-top:25px;" class="container-fluid">
 @foreach($influencers as $influencer)
-
-
-    <div class="card influencer " style="width: 18rem; margin-left:20px; padding-left:10px;">
-    <div style="display: flex;">
-    <img class="rounded-circle" style="height: 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
-    <div>
-    <p class="influencer" style="margin-top:30px;font-family: 'Pacifico', cursive;font-size: 30px;height: 40px;width: 110px;" >{{ $influencer->name}}</p>   
-    <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;'></i>
-    <div style='float:left;'>
+<div class="card">
+<div style="display:flex;">
+<img class="rounded-circle" style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
+<div style="display:flex;margin-top:30px;width:150px;height:50px;">
+<h5 style="font-weight:bold;letter-spacing:1px;font-size:20px;" class="card-title">{{$influencer->name}}</h5>
+<div style='float:left;'>
     @if($influencer->verified)
-    <img src='verified.png'style='width:30px;height:30px;'>
+    <img src='verified.png'style='margin-left:10px;width:20px;height:20px;'>
     @endif
-    </div>
-    </div>
-    </div>
-
-    @php
-    
-    
-    if(!$influencer->followers){
-      $influencer->followers = 0;}
-    $subscribers = convertNumber($influencer->followers);
-    echo "<h5 class='font'style='width:120px;height:30px;'><b>".$subscribers."</b></h5>";
-    $category_name = getCategoryName($influencer->category_id);
-    $country_name = getCountryName($influencer->country_id);
-    echo "<div style='display: flex;'>";
-    echo "<i class ='fas fa-map-marker-alt'style='margin-left: 5px;margin-top:5px;'></i>";
-    echo "<h5 class='font card-title'style='margin-right:10px;margin-left:10px'>".$country_name[0]->country_name."</h5>";
-    echo "</div>";
-    echo "<div style='display: flex;'>";
-    echo "<i class='fas fa-tag'style='margin-left: 5px;margin-top:5px;'></i>";
-    echo "<h5 class='font card-title'style='margin-right:10px;margin-left:10px'>".$category_name[0]->category_name."</h5>";
-    echo "</div>";
-    
-    @endphp
-    
-
-
+    <!-- <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;'></i> -->
 </div>
 
-
-
+</div>
+</div>
+  <div class="card-body">
+  
+    <h1 class="card-title">{{$influencer->followers}}</h1>
+</div>
+</div>
 @endforeach
-<div class="font" style="margin-top:400px;">
-{{$influencers->links()}} 
-</div>
-</div>
+
+
 @endsection

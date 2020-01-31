@@ -19,7 +19,7 @@ class InfluencerController extends Controller
         if(request()->has('country_id')){
             $influencers = $influencers->where('country_id',request('country_id'));
         }
-        $influencers = $influencers->paginate(3)
+        $influencers = $influencers->paginate(4)
                     ->appends([
                         'category_id' => request('category_id'),
                         'country_id' => request('country_id'),
@@ -51,8 +51,6 @@ class InfluencerController extends Controller
         $url=$influencer['youtube_url'];
         $data= fetch_youtube_data($url);
         $data['influencer_id']=$id;
-        // Session::put('data', $data);
-        // $data= Session::get('data');
 
 
 
