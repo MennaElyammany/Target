@@ -46,3 +46,8 @@ Route::get('/requests/checkout','RequestController@checkout')->name('requests.ch
 //Route::post('/requests/charge','RequestController@checkout')->name('requests.checkout');
 Route::post('/requests/charge','RequestController@charge');
 // ->name('requests.charge');
+
+
+//Email Routes
+Route::get('/sendemail','SendEmailController@index');
+Route::post('/sendemail/send','SendEmailController@send');
