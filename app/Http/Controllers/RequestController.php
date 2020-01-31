@@ -89,6 +89,7 @@ class RequestController extends Controller
         $notified_user=$request->client_id;
         if($request->modified_date!=null)
         $request->ad_date=$request->modified_date;
+        $request->modified_date=null;
         $request->status='accepted';
         $request->save();
         $this->sendNotification('accepted',$notified_user);

@@ -50,9 +50,17 @@
     <label for="avatar"> </label>
     <input type="file" class="form-control-file" name="product_image" >
         </div>
-
+@if ($influencer_id!=null)
+@if(has_uncompleted_request($influencer_id))
   <button type="submit" class="btn btn-primary">Submit Request</button>
+  @else
+  <h3 class="text-danger"> You already have uncompleted request with this influencer please see your requests at
+  <a href='/requests'>requests</a></h3>
+  @endif
+  @else
+  <h3 class="text-danger"> please go back and choose specific influencer for ad </h3>
 </form>
+@endif
 </div>
 </div>
 </div>
