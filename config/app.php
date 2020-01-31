@@ -163,6 +163,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        willvincent\Rateable\RateableServiceProvider::class,
+
+
         /*
          * Package Service Providers...
          */

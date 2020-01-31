@@ -40,7 +40,7 @@
         font-family: 'Pacifico', cursive;
     }
     .btn-blue{
-        background-color:#3f72af;
+        background-color:#112d4e;
         margin:5px;
         width:85px; 
     }
@@ -110,7 +110,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link btn btn-blue text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link btn btn-secondary text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                             @if(Route::currentRouteName()!='welcome')

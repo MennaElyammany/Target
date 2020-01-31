@@ -38,8 +38,8 @@
             </div>
             @guest
             <div class="mx-auto mb-5">
-            <a class="btn btn-outline-primary btn-lg mr-3" href="{{ route('register',['role'=>'Influencer']) }}">Register As Influencer</a>
-            <a class="btn btn-outline-secondary text-dark  btn-lg" href="{{ route('register',['role'=>'Client']) }}">Register As Client</a>
+            <a class="btn text-light btn-lg mr-3" style="background-color:#112d4e;width:250px;" href="{{ route('register',['role'=>'Influencer']) }}">Register As Influencer</a>
+            <a class="btn text-light  btn-lg" style="background-color:#F23C84;width:250px;" href="{{ route('register',['role'=>'Client']) }}">Register As Client</a>
 </div>
             @endguest
 
