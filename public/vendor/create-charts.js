@@ -13,7 +13,7 @@
 		ajaxGetSubscribersPerMonth: function () {
 			var id = $(this).data('id');
 		
-			var urlPath =  '/charts/'+id;
+			var urlPath =  '/charts/1';
 			var request = $.ajax( {
 				method: 'GET',
 				url: urlPath,
