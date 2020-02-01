@@ -60,9 +60,9 @@
 @endrole
 @role('Client')
 <div class="form-group">
-                                        <label for="avatar"> Attach avatar</label>
-                                        <input type="file" class="form-control-file" name="avatar" id="avatar" >
-                                    </div>
+  <label for="avatar"> Attach avatar</label>
+ <input type="file" class="form-control-file" name="avatar" id="avatar" >
+</div>
 @endrole
 
 
