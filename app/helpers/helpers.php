@@ -24,7 +24,7 @@ use App\User;
        
      }
     
-     $videoList = Youtube::listChannelVideos($channelId,40);
+     $videoList = Youtube::listChannelVideos($channelId,5);
 
   
      $verified=checkVerification($url);
@@ -48,7 +48,7 @@ use App\User;
      $activities=Youtube::getActivitiesByChannelId($channelId);
      if(!$activities) $subscriptions=0;
      else $subscriptions = count( $activities);
-     $videoList = Youtube::listChannelVideos($channelId, 40); //fetch channel videos
+     $videoList = Youtube::listChannelVideos($channelId, 5); //fetch channel videos
      $videoInf=[];
      if ($videoList)
      {
@@ -192,7 +192,6 @@ function calcEngagement($channel){
     $views=$channel['views'];
     $subscribers=$channel['subscribers'];
     $videos = $channel['videoList'];
-    // dd($videos);
     $likes_array=array();
     $dislikes_array=array();
     $views_array=array();

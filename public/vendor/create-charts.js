@@ -12,17 +12,14 @@
 
 		},
 		ajaxGetSubscribersPerMonth: function () {
-			var id = $(this).data('id');
-		
-			var urlPath =  '/charts/16';
+			var url = window.location.pathname;
+            var id = url.substring(url.lastIndexOf('/') + 1);
+			var urlPath =  '/subscriberschart/'+id;
 			var request = $.ajax( {
 				method: 'GET',
 				url: urlPath,
-				data:{
-					'id':id,
-				},
 				success: function (){
-					console.log('uhuk');
+					console.log('success');
 				},
 				error: function (){
 					console.log('error');
@@ -43,7 +40,7 @@
 			var myLineChart = new Chart(ctx, {
 				type: 'line',
 				data: {
-					labels: ['Jan','March','May','July'], // The response got from the ajax request containing all month names in the database
+					labels: response.months, // The response got from the ajax request containing all month names in the database
 					datasets: [{
 						label: "Subscribers",
 						lineTension: 0.3,
@@ -56,7 +53,7 @@
 						pointHoverBackgroundColor: "rgba(2,117,216,1)",
 						pointHitRadius: 20,
 						pointBorderWidth: 2,
-						data: [10000,25000,50000,100000]// The response got from the ajax request containing data for the completed jobs in the corresponding months
+						data: response.subscribers// The response got from the ajax request containing data for the completed jobs in the corresponding months
 					}],
 				},
 				options: {
@@ -75,7 +72,7 @@
 						yAxes: [{
 							ticks: {
 								min: 0,
-								max: 100000, // The response got from the ajax request containing max limit for y axis
+								max: response.max, // The response got from the ajax request containing max limit for y axis
 								maxTicksLimit: 5
 							},
 							gridLines: {
@@ -90,6 +87,7 @@
 			});
 		}
 	};
+
 
 
 	charts.init();
