@@ -91,7 +91,11 @@ class ChartDataController extends Controller
 
 
     }
-
+    function test(){
+        return $test=array(
+            'id'=>1
+        );
+    }
     function chart(request $request, $id){
         $result =calcEngagement($request->data);
         return View::make('influencers.chart', ['id' => $id,'result'=>$result]);
