@@ -87,8 +87,8 @@ border-radius:10px;
         <div class="form-group">
 		        	<label for="url">URL</label>
 		        	<input type="text" class="form-control" name="title" id="input">
-              <!-- <label for="url">Name</label>
-		        	<input type="text" class="form-control" name="title" id="name"> -->
+              <label for="url">Name</label>
+		        	<input type="text" class="form-control" name="title" id="name">
              
 	      </div>
         </div> 

@@ -27,17 +27,23 @@ class InfluencerController extends Controller
         return view('influencers.index',compact('influencers'));
     }
 
-    function show($id)
-    {  
+    // function show($id)
+    // {  
         
-        $influencer= User::findOrFail($id);
-        $url=$influencer['youtube_url'];
-        $data= fetch_youtube_data($url);
-        $data['influencer_id']=$id;
+    //     $influencer= User::findOrFail($id);
+    //     $url=$influencer['youtube_url'];
+    //     $data= fetch_youtube_data($url);
+    //     $data['influencer_id']=$id;
 
 
 
-     return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
+    //  return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
+    // }
+    function show(Request $request)
+    {   
+        $data = fetch_youtube_data($request->url);
+        //$data = test($request->url);
+        return $data;
     }
     function create()
 

@@ -58,7 +58,7 @@
                                 </button>
                                 <a href="/login/facebook" class="btn btn-dark text-white">Login With Facebook</a>
                                 <a href="/login/google" class="btn btn-dark text-white">Login With Google</a>
-                               
+                                <a href="https://api.instagram.com/oauth/authorize/?client_id=171752600759424&redirect_uri=http://localhost:8000/auth/callback/&scope=user_profile,user_media&response_type=code">Login With Instagram</a>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
