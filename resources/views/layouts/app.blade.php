@@ -195,8 +195,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 document.getElementById("alert").addEventListener('click',function(e){
-   
- 
     $.ajax({
         type: "GET",
            url:  "{{ route('messages.read') }}",
