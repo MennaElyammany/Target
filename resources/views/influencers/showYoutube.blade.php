@@ -46,6 +46,9 @@
                                     echo '<i class="fas fa-check-circle"></i>'
                                     @endphp
                                     <img src="https://img.icons8.com/offices/30/000000/youtube-play.png" class="m-3 ">
+                                    @if(has_uncompleted_request($data['influencer_id']))
+                                  <a href="{{ route('requests.create',['influencer_id'=> $data['influencer_id']]) }}" >  <i class="fas fa-file-signature text-dark " title="Request Influencer For Ad"></i></a>
+                                @endif
                                 </h3>
                             </div>
                         </div>
@@ -83,7 +86,10 @@
                     </div>
 
                    <h6> <img src="https://img.icons8.com/offices/30/000000/globe.png">  {{$data['country']}} </h6>
-
+                   <br>
+                   <center>
+                   <a href="{{route('influencers.chart',['id' => $id,'data'=>$data])}}"  class="btn btn-outline-info">View Report</a>
+                   </center>
                 </div>
             </div>
         </div>

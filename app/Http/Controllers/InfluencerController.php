@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
 use Auth;
+use Session;
 
 class InfluencerController extends Controller
 {
@@ -18,7 +19,7 @@ class InfluencerController extends Controller
         if(request()->has('country_id')){
             $influencers = $influencers->where('country_id',request('country_id'));
         }
-        $influencers = $influencers->paginate(3)
+        $influencers = $influencers->paginate(4)
                     ->appends([
                         'category_id' => request('category_id'),
                         'country_id' => request('country_id'),
@@ -32,8 +33,11 @@ class InfluencerController extends Controller
         $influencer= User::findOrFail($id);
         $url=$influencer['youtube_url'];
         $data= fetch_youtube_data($url);
+        $data['influencer_id']=$id;
 
-     return view('influencers.showYoutube',['data'=>$data]);
+
+
+     return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
     }
     function create()
 

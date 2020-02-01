@@ -2,14 +2,14 @@
 use Illuminate\Support\Str;
 use Alaouy\Youtube\Facades\Youtube;
 use App\User;
+use Auth;
+
  function fetch_youtube_data($url){
   
      if(Str::contains($url, '/user')){
         $channelName=substr($url,strpos($url,'user/')+5);
         $channel = Youtube::getChannelByName($channelName);
-        // dd($channel);
-        // if (!$channel)                  return view('influencers.create',['msg'=> 'Youtube channel does not exist.']);
-
+       
         $channelId=$channel->id;
 
      }
@@ -18,17 +18,13 @@ use App\User;
     
         $channelId=substr($url,strpos($url,'channel/')+8);
         $channel = Youtube::getChannelById($channelId);
-        // dd($channel);
-        // if (!$channel)                       return redirect()->route('influencers.create');
-
-       
+    
      }
     
-     $videoList = Youtube::listChannelVideos($channelId, 1);
-
+     
+     $videoList = Youtube::listChannelVideos($channelId,40);
   
      $verified=checkVerification($url);
-     
      $channelData=$channel;
      $name=$channelData->snippet->title;
      $imageUrl=$channelData->snippet->thumbnails->medium->url;
@@ -146,10 +142,10 @@ function getCategoryName($id){
     
     // Check user role
     switch ($role) {
-        case 'influencer':
+        case 'Influencer':
                 return '/influencers/create';
             break;
-        case 'client':
+        case 'Client':
                 return '/influencers';
             break; 
         default:
@@ -167,12 +163,75 @@ function findCountry($id){
     return  $country[0]->country_name;
 }
 
-
 function get_unread_messages(){
+
     $messages=Auth::User()->unreadNotifications;
     return $messages;
 }
 function get_all_messages(){
     $messages=Auth::User()->notifications;
     return $messages;
+}
+function has_uncompleted_request($id){
+  
+    $requests=Auth::User()->Requests;
+    $completed=true;
+foreach($requests as $request)
+{
+    if($request->influencer_id==$id && $request->status!="completed")
+    $completed=false;
+}
+return $completed;
+}
+
+function calcEngagement($channel){
+    $views=$channel['views'];
+    $subscribers=$channel['subscribers'];
+    $videos = $channel['videoList'];
+    $likes_array=array();
+    $dislikes_array=array();
+    $views_array=array();
+    $comments_array=array();
+    $videos_count=0;
+    foreach($videos as $video=>$value){
+        $likes_per_video= $value['videoLikes'];
+        $dislikes_per_video= $value['videoDislikes'];
+        $views_per_video= $value['videoViews'];
+        $comments_per_video= $value['videoComments'];
+        array_push($likes_array,$likes_per_video);
+        array_push($dislikes_array,$dislikes_per_video);
+        array_push($views_array,$views_per_video);
+        array_push($comments_array,$comments_per_video);
+        $videos_count++;
+    }
+    $likes_sum =0;
+    foreach($likes_array as $count){
+        $likes_sum=$count+$likes_sum;
+
+    }
+    $dislikes_sum =0;
+    foreach($dislikes_array as $count){
+        $dislikes_sum=$count+$dislikes_sum;
+
+    }
+    $views_sum =0;
+    foreach($views_array as $count){
+        $views_sum=$count+$views_sum;
+
+    }
+    $comments_sum =0;
+    foreach($comments_array as $count){
+        $comments_sum=$count+$comments_sum;
+
+    }
+
+    $engagement_rate = round((($likes_sum+$dislikes_sum+$comments_sum)/$views_sum)*100,2,PHP_ROUND_HALF_UP);
+    $avg_views=convertNumber(round($views_sum/$videos_count));
+    return $value= [
+        'engagement'=> $engagement_rate,
+        'average_views'=>$avg_views
+
+];
+
+
 }

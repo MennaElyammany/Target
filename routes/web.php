@@ -1,7 +1,7 @@
     <?php
 
 //Main routes
-Route::get('/', function () { return view('welcome');});
+Route::get('/', function () { return view('welcome');})->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/influencers/about',function(){return view('about');});
 Route::get('/influencers/contactUs',function(){ return view('contactUs');});
@@ -27,15 +27,30 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCa
  Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
 });
 
+Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
+
+
+
+Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
+Route::get('/charts/{id}','ChartDataController@getSubscribers');
+Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influencers.chart');
+
 //Requests Routes
 Route::group(['middleware'=>'auth'], function(){
-Route::get('/requests','RequestController@show');
+Route::get('/requests','RequestController@index')->name('requests.index');
+Route::get('requests/create','RequestController@create')->name('requests.create');
+Route::get('/message/read','RequestController@read')->name('messages.read');
+Route::get('/requests/{request}','RequestController@show')->name('requests.show');
 Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
-Route::get('/message/read','RequestController@read');
+Route::get('/requests/completed/{request}','RequestController@completed');
+Route::post('/requests', 'RequestController@store')->name('requests.store');
+Route::patch('/requests/{requestt}', 'RequestController@requestModified');
+
 });
 
 //User profile routes
+Route::get('/users/{user}', 'UserController@show')->name('users.show') -> middleware('auth'); 
 Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit') -> middleware('auth'); 
 Route::put('/users/{user}', 'UserController@update')->name('users.update') -> middleware('auth');
 
