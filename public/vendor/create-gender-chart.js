@@ -8,7 +8,6 @@
 			Chart.defaults.global.defaultFontColor = '#292b2c';
 			this.ajaxGetAudienceGender();
 
-			// this.createCompletedJobsChart($response);
 
 		},
 		ajaxGetAudienceGender: function () {
@@ -36,7 +35,7 @@
 		 */
 		createCompletedJobsChart: function (response) {
             console.log(response);
-            var ctx= document.getElementById('PieChart');
+            var ctx= document.getElementById('GenderChart');
              var PieChart = new Chart(ctx, {
              type: 'pie',
            data: {
