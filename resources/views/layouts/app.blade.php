@@ -235,7 +235,6 @@ $(function () {
       var modal = $(this);
       modal.find('.modal-body #input').val(youtubeUrl);
       var url = $("#input").val();
-    //   modal.find('.modal-body #name').val(name);
     var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
     $.ajax({
         type:'POST',
