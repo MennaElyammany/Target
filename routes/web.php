@@ -32,7 +32,11 @@ Route::post('/influencers', 'InfluencerController@store')->name('influencers.sto
 
 
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
-Route::get('/charts/{id}','ChartDataController@getSubscribers');
+//Charts Routes
+Route::get('/subscriberschart/{id}','ChartDataController@getSubscribers');
+Route::get('/genderchart/{id}','ChartDataController@getAudienceGender');
+Route::get('/locationchart/{id}','ChartDataController@getAudienceLocation');
+Route::get('/agechart/{id}','ChartDataController@getAudienceAge');
 Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influencers.chart');
 
 //Requests Routes
@@ -61,3 +65,8 @@ Route::get('/requests/checkout','RequestController@checkout')->name('requests.ch
 //Route::post('/requests/charge','RequestController@checkout')->name('requests.checkout');
 Route::post('/requests/charge','RequestController@charge');
 // ->name('requests.charge');
+
+
+//Email Routes
+Route::get('/sendemail','SendEmailController@index');
+Route::post('/sendemail/send','SendEmailController@send');
