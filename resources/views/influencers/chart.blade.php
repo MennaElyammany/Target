@@ -36,6 +36,14 @@
             <div class="card-body">
                 <canvas id="PieChart" width="100%" height="30"></canvas>
             </div>
+            <div class="card-body">
+                <canvas id="BarChart" width="100%" height="30"></canvas>
+            </div>
+            <div>
+            <canvas id="bar-chart-horizontal" width="100%" height="30"></canvas>
+
+            </div>
+
             <div class="card-footer small text-muted">Updated yesterday at @php  echo date('F j, Y', time() ) @endphp</div>
         </div>
     </div>
@@ -61,6 +69,46 @@
       data: [70,20]
     }]
   }
+});
+new Chart(document.getElementById("BarChart"), {
+    type: 'horizontalBar',
+    data: {
+      labels: ["Egypt", "Saudi Arabia", "UAE", "Lebanon", "Other"],
+      datasets: [
+        {
+          label: "",
+          backgroundColor: ["#3e95cd", "#3e95cd","#3e95cd","#3e95cd","#3e95cd"],
+          data: [40,30,15,10,5]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Audience Location (percentage)'
+      }
+    }
+});
+new Chart(document.getElementById("bar-chart-horizontal"), {
+    type: 'horizontalBar',
+    data: {
+      labels: ["<15", "15-20", "20-25", "25-30", "35>"],
+      datasets: [
+        {
+          label: "Audience Age",
+          backgroundColor: ["#8e5ea2", "#8e5ea2","#8e5ea2","#8e5ea2","#8e5ea2"],
+          data: [20,30,20,10,10]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Audience Age'
+      }
+    }
 });
 
 </script>

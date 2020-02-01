@@ -2,6 +2,7 @@
 
 	var charts = {
 		init: function () {
+
 			// -- Set new default font family and font color to mimic Bootstrap's default styling
 			Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 			Chart.defaults.global.defaultFontColor = '#292b2c';
@@ -12,16 +13,13 @@
 		},
 		ajaxGetSubscribersPerMonth: function () {
 			var id = $(this).data('id');
-			// console.log(id);
-			// var token = $("meta[name='csrf-token']").attr("content");
-			var urlPath =  '/charts/1';
+		
+			var urlPath =  '/charts/16';
 			var request = $.ajax( {
 				method: 'GET',
 				url: urlPath,
 				data:{
 					'id':id,
-					// '_token': token,
-
 				},
 				success: function (){
 					console.log('uhuk');
@@ -32,7 +30,6 @@
 		} );
 
 			request.done( function ( response ) {
-				console.log( response );
 				charts.createCompletedJobsChart(response);
 			});
 		},
@@ -46,7 +43,7 @@
 			var myLineChart = new Chart(ctx, {
 				type: 'line',
 				data: {
-					labels: response.months, // The response got from the ajax request containing all month names in the database
+					labels: ['Jan','March','May','July'], // The response got from the ajax request containing all month names in the database
 					datasets: [{
 						label: "Subscribers",
 						lineTension: 0.3,
@@ -59,7 +56,7 @@
 						pointHoverBackgroundColor: "rgba(2,117,216,1)",
 						pointHitRadius: 20,
 						pointBorderWidth: 2,
-						data: response.subscribers// The response got from the ajax request containing data for the completed jobs in the corresponding months
+						data: [10000,25000,50000,100000]// The response got from the ajax request containing data for the completed jobs in the corresponding months
 					}],
 				},
 				options: {
@@ -78,7 +75,7 @@
 						yAxes: [{
 							ticks: {
 								min: 0,
-								max: response.max, // The response got from the ajax request containing max limit for y axis
+								max: 100000, // The response got from the ajax request containing max limit for y axis
 								maxTicksLimit: 5
 							},
 							gridLines: {
@@ -93,6 +90,7 @@
 			});
 		}
 	};
+
 
 	charts.init();
 

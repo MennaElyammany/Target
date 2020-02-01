@@ -188,6 +188,7 @@ function calcEngagement($channel){
     $views=$channel['views'];
     $subscribers=$channel['subscribers'];
     $videos = $channel['videoList'];
+    // dd($videos);
     $likes_array=array();
     $dislikes_array=array();
     $views_array=array();

@@ -91,7 +91,7 @@
                    <h6> <img src="https://img.icons8.com/offices/30/000000/globe.png">  {{$data['country']}} </h6>
                    <br>
                    <center>
-                   <a href="{{route('influencers.chart',['id' => $id,'data'=>$data])}}"  class="btn btn-outline-info">View Report</a>
+                   <a id="report" href="{{route('influencers.chart',['id' => $id,'data'=>$data])}}"  class="btn btn-outline-info">View Report</a>
                    </center>
                 </div>
             </div>
@@ -99,5 +99,14 @@
     </div>
 </div>
 
+
+@endsection
+@section('scripts')
+<script type="text/javascript">
+var reportButton = document.getElementById('report');
+console.log(reportButton);
+
+
+</script>
 
 @endsection

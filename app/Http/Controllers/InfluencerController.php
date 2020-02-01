@@ -19,7 +19,7 @@ class InfluencerController extends Controller
         if(request()->has('country_id')){
             $influencers = $influencers->where('country_id',request('country_id'));
         }
-        $influencers = $influencers->paginate(4)
+    $influencers = $influencers->paginate(10)
                     ->appends([
                         'category_id' => request('category_id'),
                         'country_id' => request('country_id'),
