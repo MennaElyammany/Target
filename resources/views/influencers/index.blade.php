@@ -69,15 +69,22 @@ border-radius:10px;
 </div>
 
 </div>
-
 </div>
+
 <div style="margin-top:25px;" class="container-fluid influencers-container">
 @foreach($influencers as $influencer)
 <div class="card">
 <div style="display:flex;">
+
 <img class="rounded-circle" style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
+
+
 <div style=" display:flex;margin-top:40px;width:200px;height:50px;">
 <h5 style="font-size:25px;" class="roboto-font card-title">{{$influencer->name}}</h5>
+
+
+<a href="/influencers/{{$influencer->id}}">View</a>
+
 <div>
     @if($influencer->verified)
     <img src='verified.png'style='margin-left:10px;width:15px;height:15px;'>
@@ -118,9 +125,8 @@ echo "    <div style='display: flex;'>
 </div>  
 </div>
 @endforeach
-<div style="margin-top:400px;margin-left:650px;">
-{{$influencers->links("pagination::bootstrap-4")}} 
+
+<div class="font" style="margin-top:800px;margin-left:650px;">
+{{$influencers->links()}} 
 </div>
-
-
 @endsection
