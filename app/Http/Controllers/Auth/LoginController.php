@@ -31,7 +31,7 @@ class LoginController extends Controller
         $fb->setDefaultAccessToken($user->token);
         $fields = "id,cover,name,first_name,last_name,hometown,age_range,birthday,location,likes,posts,friends,link,gender,email,name_format,locale,picture,timezone,updated_time,verified";
         $fb_user = $fb->get('/me?fields='.$fields)->getGraphNode();
-
+        // dd($fb_user);
         $existingUser = User::where('email', $user->getEmail())->first();
         if ($existingUser) {
             auth()->login($existingUser, true);
