@@ -44,10 +44,10 @@
      @elseif($request->status =='completed')
      <h3 class="text-primary"> Rate Your Experience </h3>
      @else
+    
      <a class="btn btn-outline-primary my-3  "href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
      <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
-     
-     
+   
       @endif
      </form>
       </div>
