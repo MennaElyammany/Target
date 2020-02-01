@@ -2,7 +2,6 @@
 use Illuminate\Support\Str;
 use Alaouy\Youtube\Facades\Youtube;
 use App\User;
-use Auth;
 
  function fetch_youtube_data($url){
   
