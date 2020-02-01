@@ -232,25 +232,9 @@ $(function () {
       var modal = $(this);
       modal.find('.modal-body #youtubeUrl').val(urlYoutube);
     //   modal.find('.modal-body #name').val(name);
-    $.ajax({
-    type: "POST",
-    url: 'youtubeHelper.php',
-    dataType: 'json',
-    data: {functionname: 'fetch_youtube_data', arguments: [urlYoutube]},
-    success: function (obj, textstatus) {
-                  if( !('error' in obj) ) {
-                      yourVariable = obj.result;
-                  }
-                  else {
-                      console.log(obj.error);
-                  }
-            }
+
 });
 
-    
-      
-     
-})
 </script>
 </body>
 </html>
