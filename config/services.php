@@ -38,6 +38,12 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => 'http://localhost:8000/login/google/callback'],
+        
+    'instagram' => [  
+            'client_id' => env('INSTAGRAM_CLIENT_ID'),  
+            'client_secret' => env('INSTAGRAM_CLIENT_SECRET'),  
+            'redirect' => env('INSTAGRAM_REDIRECT_URI'),  
+        ],
     
     'stripe' => [
         'secret' => env('STRIPE_SECRET_KEY'),

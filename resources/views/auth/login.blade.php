@@ -58,7 +58,8 @@
                                 </button>
                                 <a href="/login/facebook" class="btn btn-dark text-white">Login With Facebook</a>
                                 <a href="/login/google" class="btn btn-dark text-white">Login With Google</a>
-                               
+                                <a href="/login/instagram" class="btn btn-secondary">Login With Instagram</a></h5>
+
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}

@@ -13,6 +13,7 @@
         "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.0",
         "google/apiclient": "^2.4",
+        "guzzlehttp/guzzle": "^6.5",
         "kartik-v/bootstrap-star-rating": "@dev",
         "laravel/cashier": "^10.5",
         "laravel/framework": "^6.2",

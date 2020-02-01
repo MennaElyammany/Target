@@ -19,6 +19,9 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebo
 Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
 
+Route::get('login/instagram','Auth\LoginController@redirectToInstagramProvider')->name('instagram.login');
+Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCallback')->name('instagram.login.callback');
+
 //Influencers Routes
  Route::group(['middleware'=>'auth'], function(){
  Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
