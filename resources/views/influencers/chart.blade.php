@@ -34,8 +34,16 @@
             <div class="card-header">
                 <i class="fa fa-area-chart"></i> Audience </div>
             <div class="card-body">
-                <canvas id="PieChart" width="100%" height="30"></canvas>
+                <canvas id="GenderChart" width="100%" height="30"></canvas>
             </div>
+            <div class="card-body">
+                <canvas id="LocationChart" width="100%" height="30"></canvas>
+            </div>
+            <div>
+            <canvas id="AgeChart" width="100%" height="30"></canvas>
+
+            </div>
+
             <div class="card-footer small text-muted">Updated yesterday at @php  echo date('F j, Y', time() ) @endphp</div>
         </div>
     </div>
@@ -44,24 +52,22 @@
 <script src="{{url( 'vendor/jquery.min.js' )}}"></script>
 
 <script src="{{url( 'vendor/Chart.min.js' )}}"></script>
-
 <script src="{{url( 'vendor/create-charts.js' )}}"></script>
+<script src="{{url( 'vendor/create-gender-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-location-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-age-chart.js' )}}"></script>
+
+
+
 <script>
-   var ctx= document.getElementById('PieChart');
-   console.log(ctx);
-    var PieChart = new Chart(ctx, {
-    type: 'pie',
-  data: {
-    labels: ["Male", "Female"],
-    datasets: [{
-      backgroundColor: [
-        "blue",
-        "pink",
-      ],
-      data: [70,20]
-    }]
-  }
-});
+ 
+
+
+
+
+
+			
+		
 
 </script>
 

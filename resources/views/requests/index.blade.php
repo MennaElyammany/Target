@@ -18,7 +18,7 @@
  
 @foreach($requests as $request)
   @php
-  $influencer=findUser($requests[0]->influencer_id);
+  $influencer=findUser($request->influencer_id);
   @endphp
     <tr  style="width: 200px;">
       <td >
