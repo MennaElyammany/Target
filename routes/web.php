@@ -19,6 +19,19 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebo
 Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
 
+Route::get('login/instagram','Auth\LoginController@redirectToInstagramProvider')->name('instagram.login');
+
+Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCallback')->name('instagram.login.callback');
+
+//Influencers Routes
+ Route::group(['middleware'=>'auth'], function(){
+ Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
+ Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
+ Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
+ Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
+});
+
+Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
 
 //Influencers Routes
@@ -29,18 +42,23 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCa
     Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show') ;
 });
 
-Route::get('/charts/{id}','ChartDataController@getSubscribers');
+Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
+//Charts Routes
+Route::get('/subscriberschart/{id}','ChartDataController@getSubscribers');
+Route::get('/genderchart/{id}','ChartDataController@getAudienceGender');
+Route::get('/locationchart/{id}','ChartDataController@getAudienceLocation');
+Route::get('/agechart/{id}','ChartDataController@getAudienceAge');
 Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influencers.chart');
 
 //Requests Routes
 Route::group(['middleware'=>'auth'], function(){
 Route::get('/requests','RequestController@index')->name('requests.index');
 Route::get('requests/create','RequestController@create')->name('requests.create');
-Route::get('/message/read','RequestController@read')->name('messages.read');
 Route::get('/requests/{request}','RequestController@show')->name('requests.show');
 Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
 Route::get('/requests/completed/{request}','RequestController@completed');
+Route::get('/message/read','RequestController@read')->name('messages.read');
 Route::post('/requests', 'RequestController@store')->name('requests.store');
 Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 
@@ -58,3 +76,8 @@ Route::get('/requests/checkout','RequestController@checkout')->name('requests.ch
 //Route::post('/requests/charge','RequestController@checkout')->name('requests.checkout');
 Route::post('/requests/charge','RequestController@charge');
 // ->name('requests.charge');
+
+
+//Email Routes
+Route::get('/sendemail','SendEmailController@index');
+Route::post('/sendemail/send','SendEmailController@send');

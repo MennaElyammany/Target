@@ -18,7 +18,12 @@
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans|Pacifico|Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -40,7 +45,7 @@
         font-family: 'Pacifico', cursive;
     }
     .btn-blue{
-        background-color:#3f72af;
+        background-color:#112d4e;
         margin:5px;
         width:85px; 
     }
@@ -70,14 +75,13 @@
 </head>
 <body>
     <div id="app" style="margin-top:90px;" >
-        <nav class="navbar fixed-top navbar-expand-md navbar-light shadow-sm pb-2" >
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-sm pb-2" >
             <img src="{{asset('goal.png')}}" width='45'>
             <a class="navbar-brand" style="color:#112d4e" href="/">Target</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
      <!-- Right Side Of Navbar -->
      <ul class="navbar-nav mx-auto row">
                    <li class="nav-item active">
@@ -112,7 +116,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link btn btn-blue text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link btn btn-secondary text-light mt-2" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                             @if(Route::currentRouteName()!='welcome')
@@ -177,6 +181,7 @@
                     </ul>
                 </div>
             </div>
+</div>
         </nav>
    
         </div>
@@ -185,7 +190,7 @@
         <main class="y-4 mb-0">
             @yield('content')
         </main>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
 
@@ -210,11 +215,26 @@ document.getElementById("alert").addEventListener('click',function(e){
 })
 });
 
+
 })
 $(function () {
     $('#datetimepicker1').datetimepicker();
  });
  </script>
 
+
+<script>
+  
+  $('#show').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+      var urlYoutube = button.data('url');
+    //   var name = button.data('name');
+      var modal = $(this);
+      modal.find('.modal-body #youtubeUrl').val(urlYoutube);
+    //   modal.find('.modal-body #name').val(name);
+
+});
+
+</script>
 </body>
 </html>

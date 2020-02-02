@@ -1,9 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
-
-
-<div class='container ' >
+<div class='container' >
     <div class='row no-gutters'>
 
         <div class='col-6 modal-dialog  modal-dialog-scrollable mx-0 container-fluid'>
@@ -102,6 +99,8 @@
 
 @endsection
 @section('scripts')
+<script type="text/javascript" src="scripts/moment-2.4.0.js"></script>
+<script type="text/javascript" src="scripts/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript">
 var reportButton = document.getElementById('report');
 console.log(reportButton);

@@ -34,13 +34,13 @@
             <div class="card-header">
                 <i class="fa fa-area-chart"></i> Audience </div>
             <div class="card-body">
-                <canvas id="PieChart" width="100%" height="30"></canvas>
+                <canvas id="GenderChart" width="100%" height="30"></canvas>
             </div>
             <div class="card-body">
-                <canvas id="BarChart" width="100%" height="30"></canvas>
+                <canvas id="LocationChart" width="100%" height="30"></canvas>
             </div>
             <div>
-            <canvas id="bar-chart-horizontal" width="100%" height="30"></canvas>
+            <canvas id="AgeChart" width="100%" height="30"></canvas>
 
             </div>
 
@@ -52,64 +52,22 @@
 <script src="{{url( 'vendor/jquery.min.js' )}}"></script>
 
 <script src="{{url( 'vendor/Chart.min.js' )}}"></script>
-
 <script src="{{url( 'vendor/create-charts.js' )}}"></script>
+<script src="{{url( 'vendor/create-gender-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-location-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-age-chart.js' )}}"></script>
+
+
+
 <script>
-   var ctx= document.getElementById('PieChart');
-   console.log(ctx);
-    var PieChart = new Chart(ctx, {
-    type: 'pie',
-  data: {
-    labels: ["Male", "Female"],
-    datasets: [{
-      backgroundColor: [
-        "blue",
-        "pink",
-      ],
-      data: [70,20]
-    }]
-  }
-});
-new Chart(document.getElementById("BarChart"), {
-    type: 'horizontalBar',
-    data: {
-      labels: ["Egypt", "Saudi Arabia", "UAE", "Lebanon", "Other"],
-      datasets: [
-        {
-          label: "",
-          backgroundColor: ["#3e95cd", "#3e95cd","#3e95cd","#3e95cd","#3e95cd"],
-          data: [40,30,15,10,5]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Audience Location (percentage)'
-      }
-    }
-});
-new Chart(document.getElementById("bar-chart-horizontal"), {
-    type: 'horizontalBar',
-    data: {
-      labels: ["<15", "15-20", "20-25", "25-30", "35>"],
-      datasets: [
-        {
-          label: "Audience Age",
-          backgroundColor: ["#8e5ea2", "#8e5ea2","#8e5ea2","#8e5ea2","#8e5ea2"],
-          data: [20,30,20,10,10]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Audience Age'
-      }
-    }
-});
+ 
+
+
+
+
+
+			
+		
 
 </script>
 

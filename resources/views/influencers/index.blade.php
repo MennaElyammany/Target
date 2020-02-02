@@ -12,7 +12,6 @@ border-radius:10px;
 }
 .roboto-font{
   font-family: 'Roboto', sans-serif;
-
 }
 .text-uppercase{
   font-size:22px;
@@ -22,7 +21,6 @@ border-radius:10px;
   padding:0px!important;
   margin:auto!important;
 }
-
 </style>
 <div class="container-fluid">
 <div style="display:flex;padding-top:35px;">
@@ -76,14 +74,31 @@ border-radius:10px;
 <div class="card" onclick="window.location='/influencers/{{$influencer->id}}'">
 <div style="display:flex;">
 
-<img class="rounded-circle" style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
+<img class="rounded-circle"data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}"
+ style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
+<!-- Modal -->
+ <div class="modal fade" id="show" role="dialog">
+    <div class="modal-dialog">    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+        <div class="form-group">
+		        	<label for="url">URL</label>
+		        	<input type="text" class="form-control" name="title" id="input">
+              <!-- <label for="url">Name</label>
+		        	<input type="text" class="form-control" name="title" id="name"> -->
+             
+	      </div>
+        </div> 
+      </div><!--modal-content-->
+    </div><!--modal-dialog-->
+  </div><!--modal-->
+<div style=" display:flex;margin-top:40px;width:200px;height:50px;">
+<h5 style="font-size:25px;" class="roboto-font card-title"onclick="window.location='/influencers/{{$influencer->id}}'">{{$influencer->name}}</h5>
 
 
-<div style=" display:flex;margin-top:40px;width:200px;height:50px;" >
-<h5 style="font-size:25px;" class="roboto-font card-title">{{$influencer->name}}</h5>
-
-
-<a href="/influencers/{{$influencer->id}}">View</a>
 
 <div>
     @if($influencer->verified)
@@ -119,7 +134,6 @@ echo "    <div style='display: flex;'>
           <p class='font card-title'style='margin-right:10px;margin-left:10px'>".$country_name[0]->country_name."</p>
           </div>
         ";
-
 @endphp
 </div>
 </div>  
