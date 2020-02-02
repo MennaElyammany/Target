@@ -47,7 +47,7 @@ Route::get('/requests/{request}','RequestController@show')->name('requests.show'
 Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
 Route::get('/requests/completed/{request}','RequestController@completed');
-Route::get('/message/read','RequestController@read');
+Route::get('/message/read','RequestController@read')->name('messages.read');
 Route::post('/requests', 'RequestController@store')->name('requests.store');
 Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 
