@@ -35,7 +35,7 @@
     </div>
   </div>
 </div>
-<a class="btn btn-outline-secondary float-left my-3" href="#" role="button" width="30px">View</a>
+<a class="btn btn-outline-secondary float-left my-3" href="/influencers/{{$request->influencer_id}}" role="button" width="30px">View</a>
       </td>
       <td style="text-align:center" ><p class="font-weight-bold my-4 ">{{convertNumber($influencer->followers)}}</p></td>
       <td style="text-align:center"><p class="font-weight-bold my-4 ">x%</p></td>

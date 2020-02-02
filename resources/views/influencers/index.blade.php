@@ -71,15 +71,15 @@ border-radius:10px;
 </div>
 </div>
 
-<div style="margin-top:25px;" class="container-fluid influencers-container">
+<div style="margin-top:25px;" class="container-fluid influencers-container" >
 @foreach($influencers as $influencer)
-<div class="card">
+<div class="card" onclick="window.location='/influencers/{{$influencer->id}}'">
 <div style="display:flex;">
 
 <img class="rounded-circle" style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
 
 
-<div style=" display:flex;margin-top:40px;width:200px;height:50px;">
+<div style=" display:flex;margin-top:40px;width:200px;height:50px;" >
 <h5 style="font-size:25px;" class="roboto-font card-title">{{$influencer->name}}</h5>
 
 

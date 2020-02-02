@@ -73,6 +73,9 @@
                             <h5 class='mt-3 offset-md-4'>or                                
                             <a href="{{ url('/login/facebook?role=' . $role)}}" class="btn btn-secondary">Signup With Facebook</a>
                             <a href="{{ url('/login/google?role=' . $role)}}" class="btn btn-secondary">Signup With Google</a></h5>
+                            <a href="{{ url('https://api.instagram.com/oauth/authorize/?client_id=479648219617428
+&redirect_uri=https://127.0.0.1:8000/auth/callback&scope=user_profile&response_type=code')}}" class="btn btn-secondary">Signup With Instgram</a></h5>
+
                         </div>
                     </form>
                     
