@@ -25,23 +25,6 @@ class InfluencerController extends Controller
                         'country_id' => request('country_id'),
                     ]);
         return view('influencers.index',compact('influencers'));
-        // $influencers = User::where('role','Influencer');        
-        // if(request()->has('category_id')){
-        //   $influencers = $influencers->where('category_id',request('category_id'))
-        //   ->paginate(3)
-        //   ->appends('category_id',request('category_id'));
-        
-        // }
-        // else if(request()->has('country_id')){
-        //     $influencers = $influencers->where('country_id',request('country_id'))
-        //     ->paginate(5)
-        //     ->appends('country_id',request('country_id'));
-        //  }
-        // else{
-        //     $influencers = User::where('role','Influencer')->paginate(2);
-        // }
-        // // return view('influencers.index')->with('influencers',$influencers);
-        // return view('influencers.index',['influencers' => $influencers]);
     }
 
     function show($id)
@@ -69,7 +52,6 @@ class InfluencerController extends Controller
         $influencer->category_id = $request->category_id;
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
-        // dd($influencer_data);
         $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->avatar = $influencer_data['imageUrl'];
         $influencer->followers = $influencer_data['subscribers'];
@@ -88,4 +70,6 @@ class InfluencerController extends Controller
         return redirect()->route('influencers.index');
         
     }
+    
+
 }
