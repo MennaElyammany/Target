@@ -2,6 +2,8 @@
 use Illuminate\Support\Str;
 use Alaouy\Youtube\Facades\Youtube;
 use App\User;
+use willvincent\Rateable\Rateable;
+
 
  function fetch_youtube_data($url){
   
@@ -232,5 +234,8 @@ function calcEngagement($channel){
 
 ];
 
-
+}
+function findClientName($id){
+    $client=User::find($id);
+    return $client->name;
 }

@@ -7,6 +7,9 @@ use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
 use Auth;
 use Session;
+use willvincent\Rateable\Rateable;
+use willvincent\Rateable\Rating;
+
 
 class InfluencerController extends Controller
 {
@@ -70,6 +73,6 @@ class InfluencerController extends Controller
         return redirect()->route('influencers.index');
         
     }
-    
+  
 
 }

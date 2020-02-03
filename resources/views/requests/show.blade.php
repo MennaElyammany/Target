@@ -43,6 +43,8 @@
      <a class="btn btn-outline-success my-3 "href="/requests/completed/{{$request->id}}" role="button" >Completed</a>
      @elseif($request->status =='completed')
      <h3 class="text-primary"> Rate Your Experience </h3>
+     <input id="input-1-ltr-star-xs" name="input-1-ltr-star-xs" class="kv-ltr-theme-svg-star rating-loading" value="1" dir="ltr" data-size="xs">
+
      @else
     
      <a class="btn btn-outline-primary my-3  "href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
@@ -72,4 +74,14 @@
 </div>
 @endrole
 
+@endsection
+@section('scripts')
+<script>
+$(document).ready(function(){
+    $('.kv-ltr-theme-svg-star').rating({
+        hoverOnClear: false,
+        theme: 'krajee-svg'
+    });
+});
+</script>
 @endsection
