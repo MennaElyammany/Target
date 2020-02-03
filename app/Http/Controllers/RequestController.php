@@ -13,7 +13,9 @@ use App\Http\Requests\StoreAdrequestRequest;
 class RequestController extends Controller
 {
     function index(){
-    
+       if(Auth::user()->hasRole('Admin'))
+       $requests=Request::all();
+       else
         $requests=Auth::user()->Requests;
       
         return view('requests.index',['requests'=>$requests]);
