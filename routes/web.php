@@ -12,7 +12,7 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
-
+Auth::routes();
 //facebook and google login routes
 Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
@@ -20,6 +20,7 @@ Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
 
 Route::get('login/instagram','Auth\LoginController@redirectToInstagramProvider')->name('instagram.login');
+
 Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCallback')->name('instagram.login.callback');
 
 //Influencers Routes
@@ -33,6 +34,13 @@ Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCa
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
 
+//Influencers Routes
+    Route::group(['middleware'=>'auth'], function(){
+    Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
+    Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
+    Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
+    Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show') ;
+});
 
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
 //Charts Routes

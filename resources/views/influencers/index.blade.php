@@ -75,9 +75,9 @@ border-radius:10px;
 </div>
 </div>
 
-<div style="margin-top:25px;" class="container-fluid influencers-container">
+<div style="margin-top:25px;" class="container-fluid influencers-container" >
 @foreach($influencers as $influencer)
-<div class="card">
+<div class="card" onclick="window.location='/influencers/{{$influencer->id}}'">
 <div style="display:flex;">
 
 <img class="rounded-circle"data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}"

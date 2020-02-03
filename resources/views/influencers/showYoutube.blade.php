@@ -4,8 +4,8 @@
     <div class='row no-gutters'>
 
         <div class='col-6 modal-dialog  modal-dialog-scrollable mx-0 container-fluid'>
-            <div class="modal-content">
-                <div class="modal-body">
+            <div class="modal-content p-0">
+                <div class="modal-body p-0">
                 
                 <div class="row no-gutters">
                 @foreach($data['videoList'] as $index=>$video)
