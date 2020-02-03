@@ -52,6 +52,12 @@
       @endif
        <button type="submit"  class="btn btn-danger deleteRecord" data-id='{{$user->id}}' onclick='return confirm("Are you sure to delete this User?");'>Delete </button>
        <a href="/users/{{$user->id}}/edit" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">Edit</a> 
+       @if($user->isBanned())
+                  <a href="/users/{{$user['id']}}/ban" class="btn btn-dark text-light" tabindex="-1" role="button" aria-disabled="true">UnBan</a> 
+                   @else
+                   <a href="/users/{{$user['id']}}/ban" class="btn btn-dark text-light" tabindex="-1" role="button" aria-disabled="true">Ban</a> 
+    @endif
+    
      </form>    
       </td>
 

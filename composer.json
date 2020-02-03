@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2",
         "alaouy/youtube": "^2.2",
+        "cybercog/laravel-ban": "^4.2",
         "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.0",
         "google/apiclient": "^2.4",
