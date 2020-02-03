@@ -24,8 +24,8 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCa
  Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
  Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
  Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
- //Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
- Route::post('/influencers/view','InfluencerController@show')->name('influencers.show');
+ Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
+ //Route::post('/influencers/view','InfluencerController@show')->name('influencers.show');
 });
 
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');

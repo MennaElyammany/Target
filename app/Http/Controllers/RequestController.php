@@ -85,16 +85,33 @@ class RequestController extends Controller
     function accept($id){
        
         $request= Request::findOrFail($id);
-        if(Auth::user()->id==$request->client_id)
-        $notified_user=$request->influencer_id;
-        else
-        $notified_user=$request->client_id;
+        if(Auth::user()->id==$request->client_id){
+          $notified_user=$request->influencer_id;
+          $influncer = User::findorfail($notified_user);  
+          $data = array(
+            'name'      =>  $influencer->name,
+            'message'   =>   "you have accepted the request"
+            );
+            Mail::to($influencer->email)->send(new SendEmail($data));
+        }
+        
+        else{
+            $notified_user=$request->client_id;
+            $client = User::findorfail($notified_user);  
+            $data = array(
+                'name'      =>  $client->name,
+                'message'   =>   "you have accepted the updated request"
+            );
+            Mail::to($client->email)->send(new SendEmail($data));
+        }
+        
         if($request->modified_date!=null)
         $request->ad_date=$request->modified_date;
         $request->modified_date=null;
         $request->status='accepted';
         $request->save();
         $this->sendNotification('accepted',$notified_user);
+        
         return redirect()->route('requests.index');
 
 
@@ -159,6 +176,7 @@ class RequestController extends Controller
 
         ];
         $user->notify( new RequestChanged($details));
+
         
 
     }
