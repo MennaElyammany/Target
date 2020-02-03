@@ -103,6 +103,14 @@
   
                     </li>
                     @endrole
+                    @role('Admin')
+                    <li class="nav-item ">
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/users') }}">Users<span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item ">
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/requests') }}">System Requests<span class="sr-only">(current)</span></a>
+                      </li>
+                    @endrole
                     <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
                     </li>

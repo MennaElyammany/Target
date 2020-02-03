@@ -48,19 +48,13 @@
        @if($user->hasRole('Influencer'))
        <a class="btn btn-outline-secondary float-left my-3" href="/influencers/{{$user->id}}" role="button" width="30px">View</a>
      @else
-     <a class="btn btn-outline-secondary float-left my-3" href="/user/{{$user->id}}" role="button" width="30px">View</a>
+     <a class="btn btn-outline-secondary float-left my-3" href="/users/{{$user->id}}" role="button" width="30px">View</a>
       @endif
        <button type="submit"  class="btn btn-danger deleteRecord" data-id='{{$user->id}}' onclick='return confirm("Are you sure to delete this User?");'>Delete </button>
        <a href="/users/{{$user->id}}/edit" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">Edit</a> 
      </form>    
       </td>
 
-
-
-      
-
-
-      
       </tr>
   @endforeach
 

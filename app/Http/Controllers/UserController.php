@@ -20,9 +20,11 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    function show(User $user){
-
+    function show($id){
+        if( Auth::user()->id==$id)
         $user = Auth::user();
+        else
+        $user=User::findOrFail($id);
         // $rating = new Rating;
         // $rating->rating = 3;
         // $rating->user_id = $user->id;
@@ -47,10 +49,13 @@ class UserController extends Controller
         
     }
 
-    public function edit(User $user)
+    public function edit($id)
     {   $countries= listCountries();
         $categories= listCategories();
+        if( Auth::user()->id==$id)
         $user = Auth::user();
+        else
+        $user=User::findOrFail($id);
         if(!empty($user->country_id)&&!empty($user->category_id))
         {
         $resultCountry=getCountryName($user->country_id)?:[];
@@ -68,7 +73,7 @@ class UserController extends Controller
 
     public function update(User $user, request $request)
     { 
-        // dd(asset('storage/goal.png'));
+        
         $this->validate(request(), [
             'name' => 'required',
             'email' => [
@@ -76,7 +81,6 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users')->ignore($user->id),
             ],            
-        // 'password' => 'required|min:6'
         ]);
 
         $user->name = request('name');
@@ -94,12 +98,20 @@ class UserController extends Controller
         return redirect()->route('users.show',['user' => Auth::user()->id ]);
 
 }
-
+function destroy($id){
+    $user = User::findOrFail($id);
+        if($user['avatar']&&$user['role']=='Client')
+        {
+         
+        unlink(asset($user['avatar'])); //delete image from storage
+      
+        }
+        $user->delete();
+        return redirect()->view('Admins.index');
+}
 public function review(User $user)
 {
 
-
-//
 
 }
 }

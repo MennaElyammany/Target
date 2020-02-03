@@ -234,3 +234,7 @@ function calcEngagement($channel){
 
 
 }
+function findUserName($id){
+    $use=User::find($id);
+    return $user->name;
+}

@@ -14,7 +14,8 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 Auth::routes();
 //admins Routes
-Route::get('/users','AdminController@index');
+Route::group(['middleware'=>['auth','role:Admin']], function(){
+Route::get('/users','AdminController@index')->name('users.index');});
 //facebook and google login routes
 Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
@@ -70,6 +71,8 @@ Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 Route::get('/users/{user}', 'UserController@show')->name('users.show') -> middleware('auth'); 
 Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit') -> middleware('auth'); 
 Route::put('/users/{user}', 'UserController@update')->name('users.update') -> middleware('auth');
+Route::delete('/users/{user}', 'UserController@destroy')->name('users.update') -> middleware('auth');
+
 
 
 //when we get the price
