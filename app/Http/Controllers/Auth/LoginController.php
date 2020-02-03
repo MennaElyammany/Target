@@ -179,8 +179,23 @@ class LoginController extends Controller
         $oAuth = json_decode($content);    
         // Get instagram user name 
         $username = $oAuth->username;
-    
-dd($oAuth);
+        // dd($oAuth->media->data);
+        $media_list=$oAuth->media->data;
+        $media_url_list=[];
+        foreach($media_list as $media_item)
+        {
+            $media_id=$media_item->id;
+            $imgResponse = $client->request('GET', "https://graph.instagram.com/{$media_id}?fields=media_url&access_token={$accessToken}");
+
+          $img_url= json_decode($imgResponse->getBody()->getContents());
+            array_push($media_url_list,$img_url);
+        }
+
+        // dd($media_url_list);
+        return view('influencers.showInstagram',['media_url_list'=>$media_url_list]);
+
+        
+
     }
     
     use AuthenticatesUsers;
