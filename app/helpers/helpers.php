@@ -235,7 +235,7 @@ function calcEngagement($channel){
 
 
 }
-function test($data){
+function test(){
     
-    return $data;
+    return "hiii";
 }

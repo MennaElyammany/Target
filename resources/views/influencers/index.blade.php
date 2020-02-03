@@ -77,21 +77,69 @@ border-radius:10px;
 <img class="rounded-circle"data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}"
  style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
 <!-- Modal -->
- <div class="modal fade" id="show" role="dialog">
-    <div class="modal-dialog">    
+ <div class="modal fade " id="show" role="dialog">
+    <div class="modal-dialog" style="max-width:1000px;">    
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-        <div class="form-group">
-		        	<label for="url">URL</label>
+        <div class="row">
+        <!--left container-->
+        <div class='col-5'> 
+          <div class="row">   
+              <div id="youtubeData">
+            </div>
+          </div>
+        </div>
+        <!-- end of left container -->
+      <!-- right container -->          
+      <div class='col-7'>
+          <div class="row"> <!-- first row -->
+            <div class ='col-3'>
+                <img src="" id="showPic" class="rounded-circle" style="width:60px;height:60px">
+            </div>
+            <div class='col-9'>
+              <h3>
+                <div id="name"></div>
+                <i class="fas fa-check-circle"></i>
+                <!-- <a href="" >   -->
+                <i class="fas fa-file-signature text-dark " title="Request Influencer For Ad"></i>
+                <!-- </a> -->
+                <img src="https://img.icons8.com/offices/30/000000/youtube-play.png" class="m-3 ">
+              </h3>
+            </div>
+            </div><!-- first row -->
+              <span class="font-weight-bold" id="videoCount"></span>              
+              <span class="font-weight-bold" style="margin-left:20px;" id="subscribers"></span>
+              <span class="font-weight-bold" style="margin-left:20px;"id="subscriptions"></span>
+              <!-- <span> <h3 class="font-weight-bold"id="engagement">x</h3></span> -->
+              <br>
+              <span style="margin-right:20px;" >Videos </span>             
+              <span style="margin-right:20px;">Subscribers </span>             
+              <span style="margin-right:20px;">Subscription </span>   
+              <span>Engagement</span> 
+              <br>
+              
+            
+            
+            <span id="country"></span><br>            
+            <span id="about"></span>       
+            
+            
+                  
+           
+        </div><!-- right container -->           
+        </div>  <!--row container--> 
+        </div>  <!--modalbody-->
+        
+
+        <!--<label for="url">URL</label>
 		        	<input type="text" class="form-control" name="title" id="input">
-              <!-- <label for="url">Name</label>
-		        	<input type="text" class="form-control" name="title" id="name"> -->
-             
-	      </div>
-        </div> 
+              <label for="name">Name</label>
+
+
+              </div> -->
       </div><!--modal-content-->
     </div><!--modal-dialog-->
   </div><!--modal-->
@@ -143,4 +191,15 @@ echo "    <div style='display: flex;'>
 <div class="font" style="margin-top:800px;margin-left:650px;">
 {{$influencers->links()}} 
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript" src="scripts/moment-2.4.0.js"></script>
+<script type="text/javascript" src="scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript">
+var reportButton = document.getElementById('report');
+console.log(reportButton);
+
+
+</script>
+
 @endsection

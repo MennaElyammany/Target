@@ -229,8 +229,10 @@ $(function () {
 @csrf
 <script> 
   $('#show').on('show.bs.modal', function (event) {
+
       var button = $(event.relatedTarget) 
       var youtubeUrl = button.data('url');
+     
       var name = button.data('name');
       var modal = $(this);
       modal.find('.modal-body #input').val(youtubeUrl);
@@ -244,40 +246,49 @@ $(function () {
             '_token':csrf //pass CSRF
             },
         success:function(data){
-            console.log("success");
-            
-            console.log(data);
-             var name = data['name'];
-             modal.find('.modal-body #name').val(name);
+            console.log("success");            
+            //console.log(data);
+            youtubeData = document.getElementById('youtubeData');          
+            //videos = data['videoList'];
+            //for(i=0;i<videos.length;i++){
+            for(i=0;i<5;i++){
+                var iframe = document.createElement('iframe');
+                //console.log("video url here",videos[i]['videoIframe']);
+                //str=videos[i]['videoIframe'];
+                str="src=//www.youtube.com/embed/KIootEF0slk";
+                sub=str.substring(4, str.length)
+                //sub=str.substring(5, str.length-1);
+                console.log("here is the substring",sub)
+                iframe.src = sub;
+                iframe.setAttribute("width", "200");
+                iframe.setAttribute("height", "200");
+                iframe.setAttribute("controls", "controls");
+                youtubeData.appendChild(iframe);
+            }    
+            $('#name').html("influencer");
+            $('#subscribers').html("100k");
+            $('#subscriptions').html("5");
+            //$('#showPic').attr('src', data['imageUrl']);
+            $('#videoCount').html("500");
+            $('#country').html("EG");
+            $('#about').html("test description");        
+            // $('#name').html(data['name']);
+            // $('#subscribers').html(data['subscribers']);
+            // $('#subscriptions').html(data['subscriptions']);
+            // $('#showPic').attr('src', data['imageUrl']);
+            // $('#videoCount').html(data['videoCount']);
+            // $('#country').html(data['country']);
+            // $('#about').html(data['about']);         
         },
         error:function(){
-                console.log("error")
+                console.log("error");
         }
     });
 
 
-
-//     $.ajax({
-//     type: "POST",
-//     url: '/influencers/show'+,
-//     dataType: 'json',
-//     data: {functionname: 'fetch_youtube_data', arguments: [urlYoutube]},
-//     data:{name:name, password:password, email:email},
-
-// success:function(data){
-
-//    alert(data.success);
-
-// }
-//     success: function (obj, textstatus) {
-//                   if( !('error' in obj) ) {
-//                       yourVariable = obj.result;
-//                   }
-//                   else {
-//                       console.log(obj.error);
-//                   }
-//             }
-// });
+    function myFunction() {
+        document.getElementById("#country").disabled = true;
+        }
 
     
       

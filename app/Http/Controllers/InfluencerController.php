@@ -39,10 +39,14 @@ class InfluencerController extends Controller
 
     //  return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
     // }
-    function show(Request $request)
-    {   
-        $data = fetch_youtube_data($request->url);
-        //$data = test($request->url);
+    // function show(Request $request)
+    // {   
+    //     $data = fetch_youtube_data($request->url);
+    //     //$data = test($request->url);
+    //     return $data;
+    // }
+    function show(Request $request){
+        $data = test();
         return $data;
     }
     function create()
