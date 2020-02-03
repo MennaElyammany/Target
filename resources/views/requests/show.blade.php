@@ -2,7 +2,7 @@
 @section('content')
 @role('Influencer')
 <br><br>
-<div class="card mb-3 " style="max-width: 540px;">
+<div class="card mb-3 " style="max-width: 540px;  position:absolute;left:25%" >
   <div class="row no-gutters">
     <div class="col-md-4">
       <img src="{{asset('storage/'.$request->product_image)}}"class="card-img" alt="...">
@@ -73,8 +73,8 @@
 @endrole
 @role('Admin')
 <br><br>
-<center>
-<div class="card mb-3 " style="max-width: 600px;">
+
+<div class="card mb-3 " style="max-width: 600px; position:absolute;left:25%">
   <div class="row no-gutters">
     <div class="col-md-3">
       <img src="{{asset('storage/'.$request->product_image)}}"class="card-img" alt="...">
@@ -106,6 +106,6 @@
     </div>
   </div>
 </div>
-</center>
+
 @endrole
 @endsection
