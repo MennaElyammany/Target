@@ -16,8 +16,8 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            // $table->enum('status',['waiting','accepted','declined','modifiedByClient','modifiedByInf','completed']);
-            // $table->integer('price')->nullabe();
+            $table->enum('status',['waiting','accepted','declined','modifiedByClient','modifiedByInf','completed']);
+            $table->integer('price')->nullabe();
             $table->enum('type',['image','video','story']);
             $table->text('description');
             $table->date('ad_date');
@@ -26,6 +26,7 @@ class CreateRequestsTable extends Migration
             $table->string('product_image')->nullable();
             $table->unsignedInteger('client_id')->references('id')->on('users');
             $table->unsignedInteger('influencer_id')->references('id')->on('users');
+
 
         });
         
