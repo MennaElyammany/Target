@@ -216,9 +216,9 @@ document.getElementById("alert").addEventListener('click',function(e){
 
 
 })
-$(function () {
-    $('#datetimepicker1').datetimepicker();
- });
+// $(function () {
+//     $('#datetimepicker1').datetimepicker();
+//  });
  </script>
 
 @csrf
