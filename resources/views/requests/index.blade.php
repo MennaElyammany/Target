@@ -59,8 +59,52 @@
 </td>
 @elseif($request->status=='completed')
 <td style="text-align:center">    
-      <a class="btn btn-outline-primary my-3 "href="" role="button" >Rate Your Experience</a>
+      <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#exampleModal">
+Rate your Experience</button>
 </td>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Rate {{$influencer->name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <form method="post" action="/rating">
+     @csrf
+  <div style="display:flex;" class="form-group">
+    <label class="ratinglabel" for="">Rating: </label>
+    <div class="rate">
+    <input class="form-control" type="radio" id="star5" name="rate" value="5" />
+    <label for="star5" title="text">5 stars</label>
+    <input class="form-control" type="radio" id="star4" name="rate" value="4" />
+    <label for="star4" title="text">4 stars</label>
+    <input class="form-control" type="radio" id="star3" name="rate" value="3" />
+    <label for="star3" title="text">3 stars</label>
+    <input class="form-control" type="radio" id="star2" name="rate" value="2" />
+    <label for="star2" title="text">2 stars</label>
+    <input class="form-control" type="radio" id="star1" name="rate" value="1" />
+    <label for="star1" title="text">1 star</label>
+  </div>
+  </div>
+  <div class="form-group">
+    <label>How was your experience with {{$influencer->name}}?</label>
+    <textarea class="form-control" rows="5" name="review"></textarea>
+
+  </div>
+  <input type="hidden" name="rateable_id" value="{{$influencer->id}}">
+
+  <div class="modal-footer">
+  <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+</form>
+      </div>
+     
+    </div>
+  </div>
+</div>
 
 @else
 <td style="text-align:center">    
@@ -108,8 +152,59 @@
       <td > <center><a class="btn btn-outline-primary  my-3" href="{{$request->website_url}}" role="button" >Visit Website</a> </center></td>
       
       <td >
+      <center>
       <a class="btn btn-outline-danger my-3 "href="/requests/{{$request->id}}" role="button" >View Request</a>
+      <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#exampleModal">
+Rate your Experience</button>
+</center>
       </td>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      @php 
+  $name=findClientName($request->client_id);
+  echo '
+        <h5 class="modal-title" id="exampleModalLabel">Rate '.$name.'</h5>';
+    @endphp
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <form method="post" action="/rating">
+     @csrf
+  <div style="display:flex;" class="form-group">
+    <label class="ratinglabel" for="">Rating: </label>
+    <div class="rate">
+    <input class="form-control" type="radio" id="star5" name="rate" value="5" />
+    <label for="star5" title="text">5 stars</label>
+    <input class="form-control" type="radio" id="star4" name="rate" value="4" />
+    <label for="star4" title="text">4 stars</label>
+    <input class="form-control" type="radio" id="star3" name="rate" value="3" />
+    <label for="star3" title="text">3 stars</label>
+    <input class="form-control" type="radio" id="star2" name="rate" value="2" />
+    <label for="star2" title="text">2 stars</label>
+    <input class="form-control" type="radio" id="star1" name="rate" value="1" />
+    <label for="star1" title="text">1 star</label>
+  </div>
+  </div>
+  @php 
+  $name=findClientName($request->client_id);
+  echo "<div class='form-group'>
+    <label>How was your experience with ".$name."?</label>";
+   @endphp
+
+    <textarea class="form-control" rows="5" name="review"></textarea>
+
+  </div>
+  <input type="hidden" name="rateable_id" value="{{$request->client_id}}">
+
+  <div class="modal-footer">
+  <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+</form>
+      </div>
        
 
       

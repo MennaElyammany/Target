@@ -22,6 +22,12 @@ border-radius:10px;
   margin:auto!important;
 }
 </style>
+<i class="glyphicon glyphicon-star-empty"></i>
+
+
+<input id="input-id" name="input-name" type="number" class="rating" min=1 max=10 step=2 data-rtl="true">
+
+
 <div class="container-fluid">
 <div style="display:flex;padding-top:35px;">
 <div class="dropdown">
@@ -143,4 +149,9 @@ echo "    <div style='display: flex;'>
 <div class="font" style="margin-top:800px;margin-left:650px;">
 {{$influencers->links()}} 
 </div>
+@endsection
+@section('scripts')
+<script>
+$("#input-id").rating();
+</script>
 @endsection

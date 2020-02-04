@@ -85,3 +85,6 @@ Route::post('/requests/charge','RequestController@charge');
 //Email Routes
 Route::get('/sendemail','SendEmailController@index');
 Route::post('/sendemail/send','SendEmailController@send');
+
+//Rating 
+Route::post('/rating','RequestController@storeRating')->name('requests.rating');
