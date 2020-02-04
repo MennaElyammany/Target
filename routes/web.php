@@ -34,6 +34,7 @@ Route::get('login/twitter/callback', 'Auth\SocialAuthTwitterController@callback'
  Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
  Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
  //Route::post('/influencers/view','InfluencerController@show')->name('influencers.show');
+ Route::get('/influencers/instagram/{influencer}', 'InfluencerController@showInstagram')->name('influencers.showInstagram');
 });
 
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');

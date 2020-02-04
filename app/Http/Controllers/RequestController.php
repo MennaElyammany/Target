@@ -88,21 +88,21 @@ class RequestController extends Controller
         $request= Request::findOrFail($id);
         if(Auth::user()->id==$request->client_id){
         $notified_user=$request->influencer_id;
-        $influencer = User::findOrFail($request->influencer_id); 
-        $data = array(
-        'name' => $client->name,
-        'message' => "the client has accepted the updated request"
-        );
-        Mail::to($influencer->email)->send(new SendEmail($data));
+        // $influencer = User::findOrFail($request->influencer_id); 
+        // $data = array(
+        // 'name' => $client->name,
+        // 'message' => "the client has accepted the updated request"
+        // );
+        // Mail::to($influencer->email)->send(new SendEmail($data));
         }
         else{
         $notified_user=$request->client_id;
-        $client = User::findOrFail($notified_user); 
-        $data = array(
-        'name' => $influencer->name,
-        'message' => "the influencer has accepted the request"
-        );
-        Mail::to($client->email)->send(new SendEmail($data));
+        // $client = User::findOrFail($notified_user); 
+        // $data = array(
+        // 'name' => $influencer->name,
+        // 'message' => "the influencer has accepted the request"
+        // );
+        // Mail::to($client->email)->send(new SendEmail($data));
         }
         if($request->modified_date!=null)
         $request->ad_date=$request->modified_date;

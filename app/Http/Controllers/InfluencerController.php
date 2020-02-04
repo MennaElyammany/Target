@@ -5,6 +5,7 @@ use View;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
+use App\InstagramMedia;
 use Auth;
 use Session;
 
@@ -47,6 +48,26 @@ class InfluencerController extends Controller
     //     return $data;
     // }
     
+
+    function showInstagram($id)
+    {  
+        
+        $influencer= User::findOrFail($id);
+// dd($influencer['name']);
+$media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
+$media_url_list=[];
+foreach($media_list as $media_item)
+{
+    array_push($media_url_list,($media_item['media_url']));
+}
+
+     return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
+    }
+
+
+
+
+
     function create()
 
     {   $countries= listCountries();

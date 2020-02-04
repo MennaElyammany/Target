@@ -145,19 +145,18 @@ border-radius:10px;
       </div><!--modal-content-->
     </div><!--modal-dialog-->
   </div><!--modal-->
-<div style=" display:flex;margin-top:40px;width:200px;height:50px;">
+<div style=" margin-top:40px;width:200px;height:50px;">
 <h5 style="font-size:25px;" class="roboto-font card-title"onclick="window.location='/influencers/{{$influencer->id}}'">{{$influencer->name}}</h5>
-
-
-
+ 
 <div>
     @if($influencer->verified)
     <img src='verified.png'style='margin-left:10px;width:15px;height:15px;'>
     @endif
     <!-- <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;'></i> -->
-
+    @if ($influencer->instagram_id)
+    <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
+    @endif
 </div>
-
 </div>
 </div>
   <div style=" margin-top:20px;"class="card-body">
