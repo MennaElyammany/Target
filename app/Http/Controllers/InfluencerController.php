@@ -10,7 +10,7 @@ use Auth;
 use Session;
 use willvincent\Rateable\Rateable;
 use willvincent\Rateable\Rating;
-
+use Illuminate\Support\Facades\Cache;
 
 class InfluencerController extends Controller
 {
@@ -36,7 +36,7 @@ class InfluencerController extends Controller
         
         $influencer= User::findOrFail($id);
         $url=$influencer['youtube_url'];
-        $data= fetch_youtube_data($url);
+        $data=Cache::get($id);
         $data['influencer_id']=$id;
 
 
@@ -48,7 +48,7 @@ class InfluencerController extends Controller
     {  
         
         $influencer= User::findOrFail($id);
-// dd($influencer['name']);
+
 $media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
 $media_url_list=[];
 foreach($media_list as $media_item)
@@ -80,6 +80,8 @@ foreach($media_list as $media_item)
         $influencer->avatar = $influencer_data['imageUrl'];
         $influencer->followers = $influencer_data['subscribers'];
         $influencer->save();
+        Cache::put(Auth::user()->id,$influencer_data , 127800);
+
         return redirect()->route('influencers.index');
     }
     function edit($id)

@@ -76,7 +76,9 @@ border-radius:10px;
 </div>
 
 <div style="margin-top:25px;" class="container-fluid influencers-container" >
+
 @foreach($influencers as $influencer)
+
 <div class="card" onclick="window.location='/influencers/{{$influencer->id}}'">
 <div style="display:flex;">
 

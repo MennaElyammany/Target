@@ -50,8 +50,9 @@ use willvincent\Rateable\Rateable;
      if ($videoList)
      {
     foreach($videoList as $index=>$video){
-       
+     
         $info = Youtube::getVideoInfo($video->id->videoId); //get each video Info
+      
         $videoIframe=$info->player->embedHtml;
         $videoIframe=substr($videoIframe,strpos($videoIframe,'src'),-122);
 

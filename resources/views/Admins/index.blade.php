@@ -16,7 +16,7 @@
   <tbody>
   @foreach($users as $user)
   <tr  style="width: 100px;">
-      <td >
+      <td width="200px;" >
     <div class="card border-0 float-left mp-0" style="width: 160px"border-0>
   <div class="row no-gutters">
     <div class="col-md-4 ">
@@ -39,7 +39,7 @@
       <td style="text-align:center"><p class="font-weight-bold my-4 ">{{  $user->Requests->count()}}</p></td>
       <td style="text-align:center"><p class="font-weight-bold my-4 "> x%</p></td>
 
-      <td style="text-align:center">      
+      <td >      
       <form class="form-inline"  method="POST" action='users/{{$user->id}}'>
       @csrf
       @method('delete')

@@ -100,14 +100,14 @@ class UserController extends Controller
 }
 function destroy($id){
     $user = User::findOrFail($id);
-        if($user['avatar']&&$user['role']=='Client')
-        {
+        // if($user['avatar']&&$user['role']=='Client')
+        // {
          
-        unlink(asset($user['avatar'])); //delete image from storage
+        // unlink(asset($user['avatar'])); //delete image from storage
       
-        }
+        // }
         $user->delete();
-        return redirect()->view('Admins.index');
+        return back();
 }
 public function review(User $user)
 {
