@@ -34,6 +34,8 @@ class InfluencerController extends Controller
     {  
         
         $influencer= User::findOrFail($id);
+        // dd($influencer->averageRating);
+
         $url=$influencer['youtube_url'];
         $data= fetch_youtube_data($url);
         $data['influencer_id']=$id;
@@ -73,6 +75,10 @@ class InfluencerController extends Controller
         return redirect()->route('influencers.index');
         
     }
-  
+    function test(){
+        $num=roundAverageRating(2.5000);
+        dd($num);
+        return view('test');
+    }
 
 }

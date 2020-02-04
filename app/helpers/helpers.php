@@ -239,3 +239,7 @@ function findClientName($id){
     $client=User::find($id);
     return $client->name;
 }
+function roundAverageRating($num){
+    $averageRating = round( $num, 1, PHP_ROUND_HALF_DOWN);
+    return $averageRating;
+}
