@@ -1,5 +1,5 @@
     <?php
-
+URL::forceScheme('https');
 //Main routes
 Route::get('/', function () { return view('welcome');})->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -25,6 +25,8 @@ Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCa
 //twitter routes
 Route::get('login/twitter', 'Auth\SocialAuthTwitterController@redirect');
 Route::get('login/twitter/callback', 'Auth\SocialAuthTwitterController@callback');
+Route::get('twitterUserTimeLine', 'TwitterController@twitterUserTimeLine');
+Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
 
 
 //Influencers Routes
