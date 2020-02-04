@@ -14,11 +14,7 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 Auth::routes();
 //admins Routes
-Route::group(['middleware'=>['auth','role:Admin']], function(){
-Route::get('/users','AdminController@index')->name('users.index');
-Route::get('/users/{user}/ban','AdminController@ban');
 
-});
 //facebook and google login routes
 Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
