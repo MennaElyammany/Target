@@ -14,6 +14,19 @@
 
     <div class="card-body">
     <table class="table ">
+
+    <div class="rating">
+    <input id="input-id" type="text" class="rating" data-size="lg"  theme="" >
+
+            <!-- <input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $user->averageRating }}" data-size="xs"> -->
+
+            <!-- <span class="review-no">422 reviews</span> -->
+
+            <!-- <br/> -->
+
+        <button class="btn btn-success">Submit Review</button>
+
+    </div>
     <tr   style="width: 200px; border-top:0px;">
     <td  style="text-align:center; border-top:0px;" ><p class="font-weight-bold "> Name </td>
     <td style="text-align:center; border-top:0px;">  {{ $user->name }} </td>

@@ -9,6 +9,8 @@ use App\Notifications\RequestChanged;
 use App\User;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreAdrequestRequest;
+use App\Mail\SendEmail;
+use Illuminate\Support\Facades\Mail;
 
 class RequestController extends Controller
 {
@@ -83,37 +85,32 @@ class RequestController extends Controller
 
     }
     function accept($id){
-       
         $request= Request::findOrFail($id);
         if(Auth::user()->id==$request->client_id){
-          $notified_user=$request->influencer_id;
-          $influncer = User::findorfail($notified_user);  
-          $data = array(
-            'name'      =>  $influencer->name,
-            'message'   =>   "you have accepted the request"
-            );
-            Mail::to($influencer->email)->send(new SendEmail($data));
+        $notified_user=$request->influencer_id;
+        $influencer = User::findOrFail($request->influencer_id); 
+        $data = array(
+        'name' => $client->name,
+        'message' => "the client has accepted the updated request"
+        );
+        Mail::to($influencer->email)->send(new SendEmail($data));
         }
-        
         else{
-            $notified_user=$request->client_id;
-            $client = User::findorfail($notified_user);  
-            $data = array(
-                'name'      =>  $client->name,
-                'message'   =>   "you have accepted the updated request"
-            );
-            Mail::to($client->email)->send(new SendEmail($data));
+        $notified_user=$request->client_id;
+        $client = User::findOrFail($notified_user); 
+        $data = array(
+        'name' => $influencer->name,
+        'message' => "the influencer has accepted the request"
+        );
+        Mail::to($client->email)->send(new SendEmail($data));
         }
-        
         if($request->modified_date!=null)
         $request->ad_date=$request->modified_date;
         $request->modified_date=null;
         $request->status='accepted';
         $request->save();
         $this->sendNotification('accepted',$notified_user);
-        
         return redirect()->route('requests.index');
-
 
     }
     function decline($id){
@@ -123,6 +120,12 @@ class RequestController extends Controller
             $notified_user=$request->influencer_id;
             else
             $notified_user=$request->client_id;
+        $user = User::findOrFail($notified_user); 
+        $data = array(
+            'name' => $user->name,
+            'message' => "your request has been decline"
+        );
+        Mail::to($user->email)->send(new SendEmail($data));            
         $request->status='declined';
         $request->save();
         $this->sendNotification('declined',$notified_user);
@@ -176,7 +179,6 @@ class RequestController extends Controller
 
         ];
         $user->notify( new RequestChanged($details));
-
         
 
     }
@@ -192,3 +194,4 @@ class RequestController extends Controller
         dd($request->stripeToken);
     }
 }
+

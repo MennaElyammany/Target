@@ -19,6 +19,14 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebo
 Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
 
+Route::get('login/instagram','Auth\LoginController@redirectToInstagramProvider')->name('instagram.login');
+Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCallback')->name('instagram.login.callback');
+
+//twitter routes
+Route::get('login/twitter', 'Auth\SocialAuthTwitterController@redirect');
+Route::get('login/twitter/callback', 'Auth\SocialAuthTwitterController@callback');
+
+
 //Influencers Routes
  Route::group(['middleware'=>'auth'], function(){
  Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
@@ -44,11 +52,11 @@ Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influe
 Route::group(['middleware'=>'auth'], function(){
 Route::get('/requests','RequestController@index')->name('requests.index');
 Route::get('requests/create','RequestController@create')->name('requests.create');
-Route::get('/message/read','RequestController@read')->name('messages.read');
 Route::get('/requests/{request}','RequestController@show')->name('requests.show');
 Route::get('/requests/accept/{request}','RequestController@accept');
 Route::get('/requests/decline/{request}','RequestController@decline');
 Route::get('/requests/completed/{request}','RequestController@completed');
+Route::get('/message/read','RequestController@read')->name('messages.read');
 Route::post('/requests', 'RequestController@store')->name('requests.store');
 Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 

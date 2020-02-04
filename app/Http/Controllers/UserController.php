@@ -7,6 +7,9 @@ use Illuminate\Validation\Rule;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
+use willvincent\Rateable\Rateable;
+use willvincent\Rateable\Rating;
+
 
 
 class UserController extends Controller
@@ -20,6 +23,12 @@ class UserController extends Controller
     function show(User $user){
 
         $user = Auth::user();
+        // $rating = new Rating;
+        // $rating->rating = 3;
+        // $rating->user_id = $user->id;
+        // $user->ratings()->save($rating);
+        // dd($user->averageRating);
+
         if(!empty($user->country_id)&&!empty($user->category_id))
         {
         $resultCountry=getCountryName($user->country_id)?:[];
@@ -86,4 +95,11 @@ class UserController extends Controller
 
 }
 
+public function review(User $user)
+{
+
+
+//
+
+}
 }

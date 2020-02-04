@@ -163,6 +163,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        willvincent\Rateable\RateableServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        
+
+
         /*
          * Package Service Providers...
          */
@@ -229,6 +234,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        
     ],
 
 ];

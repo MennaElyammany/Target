@@ -102,7 +102,9 @@ border-radius:10px;
             <div class='col-9'>
               <h3>
                 <div id="name"></div>
-                <i class="fas fa-check-circle"></i>
+                <div id="verified">
+                <!-- <i class="fas fa-check-circle"></i> -->
+                </div>
                 <!-- <a href="" >   -->
                 <i class="fas fa-file-signature text-dark " title="Request Influencer For Ad"></i>
                 <!-- </a> -->
