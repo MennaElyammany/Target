@@ -15,7 +15,7 @@ use App\Rating;
 class RequestController extends Controller
 {
     function index(){
-    
+     
         $requests=Auth::user()->Requests;
       
         return view('requests.index',['requests'=>$requests]);

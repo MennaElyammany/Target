@@ -2,7 +2,7 @@
 @section('content')
 @role('Influencer')
 <br><br>
-<div class="card mb-3 " style="max-width: 540px;">
+<div class="card mb-3 " style="max-width: 540px;  position:absolute;left:25%" >
   <div class="row no-gutters">
     <div class="col-md-4">
       <img src="{{asset('storage/'.$request->product_image)}}"class="card-img" alt="...">
@@ -73,6 +73,22 @@
      </form>
 </div>
 @endrole
+@role('Admin')
+<br><br>
+
+<div class="card mb-3 " style="max-width: 600px; position:absolute;left:25%">
+  <div class="row no-gutters">
+    <div class="col-md-3">
+      <img src="{{asset('storage/'.$request->product_image)}}"class="card-img" alt="...">
+    </div>
+    <div class="col-md-9">
+      <div class="card-body">
+        <h5 class="card-title font-weight-bold text-primary">Request From {{$request->company_name}} To {{findUserName($request->influencer_id)}}</h5>
+         <p class="font-weight-bold " >Description: 
+         <span class="float-right"><a  href="{{$request->website_url}}" >Visit Website</a>
+        </span></p> 
+         <div class="border">
+         {{$request->description}}
 
 @endsection
 @section('scripts')
@@ -84,4 +100,24 @@ $(document).ready(function(){
     });
 });
 </script>
+       </div>
+        <p> <span class="font-weight-bold" >Requested Date:</span> {{$request->ad_date}}</p>
+        @if($request->modified_date)
+        <p> <span class="font-weight-bold text-danger" >new requested date</span> {{$request->modified_date}}</p>
+        @endif
+        <p> <span class="font-weight-bold" >Type:</span> {{$request->type}}</p>
+        <p> <span class="font-weight-bold" >Status: </span> 
+        @if($request->status=='waiting')
+       <span class="text-danger"> {{$request->status}} </span></p>
+       @elseif($request->status=='completed')
+       <span class="text-success"> {{$request->status}} </span></p> 
+       @else
+       <span > {{$request->status}} </span></p> 
+       @endif
+      </div>
+    </div>
+  </div>
+</div>
+
+@endrole
 @endsection

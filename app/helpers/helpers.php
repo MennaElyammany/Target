@@ -243,3 +243,7 @@ function roundAverageRating($num){
     $averageRating = round( $num, 1, PHP_ROUND_HALF_DOWN);
     return $averageRating;
 }
+function findUserName($id){
+    $user=User::find($id);
+    return $user['name'];
+}

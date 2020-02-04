@@ -216,4 +216,47 @@ Rate your Experience</button>
   </tbody>
 </table>
 @endrole
+@role('Admin')
+
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col" style="text-align:center">Company </th>
+      <th scope="col" style="text-align:center">Influencer</th>
+      <th scope="col"style="text-align:center"> Date</th>
+      <th scope="col"style="text-align:center">Price</th>
+      <th scope="col"style="text-align:center">Type</th>
+      <th scope="col"style="text-align:center">Status</th>
+      <th scope="col"style="text-align:center">Website Url</th>
+      <th scope="col"style="text-align:center">View</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+
+@foreach($requests as $request)
+
+    <tr>
+   <td style="text-align:center"> <p class="font-weight-bold my-4 ">{{$request->company_name}}</p>  </td>
+   <td style="text-align:center"> <p class="font-weight-bold my-4 ">{{findUserName($request->influencer_id)}}</p>  </td>
+      <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->ad_date}}</p></td>
+      <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->price}}</p></td>
+      <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->type}}</p></td>
+      <td style="text-align:center"><p class="font-weight-bold my-4">{{$request->status}}</p></td>
+      <td > <center><a class="btn btn-outline-primary  my-3" href="{{$request->website_url}}" role="button" >Visit Website</a> </center></td>
+      
+      <td >
+      <a class="btn btn-outline-danger my-3 "href="/requests/{{$request->id}}" role="button" >View Request</a>
+      </td>
+       
+
+    </tr>
+@endforeach
+
+  </tbody>
+</table>
+
+
+@endrole
 @endsection
