@@ -15,7 +15,7 @@
                                     <strong>{{$msg}} </strong>
                                     </div>
                                 @endisset
-<form method="POST" action="/influencers">
+<form method="POST" action="/influencers" id="login_form">
 @csrf
 <div class="form-group">
     <label>Select Country</label>
@@ -41,7 +41,18 @@
     <input name="youtube_url" class="form-control" type="text">
 </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" id="formSubmit" class="btn btn-primary">Submit</button>
 </form>
+</div>
+<div class="spinner-border text-info" role="status" id="loading" style="display: block; margin: 0 auto;  visibility: hidden;">
+  <span class="sr-only">Loading...</span>
+</div>
 
+@endsection
+@section('scripts')
+<script>
+$('#login_form').submit(function() {
+    $('#loading').css('visibility', 'visible');
+});
+</script>
 @endsection

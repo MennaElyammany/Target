@@ -39,15 +39,17 @@ class InfluencerController extends Controller
     {  
 
     $influencer= User::findOrFail($id);
-    if( Redis::ttl($id)<=0)
+    if( Redis::ttl($id)<=0){
     $data=fetch_youtube_data($influencer->youtube_url);
-else
-$data=json_decode(Redis::get($id),true);
+    Redis::setex($id,60*60*48, json_encode($data));
+
+    }
+   else
+   $data=json_decode(Redis::get($id),true); 
 
         $url=$influencer['youtube_url'];
         $data['influencer_id']=$id;
 
-      
       
      return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
     }
