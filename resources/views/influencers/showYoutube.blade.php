@@ -11,13 +11,13 @@
                 @foreach($data['videoList'] as $index=>$video)
                 <div class="col-6">
                <div class="card" >
-               <iframe @php echo $video->videoIframe  @endphp></iframe>
+               <iframe @php echo $video['videoIframe']  @endphp></iframe>
                <div class="card-body text-light bg-secondary " style="height:60px;">
                <span>
-               <i class="far fa-thumbs-up"></i> <span class=" text-sm"> {{convertNumber($video->videoLikes)}}</span>
-               <i class="far fa-comments"></i>  <span class=" text-sm">{{convertNumber($video->videoComments)}}</span> 
-               <i class="far fa-thumbs-down"></i>  <span class=" text-sm">{{convertNumber($video->videoDislikes)}}</span>
-               <i class="far fa-eye"></i>  <span class="text-sm">{{convertNumber($video->videoViews)}}</span>
+               <i class="far fa-thumbs-up"></i> <span class=" text-sm"> {{convertNumber($video['videoLikes'])}}</span>
+               <i class="far fa-comments"></i>  <span class=" text-sm">{{convertNumber($video['videoComments'])}}</span> 
+               <i class="far fa-thumbs-down"></i>  <span class=" text-sm">{{convertNumber($video['videoDislikes'])}}</span>
+               <i class="far fa-eye"></i>  <span class="text-sm">{{convertNumber($video['videoViews'])}}</span>
                </span>
                   </div>
                    </div>
