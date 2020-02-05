@@ -115,16 +115,34 @@
     </div>
 </div>
 
+       </div>
+        <p> <span class="font-weight-bold" >Requested Date:</span> {{$request->ad_date}}</p>
+        @if($request->modified_date)
+        <p> <span class="font-weight-bold text-danger" >new requested date</span> {{$request->modified_date}}</p>
+        @endif
+        <p> <span class="font-weight-bold" >Type:</span> {{$request->type}}</p>
+        <p> <span class="font-weight-bold" >Status: </span> 
+        @if($request->status=='waiting')
+       <span class="text-danger"> {{$request->status}} </span></p>
+       @elseif($request->status=='completed')
+       <span class="text-success"> {{$request->status}} </span></p> 
+       @else
+       <span > {{$request->status}} </span></p> 
+       @endif
+      </div>
+    </div>
+  </div>
+</div>
+
 @endrole
 @endsection
 @section('scripts')
 <script>
-    $(document).ready(function () {
-        $('.kv-ltr-theme-svg-star').rating({
-            hoverOnClear: false,
-            theme: 'krajee-svg'
-        });
+$(document).ready(function(){
+    $('.kv-ltr-theme-svg-star').rating({
+        hoverOnClear: false,
+        theme: 'krajee-svg'
     });
-
+});
 </script>
 @endsection

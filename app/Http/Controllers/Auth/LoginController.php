@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
+use App\InstagramMedia;
 use Facebook\Facebook;
 use Illuminate\Http\Request;
 use Google_Client;
@@ -30,7 +31,7 @@ class LoginController extends Controller
          $user = Socialite::driver('facebook')->stateless()->user();
          $role=session('role');
         $fb=new Facebook(config('facebook.config'));
-        $fb->setDefaultAccessToken('EAACeZCVjM7usBABvZCyTbo4weLmTagIJxpeVKxZBYBmtM92bca0X6lRrriK6tlGuZANapfr82wAUrMCtAMTv0l0BfPqq1eTjWi4SyRkJP2Ta2ZBitTXnGTnGZAE6J6Me98OiHbRQbtbZCoATAFO1Pooheh4DqMCuo65c21rngptNHugaZAKgZBcl63JL0rnK5LJgZBN4GpuJzEhQZDZD');
+        $fb->setDefaultAccessToken($user->token);
         $fields = "instagram_basic,friends,link,gender,email,name_format,locale,picture,timezone,updated_time,verified";
         $fb_user = $fb->get('/me?fields='.$fields)->getGraphUser();
         dd($fb_user);
@@ -64,12 +65,6 @@ class LoginController extends Controller
     {           //my code
          session(['role' => $request->role]);
          return Socialite::driver('google')->stateless()->redirect();
-
-
-        // return Socialite::driver('google')
-        // ->scopes(['openid', 'profile', 'email', Google_Service_People::CONTACTS_READONLY])
-        // ->stateless()->redirect();
-        
     }
 
     /**
@@ -79,33 +74,8 @@ class LoginController extends Controller
      */
     public function handleProviderGoogleCallback()
     {  $role=session('role');
-       $user = Socialite::driver('google')->stateless()->user();
-        
-    //    $google_client_token = [
-    //     'access_token' => $user->token,
-    //     'refresh_token' => $user->refreshToken,
-    //     'expires_in' => $user->expiresIn
-    // ];
-    // $client = new Google_Client();
-    // $client->setApplicationName("Target");
-    // $client->setDeveloperKey(env('AIzaSyDBxjOliE14c7W4s5_gw9PuaqKPEXWhLQQ'));
-    // $client->setAccessToken(json_encode($google_client_token));
-
-    // $service = new Google_Service_People($client);
-
-    // $optParams = array('requestMask.includeField' => 'person.phone_numbers,person.names,person.email_addresses');
-    // $results = $service->people_connections->listPeopleConnections('people/me',$optParams);
-
-    // dd($results);
-       
-    
-        // dd($results);
-
-        //my code
-
-        
-        // dd($user);
-        $existingUser = User::where('email', $user->getEmail())->first();
+       $user = Socialite::driver('google')->stateless()->user();    
+     $existingUser = User::where('email', $user->getEmail())->first();
 
         if ($existingUser) {
             auth()->login($existingUser, true);
@@ -133,8 +103,9 @@ class LoginController extends Controller
     
 
 
-    public function redirectToInstagramProvider()
+    public function redirectToInstagramProvider(request $request)
     {
+        session(['role' => $request->role]);
         $appId = config('services.instagram.client_id');
         $redirectUri = urlencode(config('services.instagram.redirect'));
         return redirect()->to("https://api.instagram.com/oauth/authorize?app_id={$appId}&redirect_uri={$redirectUri}&scope=user_profile,user_media&response_type=code");
@@ -142,6 +113,7 @@ class LoginController extends Controller
     
     public function instagramProviderCallback(Request $request)
     {
+        $role=session('role');
         $code = $request->code;
         if (empty($code)) return redirect()->route('home')->with('error', 'Failed to login with Instagram.');
     
@@ -165,45 +137,65 @@ class LoginController extends Controller
         if ($response->getStatusCode() != 200) {
             return redirect()->route('home')->with('error', 'Unauthorized login to Instagram.');
         }
-    
         $content = $response->getBody()->getContents();
         $content = json_decode($content);
-    
         $accessToken = $content->access_token;
-        $userId = $content->user_id;
-    
+        $instagramId = $content->user_id;
+
+        // save user in users table
+        $existingUser = User::where('instagram_id', $instagramId)->first();
+        if ($existingUser) {
+            auth()->login($existingUser, true);
+            return redirect()->route('influencers.index');
+        } else {
+            if(!empty($role)){
         // Get user info
         $response = $client->request('GET', "https://graph.instagram.com/me?fields=id,username,media,account_type&access_token={$accessToken}");
-    
         $content = $response->getBody()->getContents();
-        $oAuth = json_decode($content);    
-        // Get instagram user name 
-        $username = $oAuth->username;
-    
-dd($oAuth);
+        $user = json_decode($content);   
+        $user_name=$user->username; 
+            $newUser                    = new User;
+            $newUser->provider_name     = 'instagram';
+            // $newUser->provider_id       = $user->getId();
+            $newUser->name              = $user->username;
+            // $newUser->email             = $user->getEmail();
+            $newUser->email             = $instagramId.'@instagram.com';
+            $newUser->email_verified_at = now();
+            $newUser->avatar            = asset('default.png');
+            $newUser->role= $role;
+            $newUser->instagram_id=$instagramId;
+            $newUser->save();
+            auth()->login($newUser, true);
+            $newUser->assignRole($newUser->role);  //assign role
+
+            //get and save this user media urls
+            $media_list=$user->media->data;
+            foreach($media_list as $media_item)  
+            {
+                $newMedia                   = new InstagramMedia;
+                $media_id=$media_item->id;
+                $imgResponse = $client->request('GET',"https://graph.instagram.com/{$media_id}?fields=media_url&access_token={$accessToken}");
+                $img_url= json_decode($imgResponse->getBody()->getContents());
+                $newMedia->media_id= $media_id;
+                $newMedia->media_url=$img_url->media_url;
+                $newMedia->user_id=$newUser->id;
+                $newMedia->instagram_id=$instagramId;
+                $newMedia->save();
+                      }
+
+
+            return redirect(redirectTo());
+        }
+        else
+  return view('auth.login',['msg'=> 'You are not regitered.']);
+       }
+
+        // return view('influencers.showInstagram',['media_url_list'=>$media_url_list]);
+
     }
     
     use AuthenticatesUsers;
 
-    // public function listYouTubeChannel($token,$user) {
-    //     $client = new Google_Client();
-    //         // Set token for the Google API PHP Client
-    // $google_client_token = [
-    //     'access_token' => $user->token,
-    //     'refresh_token' => $user->refreshToken,
-    //     'expires_in' => $user->expiresIn
-    // ];
-    //     // $client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
-    //     $client->setApplicationName('Iti Blog');
-    //     $client->setScopes('https://www.googleapis.com/auth/youtube.readonly');
-    //     // Set to name/location of your client_secrets.json file.
-    //     $client->setAuthConfig('C:\Users\HP\Documents\GitHub\Target\app\Http\Controllers\Auth\client_secret.json');
-    //     $client->setAccessToken(json_encode($google_client_token));
-    //     $service = new Google_Service_YouTube($client);
-    //     $params = array_filter(array('mine' => true));
-    //     $response = $service->channels->listChannels('snippet,contentDetails,statistics',$params);
-    //     dd($response);
-    // }
     /**
      * Create a new controller instance.
      *

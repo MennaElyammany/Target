@@ -16,7 +16,11 @@ class RequestController extends Controller
 {
     function index(){
      
-        $requests=Auth::user()->Requests;
+        if(Auth::user()->hasRole('Admin'))
+        $requests=Request::all();
+        else
+         $requests=Auth::user()->Requests;
+       
       
         return view('requests.index',['requests'=>$requests]);
     }

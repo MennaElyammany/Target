@@ -5,17 +5,21 @@ use View;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
+use App\InstagramMedia;
 use Auth;
 use Session;
 use willvincent\Rateable\Rateable;
 use willvincent\Rateable\Rating;
-
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 
 class InfluencerController extends Controller
 {
     
-    function index(Request $request){        
+    function index(Request $request){   
+       
         $influencers = User::where('role','Influencer')->where('youtube_url','!=',NULL);
+      
         if(request()->has('category_id')){
             $influencers = $influencers->where('category_id',request('category_id'));
         }
@@ -27,23 +31,47 @@ class InfluencerController extends Controller
                         'category_id' => request('category_id'),
                         'country_id' => request('country_id'),
                     ]);
+                   
         return view('influencers.index',compact('influencers'));
     }
 
     function show($id)
     {  
         
-        $influencer= User::findOrFail($id);
-        // dd($influencer->averageRating);
+
+    $influencer= User::findOrFail($id);
+    if( Redis::ttl($id)<=0)
+    $data=fetch_youtube_data($influencer->youtube_url);
+else
+$data=json_decode(Redis::get($id),true);
 
         $url=$influencer['youtube_url'];
-        $data= fetch_youtube_data($url);
         $data['influencer_id']=$id;
 
-
-
+      
+      
      return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
     }
+
+    function showInstagram($id)
+    {  
+        
+        $influencer= User::findOrFail($id);
+
+$media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
+$media_url_list=[];
+foreach($media_list as $media_item)
+{
+    array_push($media_url_list,($media_item['media_url']));
+}
+
+     return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
+    }
+
+
+
+
+
     function create()
 
     {   $countries= listCountries();
@@ -61,6 +89,8 @@ class InfluencerController extends Controller
         $influencer->avatar = $influencer_data['imageUrl'];
         $influencer->followers = $influencer_data['subscribers'];
         $influencer->save();
+        Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+
         return redirect()->route('influencers.index');
     }
     function edit($id)

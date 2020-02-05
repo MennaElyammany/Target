@@ -97,52 +97,47 @@
     </div>
 </div>
 
-<div style="margin-top:25px;" class="container-fluid influencers-container">
-    @foreach($influencers as $influencer)
-    <div class="card" onclick="window.location='/influencers/{{$influencer->id}}'">
-        <div style="display:flex;">
+<div style="margin-top:25px;" class="container-fluid influencers-container" >
 
-            <img class="rounded-circle" data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}"
-                style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px"
-                src="{{$influencer->avatar}}" alt="Card image cap">
-            <!-- Modal -->
-            <div class="modal fade" id="show" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="url">URL</label>
-                                <input type="text" class="form-control" name="title" id="input">
-                                <!-- <label for="url">Name</label>
+@foreach($influencers as $influencer)
+
+<div class="card" onclick="window.location='/influencers/{{$influencer->id}}'">
+<div style="display:flex;">
+
+<img class="rounded-circle"data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}"
+ style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
+<!-- Modal -->
+ <div class="modal fade" id="show" role="dialog">
+    <div class="modal-dialog">    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+        <div class="form-group">
+		        	<label for="url">URL</label>
+		        	<input type="text" class="form-control" name="title" id="input">
+              <!-- <label for="url">Name</label>
 		        	<input type="text" class="form-control" name="title" id="name"> -->
-
-                            </div>
-                        </div>
-                    </div>
-                    <!--modal-content-->
-                </div>
-                <!--modal-dialog-->
-            </div>
-            <!--modal-->
-            <div style="margin-top:35px;width:200px;height:80px;">
-                <div style="display:inline-block;float:left;">
-                    <h5 style="font-size:25px;margin-bottom:0px" class="roboto-font card-title"
-                        onclick="window.location='/influencers/{{$influencer->id}}'">{{$influencer->name}}</h5>
-                </div>
-
-
-
-                <div style="display:inline-block;">
-                    @if($influencer->verified)
-                    <img src='verified.png' style='margin-left:10px;width:15px;height:15px;'>
-                    @endif
-                    <!-- <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;'></i> -->
-
-                </div>
-                <div class="mt-2"style="display:flex;width:300px;height:80px;margin-right:10px;">
+             
+	      </div>
+        </div> 
+      </div><!--modal-content-->
+    </div><!--modal-dialog-->
+  </div><!--modal-->
+<div style=" margin-top:40px;width:200px;height:50px;">
+<h5 style="font-size:25px;" class="roboto-font card-title"onclick="window.location='/influencers/{{$influencer->id}}'">{{$influencer->name}}</h5>
+ 
+<div>
+    @if($influencer->verified)
+    <img src='verified.png'style='margin-left:10px;width:15px;height:15px;'>
+    @endif
+    <!-- <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;'></i> -->
+    @if ($influencer->instagram_id)
+    <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
+    @endif
+</div>
+<div class="mt-2"style="display:flex;width:300px;height:80px;margin-right:10px;">
                     <!-- <span style="margin-bottom:0px;"> {{$influencer->averageRating}}</span> -->
                     @php $rating = roundAverageRating($influencer->averageRating); @endphp  
                     @foreach(range(1,5) as $i)
@@ -163,38 +158,35 @@
                 </div>
 
 
-            </div>
-
-        </div>
-        <div style=" margin-top:20px;" class="card-body">
-            @php
-            $subscribers = convertNumber($influencer->followers);
-            echo " <div style='display:flex'>
-                <div class=' text-center mx-auto' style=''>
-                    <span class=' text-uppercase roboto-font'>".$subscribers."</span>
-                    <p style='roboto-font color:grey;'> Subscribers </p>
-                </div>
-                <div class='text-center mx-auto' style=' '>
-                    <span class='roboto-font text-uppercase'>3.6%</span>
-                    <p style='roboto-font color:grey;'>Engagement</p>
-                </div>
-            </div>";
-            $category_name = getCategoryName($influencer->category_id);
-            $country_name = getCountryName($influencer->country_id);
-            echo " <div style='display: flex;'>
-                <i class='fas fa-tag' style='color:grey;margin-left: 5px;margin-top:5px;'></i>
-                <p class='font card-title' style='margin-right:10px;margin-left:10px'>
-                    ".$category_name[0]->category_name."</p>
-            </div>
-            <div style='display: flex;'>
-                <i class='fas fa-map-marker-alt' style='color:grey; margin-left: 5px;margin-top:5px;'></i>
-                <p class='font card-title' style='margin-right:10px;margin-left:10px'>".$country_name[0]->country_name."
-                </p>
-            </div>
-            ";
-            @endphp
-        </div>
-    </div>
+</div>
+</div>
+  <div style=" margin-top:20px;"class="card-body">
+  @php 
+$subscribers = convertNumber($influencer->followers);
+echo " <div style='display:flex'>
+<div class=' text-center mx-auto' style=''>
+<span class=' text-uppercase roboto-font'>".$subscribers."</span>
+<p style='roboto-font color:grey;'> Subscribers </p>
+</div>
+<div class='text-center mx-auto' style=' '>
+<span class='roboto-font text-uppercase'>3.6%</span>
+<p style='roboto-font color:grey;'>Engagement</p>
+</div>
+</div>";
+$category_name = getCategoryName($influencer->category_id);
+$country_name = getCountryName($influencer->country_id);
+echo "    <div style='display: flex;'>
+          <i class='fas fa-tag'style='color:grey;margin-left: 5px;margin-top:5px;'></i>
+          <p class='font card-title'style='margin-right:10px;margin-left:10px'>".$category_name[0]->category_name."</p>
+          </div>
+          <div style='display: flex;'>
+          <i class ='fas fa-map-marker-alt'style='color:grey; margin-left: 5px;margin-top:5px;'></i>
+          <p class='font card-title'style='margin-right:10px;margin-left:10px'>".$country_name[0]->country_name."</p>
+          </div>
+        ";
+@endphp
+</div>
+</div>  
 </div>
 @endforeach
 

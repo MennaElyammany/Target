@@ -14,7 +14,10 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 Auth::routes();
 //admins Routes
-
+Route::group(['middleware'=>['auth','role:Admin']], function(){
+    Route::get('/users','AdminController@index')->name('users.index');
+    Route::get('/users/{user}/ban','AdminController@ban');
+});
 //facebook and google login routes
 Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
@@ -31,6 +34,7 @@ Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCa
  Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
  Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
  Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
+ Route::get('/influencers/instagram/{influencer}', 'InfluencerController@showInstagram')->name('influencers.showInstagram');
 });
 
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
