@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
     $schedule->command('cached:data')
-    ->daily()->withoutOverlapping()
+    ->daily();
 ;    }
 
     /**

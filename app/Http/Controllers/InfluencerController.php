@@ -12,6 +12,7 @@ use willvincent\Rateable\Rateable;
 use willvincent\Rateable\Rating;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\carbon;
 
 class InfluencerController extends Controller
 {
@@ -39,10 +40,12 @@ class InfluencerController extends Controller
     {  
 
     $influencer= User::findOrFail($id);
+
     if( Redis::ttl($id)<=0){
     $data=fetch_youtube_data($influencer->youtube_url);
     Redis::setex($id,60*60*48, json_encode($data));
-
+     $influencer->updated_at=now();
+     $influencer->save();
     }
    else
    $data=json_decode(Redis::get($id),true); 
