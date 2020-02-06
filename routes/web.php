@@ -25,7 +25,7 @@ Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCa
 //twitter routes
 Route::get('login/twitter', 'Auth\SocialAuthTwitterController@redirect');
 Route::get('login/twitter/callback', 'Auth\SocialAuthTwitterController@callback');
-Route::get('twitterUserTimeLine', 'TwitterController@twitterUserTimeLine');
+Route::get('/twitter/tweets', 'TwitterController@twitterUserTimeLine');
 Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
 
 
@@ -37,6 +37,8 @@ Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
  Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
  //Route::post('/influencers/view','InfluencerController@show')->name('influencers.show');
  Route::get('/influencers/instagram/{influencer}', 'InfluencerController@showInstagram')->name('influencers.showInstagram');
+//  Route::get('/influencers/twitter/{influencer}', 'InfluencerController@showTweets')->name('influencers.showTwwets');
+
 });
 
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');

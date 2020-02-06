@@ -14,6 +14,7 @@
         "fideloper/proxy": "^4.0",
         "google/apiclient": "^2.4",
         "guzzlehttp/guzzle": "^6.5",
+        "j7mbo/twitter-api-php": "^1.0",
         "kartik-v/bootstrap-star-rating": "@dev",
         "laravel/cashier": "^10.5",
         "laravel/framework": "^6.2",

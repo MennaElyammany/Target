@@ -156,6 +156,9 @@ border-radius:10px;
     @if ($influencer->instagram_id)
     <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
     @endif
+    @if ($influencer->twitter_id)
+    <a class="ml-2" href="/twitter/tweets"><img src="twitter.png" width='30'></i></a>
+    @endif
 </div>
 </div>
 </div>

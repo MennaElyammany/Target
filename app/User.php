@@ -43,4 +43,7 @@ class User extends Authenticatable
     public function Requests(){
         return $this-> belongsToMany(Request::class);
     }
+    public function twitterPosts(){
+        return $this->hasMany(TwitterPost::class);
+    }
 }

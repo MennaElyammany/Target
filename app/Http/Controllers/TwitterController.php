@@ -11,7 +11,7 @@ class TwitterController extends Controller
     public function twitterUserTimeLine(){
         $data = Twitter::getUserTimeline();
         dd($data);
-    	return view('twitter',compact('data'));
+    	//return view('twitter.twitter',compact('data'));
     }
     public function tweet(Request $request){
     	$this->validate($request, [
