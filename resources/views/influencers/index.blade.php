@@ -1,78 +1,100 @@
 @extends('layouts.app')
 @section('content')
 <style>
-.card {
-/* display:inline-block!important; */
-float:left!important;
-margin-bottom:10px;
-width: 320px;
-margin-left:10px;
-/* margin-right:10px; */
-border-radius:10px;
-}
-.roboto-font{
-  font-family: 'Roboto', sans-serif;
-}
-.text-uppercase{
-  font-size:22px;
-  font-weight:bold;
-}
-.influencers-container{
-  padding:0px!important;
-  margin:auto!important;
-}
+    .fa-star,.fa-star-half {
+        color: #ffc60b;
+    }
+
+    .card {
+        /* display:inline-block!important; */
+        float: left !important;
+        margin-bottom: 10px;
+        width: 320px;
+        margin-left: 10px;
+        /* margin-right:10px; */
+        border-radius: 10px;
+    }
+
+    .roboto-font {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .text-uppercase {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .influencers-container {
+        padding: 0px !important;
+        margin: auto !important;
+    }
+
 </style>
 <i class="glyphicon glyphicon-star-empty"></i>
 
-
-<input id="input-id" name="input-name" type="number" class="rating" min=1 max=10 step=2 data-rtl="true">
-
-
 <div class="container-fluid">
-<div style="display:flex;padding-top:35px;">
-<div class="dropdown">
-    <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Categories
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="font dropdown-item" href="/influencers/?category_id=1">Beauty</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=2">Food</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=3">Vlogs</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=4">Gaming</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=5">Entertainment</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=6">Science</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=7">Music</a>
-  </div>  
-</div>
+    <div style="display:flex;padding-top:35px;">
+        <div class="dropdown">
+            <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="font dropdown-item" href="/influencers/?category_id=1">Beauty</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=2">Food</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=3">Vlogs</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=4">Gaming</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=5">Entertainment</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=6">Science</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=7">Music</a>
+            </div>
+        </div>
 
 
 
-<div class="dropdown">
-    <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Countries
-  </button>
-  <div class="font dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>1])}}">Egypt</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>2])}}">Bahrain</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>3])}}">Iraq</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>4])}}">Jordan</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>5])}}">Kuwait</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>6])}}">Lebanon</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>7])}}">Oman</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>8])}}">Qatar</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>9])}}">Saudi Arabia</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>10])}}">Syria</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>11])}}">United Arab Emirates</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>12])}}">Tunisia</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>13])}}">Algeria</a>
-  <a class="font dropdown-item" href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>14])}}">Morocco</a>
+        <div class="dropdown">
+            <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Countries
+            </button>
+            <div class="font dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>1])}}">Egypt</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>2])}}">Bahrain</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>3])}}">Iraq</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>4])}}">Jordan</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>5])}}">Kuwait</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>6])}}">Lebanon</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>7])}}">Oman</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>8])}}">Qatar</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>9])}}">Saudi
+                    Arabia</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>10])}}">Syria</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>11])}}">United
+                    Arab Emirates</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>12])}}">Tunisia</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>13])}}">Algeria</a>
+                <a class="font dropdown-item"
+                    href="{{route('influencers.index',['category_id'=>request('category_id'),'country_id'=>14])}}">Morocco</a>
 
-  </div>
-  
-  <a href="/influencers" class="font">Remove filter</a>
-</div>
+            </div>
 
-</div>
+            <a href="/influencers" class="font">Remove filter</a>
+        </div>
+
+    </div>
 </div>
 
 <div style="margin-top:25px;" class="container-fluid influencers-container" >
@@ -115,6 +137,27 @@ border-radius:10px;
     <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
     @endif
 </div>
+<div class="mt-2"style="display:flex;width:300px;height:80px;margin-right:10px;">
+                    <!-- <span style="margin-bottom:0px;"> {{$influencer->averageRating}}</span> -->
+                    @php $rating = roundAverageRating($influencer->averageRating); @endphp  
+                    @foreach(range(1,5) as $i)
+                    <div class="fa-stack" style="margin-right:5px;gbackground-color:black;width:15px">
+                        <i class="far fa-star fa-stack-1x"></i>
+
+                        @if($rating>0)
+                            @if($rating>0.5)
+                            <i class="fas fa-star fa-stack-1x"></i>
+                            @else
+                            <i class="fas fa-star-half fa-stack-1x"></i>
+                        @endif
+                        @endif
+                        @php $rating--; @endphp
+                    </div>
+                    @endforeach
+
+                </div>
+
+
 </div>
 </div>
   <div style=" margin-top:20px;"class="card-body">
@@ -148,11 +191,6 @@ echo "    <div style='display: flex;'>
 @endforeach
 
 <div class="font" style="margin-top:800px;margin-left:650px;">
-{{$influencers->links()}} 
+    {{$influencers->links()}}
 </div>
-@endsection
-@section('scripts')
-<script>
-$("#input-id").rating();
-</script>
 @endsection

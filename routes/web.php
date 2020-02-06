@@ -92,3 +92,4 @@ Route::post('/sendemail/send','SendEmailController@send');
 
 //Rating 
 Route::post('/rating','RequestController@storeRating')->name('requests.rating');
+Route::get('/test','InfluencerController@test')->name('test');

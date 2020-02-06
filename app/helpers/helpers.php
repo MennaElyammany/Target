@@ -3,6 +3,8 @@ use Illuminate\Support\Str;
 use Alaouy\Youtube\Facades\Youtube;
 use App\User;
 use willvincent\Rateable\Rateable;
+use App\Request;
+
 
 
  function fetch_youtube_data($url){
@@ -246,3 +248,13 @@ function findClientName($id){
 }
 
 
+function roundAverageRating($num){
+    $averageRating = round( $num, 1, PHP_ROUND_HALF_DOWN);
+    return $averageRating;
+}
+
+
+function getRequestbyId($id){
+    $request=Request::find($id);
+    return $request;
+}

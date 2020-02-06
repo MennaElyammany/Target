@@ -46,7 +46,39 @@
       <td style="text-align:center">    
       <a class="btn btn-outline-primary my-3 "href="/requests/accept/{{$request->id}}" role="button" >Accept</a>
      <a class="btn btn-outline-danger my-3 "href="/requests/decline/{{$request->id}}" role="button" >Decline</a>
-     <a class="btn btn-outline-danger my-3 "href="/requests/{{$request->id}}" role="button" >Edit Date</a>
+     <a class="btn btn-outline-danger my-3 "href="/requests/{{$request->id}}" role="button" data-toggle="modal" data-target="#editDateModal" data-id="{{$request->id}}">Edit Date</a>
+     <div class="modal fade" id="editDateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class='container'>
+    <form class="form-inline" method="POST" action="/requests/{{$request->id}}">
+        @csrf
+        @method('PATCH')
+
+        <div class="form-group my-2 ">
+            <label>Sechedule Date</label>
+            <input type="date" class="form-control mx-4" name="ad_date">
+            </select>
+        </div>
+     
+</div>
+      </div>
+      <div class="modal-footer">
+      <button type="submit" class="btn  btn-outline-secondary my-3 mx-2">Send to Influencer</button>
+
+</form>
+       
+      </div>
+    </div>
+  </div>
+</div>
 
 </td>
 @elseif($request->status=='accepted')
@@ -259,4 +291,15 @@ Rate your Experience</button>
 
 
 @endrole
+@endsection
+@section('scripts')
+<!-- <script>
+$('#editDateModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('id') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+})
+</script> -->
 @endsection

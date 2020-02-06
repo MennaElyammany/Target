@@ -38,6 +38,7 @@ class InfluencerController extends Controller
 
     function show($id)
     {  
+        
 
     $influencer= User::findOrFail($id);
 
@@ -109,6 +110,10 @@ foreach($media_list as $media_item)
         return redirect()->route('influencers.index');
         
     }
-  
+    function test(){
+        $num=roundAverageRating(2.5000);
+        dd($num);
+        return view('test');
+    }
 
 }
