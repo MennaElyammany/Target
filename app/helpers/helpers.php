@@ -238,10 +238,6 @@ function calcEngagement($channel){
 ];
 
 };
-function findUserName($id){
-    $user=User::find($id);
-    return $user['name'];
-}
 function findClientName($id){
     $client=User::find($id);
     return $client->name;
@@ -258,4 +254,17 @@ function findUserName($id){
 function getRequestbyId($id){
     $request=Request::find($id);
     return $request;
+}
+function checkIfRated($rateable_id){
+    $user_id=Auth::user()->id;
+    $ratings=User::find($rateable_id)->ratings;
+    foreach($ratings as $rating){
+        if($rating->user_id==$user_id){
+            return 'yes';
+        }
+        else{
+            return 'no';
+        }             
+
+    }
 }

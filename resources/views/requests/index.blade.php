@@ -91,8 +91,11 @@
 </td>
 @elseif($request->status=='completed')
 <td style="text-align:center">    
-      <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#exampleModal">
-Rate your Experience</button>
+@php
+if(checkIfRated($request->client_id)=='no')
+     echo' <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#exampleModal">
+Rate your Experience</button>';
+@endphp
 </td>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
