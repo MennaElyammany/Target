@@ -328,32 +328,45 @@ document.getElementById("alert").addEventListener('click',function(e){
         }
     });
   });
-  // $('#showTwitter').on('showTwitter.bs.modal', function (event) {
-//     var button = $(event.relatedTarget) 
-//     var id = button.data('id');
-//     var name = button.data('name');
-//     var modal = $(this);
-//     modal.find('.modal-body-twitter #inputTwitter').val(id);
-//     var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
-//       $.ajax({
-//         type:'POST',
-//         url:'/influencers/twitter/'+id,
-//         data:{
-//             'url':youtubeUrl,
-//             '_token':csrf //pass CSRF
-//             },
-//         success:function(data){
-//             console.log('success');
-//         },
-//         error:function(){
-//             console.log('error in twitter');
-//         }
+  </script>
+  @csrf
+  <script>
+  $('#twitter').on('show.bs.modal', function (event) {
+      //console.log("hi");
+    var button = $(event.relatedTarget) 
+    var id = button.data('idtwitter');
+    var name = button.data('name');
+    var modal = $(this);
+    var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
+      $.ajax({
+        type:'GET',
+        url:'/influencers/twitter/'+id,
+        data:{
+            '_token':csrf //pass CSRF
+            },
+        success:function(data){
+            console.log('success');
+            var table = document.getElementById("tweetTable");
+            for(i = 0; i < data.length;i++){
+                var row = table.insertRow();
+                var cell = row.insertCell(0);
+                cell.innerHTML = data[i]['text'];
+                console.log(cell.innerHTML);
+                }
+            
+        },
+        error:function(){
+            console.log('error in twitter');
+        }
       
-// });
+});});
+</script>
+<script>
     function myFunction() {
         document.getElementById("#country").disabled = true;
         }
-  
 </script>
+  
+
 </body>
 </html>

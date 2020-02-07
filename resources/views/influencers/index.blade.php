@@ -92,11 +92,12 @@ Sort:
 <!-- <div class="card" onclick="window.location='/influencers/{{$influencer->id}}'"> -->
 <div style="display:flex;">
 
-<img class="rounded-circle"style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap"
+<img class="rounded-circle"style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" 
+src="{{$influencer->avatar}}" alt="Card image cap"
 data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
 
 <!-- Modal -->
- <div class="modal fade " id="show" role="dialog">
+ <div class="modal fade" id="show" role="dialog">
     <div class="modal-dialog" style="max-width:1000px;">    
       <div class="modal-content">
         <div class="modal-header">
@@ -174,11 +175,10 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
     @endif
     @if ($influencer->twitter_id)
-    <a class="ml-2"data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">
     
-    <img src="twitter.png" width='30'></i></a>
-        
-    <div class="modal fade" id="showTwitter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <img src="twitter.png" width='30'class="ml-2" data-toggle="modal" data-target="#twitter" 
+    data-idtwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">
+    <div class="modal fade" id="twitter" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -187,14 +187,21 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
           <span aria-hidden="true">&times;</span>
         </button>
       </div><!--modal-header-->
-      <div class="modal-body-twitter">
-      <div id="inputTwitter"></div>
-      
-      </div><!--modal-body-->
-      
-    </div>
-  </div>
-</div>
+      <div class="modal-body">
+            <table class="table"id="tweetTable">
+              <thead>
+                <tr>
+                <th scope="col">Tweets</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              <tbody>
+              </table>
+      </div><!--modal-body-twitter"-->
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal fade -->
     @endif
 </div>
 <div class="mt-2"style="display:flex;width:300px;height:80px;margin-right:10px;">

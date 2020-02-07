@@ -75,11 +75,13 @@ foreach($media_list as $media_item)
 function showTwitter($id){
     $influencer = User::findOrFail($id);
     $twitterPosts = $influencer->twitterPosts;
+    // dd($twitterPosts);
     $tweets = [];
     foreach($twitterPosts as $tweet){
-        array_push($tweets,($tweet["text"]));
+        array_push($tweets,($tweet));
     }
-    return view('influencers.showTwitter',compact('tweets'));
+    return $tweets;
+    //return view('influencers.showTwitter',compact('tweets'));
 
 }
 
