@@ -14,7 +14,7 @@ class AddFollowersToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('followers')->nullable();
+            $table->integer('followers')->nullable();
 
         });
     }

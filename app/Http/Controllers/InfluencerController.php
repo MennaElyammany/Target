@@ -20,33 +20,37 @@ class InfluencerController extends Controller
         if(request()->has('country_id')){
             $influencers = $influencers->where('country_id',request('country_id'));
         }
+        if(request()->has('sort')){
+            $influencers = $influencers->orderBy('followers',request('sort'));
+        }
     $influencers = $influencers->paginate(10)
                     ->appends([
                         'category_id' => request('category_id'),
                         'country_id' => request('country_id'),
+                        'sort'=>request('sort')
                     ]);
         return view('influencers.index',compact('influencers'));
     }
 
-    function show($id)
-    {  
+    // function show($id)
+    // {  
         
-        $influencer= User::findOrFail($id);
-        $url=$influencer['youtube_url'];
-        $data= fetch_youtube_data($url);
-        $data['influencer_id']=$id;
+    //     $influencer= User::findOrFail($id);
+    //     $url=$influencer['youtube_url'];
+    //     $data= fetch_youtube_data($url);
+    //     $data['influencer_id']=$id;
 
 
 
-     return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
-    }
-    // function show(Request $request)
-    // {   
-    //     //$data = fetch_youtube_data($request->url);
-    //        $data = test();
-    //     //$data = test($request->url);
-    //     return $data;
+    //  return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
     // }
+    function show(Request $request)
+    {   
+        //$data = fetch_youtube_data($request->url);
+           $data = test();
+        //$data = test($request->url);
+        return $data;
+    }
     
 
     function showInstagram($id)
@@ -82,7 +86,9 @@ foreach($media_list as $media_item)
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
         $influencer->verified = $influencer_data['verified']?1:0;
+        if(!$influencer->avatar)
         $influencer->avatar = $influencer_data['imageUrl'];
+        if(!$influencer->followers)
         $influencer->followers = $influencer_data['subscribers'];
         $influencer->save();
         return redirect()->route('influencers.index');

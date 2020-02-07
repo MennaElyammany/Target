@@ -46,68 +46,37 @@ class SocialAuthTwitterController extends Controller
         $newUser->save();
         auth()->login($newUser, true);
         $newUser->assignRole($newUser->role);  //assign role
+        //getting engagement
+        //$tweets = $this->getEngagement($userInfo->token,$userInfo->tokenSecret);
         //getting tweets
         $tweets = $this->retrieveTweets($userInfo->token,$userInfo->tokenSecret);
-        //dd($tweets);
-        //dd($tweets[0]['id']);
         //saving tweets
         $user = User::where('id',$newUser->id);
         foreach($tweets as $tweet){
+
         $twitterPost = new TwitterPost;
         $twitterPost->tweet_id = $tweet['id'];
         $twitterPost->text = $tweet['text'];
         $twitterPost->favorite_count = $tweet['favorite_count'];
         $twitterPost->retweet_count = $tweet['retweet_count'];
         $twitterPost->user_id = $newUser->id;
-        $twitterPost->save();
+        $twitterPost->save();}
         return redirect(redirectTo());
-        }
+        
             }
         else
         return view('auth.login',['msg'=> 'You are not regitered.']);
-        }
-        
+        }        
         //posting tweet
         //$postTweet = $this->postTweet($userInfo->token,$userInfo->tokenSecret);
-
-
-        // if($postTweet->httpStatusCode==200){
+        // if($postTweet['httpStatusCode']==200){
         //     dd("success");
         // }
         // else{
         //     dd("error");
-        // }
-        // $engagementUrl = 'https://data-api.twitter.com/insights/engagement/totals';
-        // $method = 'POST';
-        // $engagement = new TwitterAPIExchange($settings);
-        // //json_decode($response->content(), true);
-        // $postfields = array(   
-            
-        //     'Accept-Encoding: gzip',
-        //     'tweet_ids:1217776265337475073'
-                     
-        //         // "tweet_ids" : "1217776265337475073",
-        //         //     "1217183078503845893",
-        //         //     "1174437703146004480"
-        //         // ),
-        //         // "engagement_types" => array( 
-        //         //     "impressions",
-        //         //     "engagements",
-        //         //     "favorites"),
-        //         // "groupings" => "grouping name" =>array(
-        //         //     "group_by"=>array(
-        //         //       "tweet.id",
-        //         //       "engagement.type"
-        //         //     )
-        //         // )
-        //     );
-        // $engagements =  $engagement->buildOauth($engagementUrl, $method)
-        // ->setPostfields($postfields)
-        // ->performRequest();
-        // dd($engagements);
-
+        // }        
         //$user = Socialite::driver('twitter')->userFromTokenAndSecret('1048707230667816961-CnnlB8b0pQCbBGz6P8Q1QGuvkyG6tl', 'kK5GgJq2ja1O60eSNkxMeiXhl0CAt9clKYd8pHVMLavm3');
-        //dd($userInfo->id); 
+        
 
 
         
@@ -151,5 +120,59 @@ class SocialAuthTwitterController extends Controller
                      ->performRequest();
         return $twitterpost;
         //return "You tweeted a new post";
+    }
+    function getEngagement($token,$tokenSecret){
+        $settings = array(
+            'oauth_access_token' => $token,
+            'oauth_access_token_secret' => $tokenSecret,
+            'consumer_key' => env('TWITTER_CONSUMER_KEY'),
+            'consumer_secret' => env('TWITTER_CONSUMER_SECRET')
+            );
+        $string = '{
+            "Accept-Encoding": "gzip",
+            "tweet_ids": [
+                "1217776265337475073",
+                "1217183078503845893",
+                "1174437703146004480"
+                ]}';
+        //$postfields = json_decode($string, true);
+        //$url = 'https://data-api.twitter.com/insights/engagement/totals';
+        $url = 'https://data-api.twitter.com/insights/engagement/28hr';
+        $requestMethod = 'POST';
+        
+        // $postfields = array(  
+        //         'Accept-Encoding: gzip',
+        //         'tweet_ids':[1217776265337475073,1217183078503845893]');
+        $postfields = array(
+            // 'Accept-Encoding'=> 'gzip',
+            'tweet_ids'=>array('1217776265337475073',
+              '1217183078503845893'),
+            //   'engagement_types'=> array(
+            //     'impressions',
+            //    ' engagements',
+            //    ' url_clicks',
+            //     'detail_expands'
+            //   ),
+            // 'groupings'=> array(
+            //     'grouping name'=> array(
+            //     'group_by'=>array(
+            //       "tweet.id",
+            //       "engagement.type",
+            //       "engagement.hour"
+            //     )))
+              
+            );
+        //dd($postfields);
+        $engagement = new TwitterAPIExchange($settings);
+        // $engagement->buildOauth($url, $requestMethod)
+        //                 ->setPostfields($postfields)
+        //                 ->performRequest();
+        $engagement->buildOauth($url, $requestMethod)->setPostfields($postfields)->performRequest(true, [
+                    CURLOPT_HTTPHEADER => array('Content-Type:application/json','Accept-Encoding:gzip'),
+                    CURLOPT_POSTFIELDS => json_encode($postfields)
+                    ]);
+        dd($engagement);
+
+
     }
 }

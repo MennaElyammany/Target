@@ -65,9 +65,16 @@ border-radius:10px;
   
   <a href="/influencers" class="font">Remove filter</a>
 </div>
+<div style="margin-left:20px;margin-top:10px;">
+Sort:
+<a href="/influencers/?sort=asc">Ascending</a>
+<a href="/influencers/?sort=desc">Descending</a>
+</div>
+</div>
+
 
 </div>
-</div>
+
 
 <div style="margin-top:25px;" class="container-fluid influencers-container">
 @foreach($influencers as $influencer)
