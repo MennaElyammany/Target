@@ -192,9 +192,9 @@
             @yield('content')
         </main>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
     @yield('scripts')
 
@@ -227,13 +227,10 @@ document.getElementById("alert").addEventListener('click',function(e){
 @csrf
 <script> 
   $('#show').on('show.bs.modal', function (event) {
-    //   console.log("hi")
       var button = $(event.relatedTarget) 
       var youtubeUrl = button.data('url');
       var name = button.data('name');
-      var modal = $(this);
-      modal.find('.modal-body #input').val(youtubeUrl);
-      var url = $("#input").val();
+      var modal = $(this);    
       var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
       $.ajax({
         type:'POST',
@@ -244,17 +241,23 @@ document.getElementById("alert").addEventListener('click',function(e){
             },
         success:function(data){
             console.log("success");            
-            //console.log(data);
+            console.log(data);
             youtubeData = document.getElementById('youtubeData');          
-            //videos = data['videoList'];
-            //for(i=0;i<videos.length;i++){
-            for(i=0;i<5;i++){
+            videos = data['videoList'];
+            while (youtubeData.firstChild) {
+                youtubeData.removeChild(youtubeData.firstChild);
+            }
+            var verified = document.getElementById('verified');
+            verified.classList.remove("fas");
+            verified.classList.remove("fa-check-circle");
+            for(i=0;i<videos.length;i++){
+            //for(i=0;i<5;i++){
                 var iframe = document.createElement('iframe');
                 //console.log("video url here",videos[i]['videoIframe']);
-                //str=videos[i]['videoIframe'];
-                str="src=//www.youtube.com/embed/KIootEF0slk";
-                sub=str.substring(4, str.length)
-                //sub=str.substring(5, str.length-1);
+                str=videos[i]['videoIframe'];
+                //str="src=//www.youtube.com/embed/KIootEF0slk";
+                //sub=str.substring(4, str.length)
+                sub=str.substring(5, str.length-1);
                 console.log("here is the substring",sub)
                 iframe.src = sub;
                 iframe.setAttribute("width", "200");
@@ -262,37 +265,53 @@ document.getElementById("alert").addEventListener('click',function(e){
                 iframe.setAttribute("controls", "controls");
                 youtubeData.appendChild(iframe);
             }    
-            $('#name').html("influencer");
-            $('#subscribers').html("100k");
-            $('#subscriptions').html("5");
-            //$('#showPic').attr('src', data['imageUrl']);
-            $('#videoCount').html("500");
-            $('#country').html("EG");
-            $('#about').html("test description");        
-            // $('#name').html(data['name']);
-            // $('#subscribers').html(data['subscribers']);
-            // $('#subscriptions').html(data['subscriptions']);
-            // $('#showPic').attr('src', data['imageUrl']);
-            // $('#videoCount').html(data['videoCount']);
-            // $('#country').html(data['country']);
-            // $('#about').html(data['about']);    
-            // if(data['verified']){
-            //     $('#verified').appendChild('<i class="fas fa-check-circle"></i>')
-            // }
+            // $('#name').html("influencer");
+            // $('#subscribers').html("100k");
+            // $('#subscriptions').html("5");
+            // //$('#showPic').attr('src', data['imageUrl']);
+            // $('#videoCount').html("500");
+            // $('#country').html("EG");
+            // $('#about').html("test description");      
+             
+            $('#name').html(data['name']);
+            $('#subscribers').html(data['subscribers']);
+            $('#subscriptions').html(data['subscriptions']);
+            $('#showPic').attr('src', data['imageUrl']);
+            $('#videoCount').html(data['videoCount']);
+            $('#country').html(data['country']);
+            $('#about').html(data['about']);    
+            if(data['verified']){
+                $('#verified').attr('class',"fas fa-check-circle");
+            }
+            
         },
         error:function(){
                 console.log("error");
         }
     });
   });
-$('#showTwitter').on('showTwitter.bs.modal', function (event) {
-    var button = $(event.relatedTarget) 
-    // var id = button.data('url');
-    var name = button.data('name');
-      var modal = $(this);
-      modal.find('.modal-body #input').val(youtubeUrl);
-      var url = $("#input").val();
-});
+// $('#showTwitter').on('showTwitter.bs.modal', function (event) {
+//     var button = $(event.relatedTarget) 
+//     var id = button.data('id');
+//     var name = button.data('name');
+//     var modal = $(this);
+//     modal.find('.modal-body-twitter #inputTwitter').val(id);
+//     var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
+//       $.ajax({
+//         type:'POST',
+//         url:'/influencers/twitter/'+id,
+//         data:{
+//             'url':youtubeUrl,
+//             '_token':csrf //pass CSRF
+//             },
+//         success:function(data){
+//             console.log('success');
+//         },
+//         error:function(){
+//             console.log('error in twitter');
+//         }
+      
+// });
     function myFunction() {
         document.getElementById("#country").disabled = true;
         }

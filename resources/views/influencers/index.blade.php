@@ -110,7 +110,6 @@ Sort:
               <h3>
                 <div id="name"></div>
                 <div id="verified">
-                <!-- <i class="fas fa-check-circle"></i> -->
                 </div>
                 <!-- <a href="" >   -->
                 <i class="fas fa-file-signature text-dark " title="Request Influencer For Ad"></i>
@@ -120,8 +119,8 @@ Sort:
             </div>
             </div><!-- first row -->
               <span class="font-weight-bold" id="videoCount"></span>              
-              <span class="font-weight-bold" style="margin-left:20px;" id="subscribers"></span>
-              <span class="font-weight-bold" style="margin-left:20px;"id="subscriptions"></span>
+              <span class="font-weight-bold" style="margin-left:40px;" id="subscribers"></span>
+              <span class="font-weight-bold" style="margin-left:40px;"id="subscriptions"></span>
               <!-- <span> <h3 class="font-weight-bold"id="engagement">x</h3></span> -->
               <br>
               <span style="margin-right:20px;" >Videos </span>             
@@ -164,7 +163,7 @@ Sort:
     <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
     @endif
     @if ($influencer->twitter_id)
-    <a class="ml-2"data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}">
+    <a class="ml-2"data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">
     
     <img src="twitter.png" width='30'></i></a>
         
@@ -177,7 +176,8 @@ Sort:
           <span aria-hidden="true">&times;</span>
         </button>
       </div><!--modal-header-->
-      <div class="modal-body">
+      <div class="modal-body-twitter">
+      <div id="inputTwitter"></div>
       
       </div><!--modal-body-->
       

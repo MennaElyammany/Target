@@ -46,8 +46,8 @@ class InfluencerController extends Controller
     // }
     function show(Request $request)
     {   
-        //$data = fetch_youtube_data($request->url);
-           $data = test();
+        $data = fetch_youtube_data($request->url);
+           //$data = test();
         //$data = test($request->url);
         return $data;
     }
