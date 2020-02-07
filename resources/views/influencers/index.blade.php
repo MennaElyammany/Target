@@ -1,47 +1,58 @@
 @extends('layouts.app')
 @section('content')
 <style>
-.card {
-/* display:inline-block!important; */
-float:left!important;
-margin-bottom:10px;
-width: 320px;
-margin-left:10px;
-/* margin-right:10px; */
-border-radius:10px;
-}
-.roboto-font{
-  font-family: 'Roboto', sans-serif;
-}
-.text-uppercase{
-  font-size:22px;
-  font-weight:bold;
-}
-.influencers-container{
-  padding:0px!important;
-  margin:auto!important;
-}
+    .fa-star,.fa-star-half {
+        color: #ffc60b;
+    }
+
+    .card {
+        /* display:inline-block!important; */
+        float: left !important;
+        margin-bottom: 10px;
+        width: 320px;
+        margin-left: 10px;
+        /* margin-right:10px; */
+        border-radius: 10px;
+    }
+
+    .roboto-font {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .text-uppercase {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .influencers-container {
+        padding: 0px !important;
+        margin: auto !important;
+    }
+
 </style>
+<i class="glyphicon glyphicon-star-empty"></i>
+
 <div class="container-fluid">
-<div style="display:flex;padding-top:35px;">
-<div class="dropdown">
-    <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Categories
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="font dropdown-item" href="/influencers/?category_id=1">Beauty</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=2">Food</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=3">Vlogs</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=4">Gaming</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=5">Entertainment</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=6">Science</a>
-    <a class="font dropdown-item" href="/influencers/?category_id=7">Music</a>
-  </div>  
-</div>
+    <div style="display:flex;padding-top:35px;">
+        <div class="dropdown">
+            <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="font dropdown-item" href="/influencers/?category_id=1">Beauty</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=2">Food</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=3">Vlogs</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=4">Gaming</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=5">Entertainment</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=6">Science</a>
+                <a class="font dropdown-item" href="/influencers/?category_id=7">Music</a>
+            </div>
+        </div>
 
 
 
-<div class="dropdown">
+        <div class="dropdown">
     <button class="font btn btn-light btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Countries
   </button>
@@ -70,19 +81,20 @@ Sort:
 <a href="/influencers/?sort=asc">Ascending</a>
 <a href="/influencers/?sort=desc">Descending</a>
 </div>
-</div>
-
 
 </div>
 
 
+</div>
 <div style="margin-top:25px;" class="container-fluid influencers-container">
 @foreach($influencers as $influencer)
 <div class="card">
+<!-- <div class="card" onclick="window.location='/influencers/{{$influencer->id}}'"> -->
 <div style="display:flex;">
 
-<img class="rounded-circle"data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}"
- style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap">
+<img class="rounded-circle"style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap"
+data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
+
 <!-- Modal -->
  <div class="modal fade " id="show" role="dialog">
     <div class="modal-dialog" style="max-width:1000px;">    
@@ -153,12 +165,11 @@ Sort:
   </div><!--modal-->
 <div style=" margin-top:40px;width:200px;height:50px;">
 <h5 style="font-size:25px;" class="roboto-font card-title"onclick="window.location='/influencers/{{$influencer->id}}'">{{$influencer->name}}</h5>
- 
 <div>
     @if($influencer->verified)
     <img src='verified.png'style='margin-left:10px;width:15px;height:15px;'>
     @endif
-    <!-- <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;'></i> -->
+    <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;margin-top:10px;'onclick="window.location='/influencers/{{$influencer->id}}'"></i>
     @if ($influencer->instagram_id)
     <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
     @endif
@@ -186,6 +197,27 @@ Sort:
 </div>
     @endif
 </div>
+<div class="mt-2"style="display:flex;width:300px;height:80px;margin-right:10px;">
+                    <!-- <span style="margin-bottom:0px;"> {{$influencer->averageRating}}</span> -->
+                    @php $rating = roundAverageRating($influencer->averageRating); @endphp  
+                    @foreach(range(1,5) as $i)
+                    <div class="fa-stack" style="margin-right:5px;gbackground-color:black;width:15px">
+                        <i class="far fa-star fa-stack-1x"></i>
+
+                        @if($rating>0)
+                            @if($rating>0.5)
+                            <i class="fas fa-star fa-stack-1x"></i>
+                            @else
+                            <i class="fas fa-star-half fa-stack-1x"></i>
+                        @endif
+                        @endif
+                        @php $rating--; @endphp
+                    </div>
+                    @endforeach
+
+                </div>
+
+
 </div>
 </div>
   <div style=" margin-top:20px;"class="card-body">
@@ -218,18 +250,7 @@ echo "    <div style='display: flex;'>
 </div>
 @endforeach
 
-<div class="font" style="margin-top:800px;margin-left:650px;">
-{{$influencers->links()}} 
+<div class="font" style="margin-top:1320px;margin-left:650px;">
+    {{$influencers->links()}}
 </div>
-@endsection
-@section('scripts')
-<script type="text/javascript" src="scripts/moment-2.4.0.js"></script>
-<script type="text/javascript" src="scripts/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript">
-var reportButton = document.getElementById('report');
-console.log(reportButton);
-
-
-</script>
-
 @endsection

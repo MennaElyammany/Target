@@ -2,23 +2,28 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" , initial-scale=1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Target</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+   
 
     <!-- Fonts -->
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+
+    <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}"> -->
+
+
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans|Pacifico|Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <!-- Ajax -->    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -28,9 +33,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
     .navbar{
         background-color:#f9f7f7;
@@ -71,6 +77,48 @@
         background-color:#112d4e;
         color:white;
     }
+    *{
+    margin: 0;
+    padding: 0;
+}
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+.ratinglabel{
+    margin-top:12px;
+}
     
     </style>
 </head>
@@ -103,6 +151,14 @@
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/requests') }}">My Influencers<span class="sr-only">(current)</span></a>
   
                     </li>
+                    @endrole
+                    @role('Admin')
+                    <li class="nav-item ">
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/users') }}">Users<span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item ">
+                    <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/requests') }}">System Requests<span class="sr-only">(current)</span></a>
+                      </li>
                     @endrole
                     <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
@@ -149,8 +205,6 @@
                        </a>
                        @endforeach
                        
-           
-
                       </li>
 
                         <li class="nav-item dropdown">
@@ -191,14 +245,13 @@
         <main class="y-4 mb-0">
             @yield('content')
         </main>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
     @yield('scripts')
-
-
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -216,14 +269,11 @@ document.getElementById("alert").addEventListener('click',function(e){
       }
 })
 });
-
-
 })
 // $(function () {
 //     $('#datetimepicker1').datetimepicker();
 //  });
  </script>
-
 @csrf
 <script> 
   $('#show').on('show.bs.modal', function (event) {
@@ -251,12 +301,8 @@ document.getElementById("alert").addEventListener('click',function(e){
             verified.classList.remove("fas");
             verified.classList.remove("fa-check-circle");
             for(i=0;i<videos.length;i++){
-            //for(i=0;i<5;i++){
                 var iframe = document.createElement('iframe');
-                //console.log("video url here",videos[i]['videoIframe']);
                 str=videos[i]['videoIframe'];
-                //str="src=//www.youtube.com/embed/KIootEF0slk";
-                //sub=str.substring(4, str.length)
                 sub=str.substring(5, str.length-1);
                 console.log("here is the substring",sub)
                 iframe.src = sub;
@@ -265,14 +311,6 @@ document.getElementById("alert").addEventListener('click',function(e){
                 iframe.setAttribute("controls", "controls");
                 youtubeData.appendChild(iframe);
             }    
-            // $('#name').html("influencer");
-            // $('#subscribers').html("100k");
-            // $('#subscriptions').html("5");
-            // //$('#showPic').attr('src', data['imageUrl']);
-            // $('#videoCount').html("500");
-            // $('#country').html("EG");
-            // $('#about').html("test description");      
-             
             $('#name').html(data['name']);
             $('#subscribers').html(data['subscribers']);
             $('#subscriptions').html(data['subscriptions']);
@@ -290,7 +328,7 @@ document.getElementById("alert").addEventListener('click',function(e){
         }
     });
   });
-// $('#showTwitter').on('showTwitter.bs.modal', function (event) {
+  // $('#showTwitter').on('showTwitter.bs.modal', function (event) {
 //     var button = $(event.relatedTarget) 
 //     var id = button.data('id');
 //     var name = button.data('name');

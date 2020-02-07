@@ -2,6 +2,10 @@
 use Illuminate\Support\Str;
 use Alaouy\Youtube\Facades\Youtube;
 use App\User;
+use willvincent\Rateable\Rateable;
+use App\Request;
+
+
 
  function fetch_youtube_data($url){
   
@@ -48,8 +52,9 @@ use App\User;
      if ($videoList)
      {
     foreach($videoList as $index=>$video){
-       
+     
         $info = Youtube::getVideoInfo($video->id->videoId); //get each video Info
+      
         $videoIframe=$info->player->embedHtml;
         $videoIframe=substr($videoIframe,strpos($videoIframe,'src'),-122);
 
@@ -232,9 +237,21 @@ function calcEngagement($channel){
 
 ];
 
+};
+function findUserName($id){
+    $user=User::find($id);
+    return $user['name'];
+}
+function findClientName($id){
+    $client=User::find($id);
+    return $client->name;
+}
+function roundAverageRating($num){
+    $averageRating = round( $num, 1, PHP_ROUND_HALF_DOWN);
+    return $averageRating;
+}
+function getRequestbyId($id){
+    $request=Request::find($id);
+    return $request;
+}
 
-}
-function test(){
-    
-    return "hiii";
-}

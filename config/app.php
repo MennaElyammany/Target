@@ -167,6 +167,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         'Thujohn\Twitter\TwitterServiceProvider',
         
+        Cog\Laravel\Ban\Providers\BanServiceProvider::class,
+
 
 
         /*

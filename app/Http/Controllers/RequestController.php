@@ -11,12 +11,18 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreAdrequestRequest;
 use App\Mail\SendEmail;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\StoreRatingRequest;
+use App\Rating;
 
 class RequestController extends Controller
 {
     function index(){
-    
-        $requests=Auth::user()->Requests;
+     
+        if(Auth::user()->hasRole('Admin'))
+        $requests=Request::all();
+        else
+         $requests=Auth::user()->Requests;
+       
       
         return view('requests.index',['requests'=>$requests]);
     }
@@ -145,8 +151,7 @@ class RequestController extends Controller
         return back();
 
 
-    }
-  
+    }  
 
     function sendNotification($status,$id){
         
@@ -192,6 +197,22 @@ class RequestController extends Controller
     }
     function charge(Request $request){
         dd($request->stripeToken);
+    }
+    function storeRating(StoreRatingRequest $request){   
+            $rateableUser = User::find($request->rateable_id);
+            $rating = new Rating;
+            $rating->rating = $request->rate;
+            $rating->user_id = \Auth::id();
+            $rating->rateable_id=$request->rateable_id;
+            $rating->review=$request->review;
+            $rateableUser->ratings()->save($rating);
+            return redirect()->route('requests.index');
+
+
+    
+    
+    
+    
     }
 }
 

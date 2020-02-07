@@ -56,6 +56,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
+                              
                                 <a href="/login/facebook" class="btn btn-dark text-white">Login With Facebook</a>
                                 <a href="/login/google" class="btn btn-dark text-white">Login With Google</a>
                                 <a href="/login/instagram" class="btn btn-secondary">Login With Instagram</a></h5>
@@ -66,6 +67,7 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                           
                             </div>
                         </div>
                     </form>

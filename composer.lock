@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "962d66fc219dd2decc17b5931fad1e64",
+    "content-hash": "dc536060604274f4d614d7b64220b051",
     "packages": [
         {
             "name": "alaouy/youtube",
@@ -61,6 +61,78 @@
                 "youtube"
             ],
             "time": "2018-06-14T14:20:59+00:00"
+        },
+        {
+            "name": "cybercog/laravel-ban",
+            "version": "4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cybercog/laravel-ban.git",
+                "reference": "c41fed8d1e9c3ec987b610b29f2fcb3950f6281d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cybercog/laravel-ban/zipball/c41fed8d1e9c3ec987b610b29f2fcb3950f6281d",
+                "reference": "c41fed8d1e9c3ec987b610b29f2fcb3950f6281d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
+                "illuminate/events": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.10",
+                "mockery/mockery": "^1.0",
+                "orchestra/database": "~3.5.0|~3.6.0|~3.7.0|~3.8.0|^4.0",
+                "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0|^4.0",
+                "phpunit/phpunit": "^7.5|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Cog\\Laravel\\Ban\\Providers\\BanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cog\\Contracts\\Ban\\": "contracts/",
+                    "Cog\\Laravel\\Ban\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Komarev",
+                    "email": "anton@komarev.com",
+                    "homepage": "https://komarev.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Ban simplify blocking and banning Eloquent models.",
+            "homepage": "https://github.com/cybercog/laravel-ban",
+            "keywords": [
+                "Justice",
+                "arrest",
+                "ban",
+                "block",
+                "cog",
+                "cybercog",
+                "eloquent",
+                "forbid",
+                "jail",
+                "laravel",
+                "restrict",
+                "trait",
+                "user"
+            ],
+            "time": "2019-09-26T00:13:27+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2576,6 +2648,56 @@
                 "x509"
             ],
             "time": "2019-09-17T03:41:22+00:00"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete Redis client for PHP and HHVM",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2016-06-16T16:22:20+00:00"
         },
         {
             "name": "psr/cache",

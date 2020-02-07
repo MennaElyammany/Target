@@ -12,7 +12,12 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
-
+Auth::routes();
+//admins Routes
+Route::group(['middleware'=>['auth','role:Admin']], function(){
+    Route::get('/users','AdminController@index')->name('users.index');
+    Route::get('/users/{user}/ban','AdminController@ban');
+});
 //facebook and google login routes
 Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
@@ -20,6 +25,7 @@ Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
 
 Route::get('login/instagram','Auth\LoginController@redirectToInstagramProvider')->name('instagram.login');
+
 Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCallback')->name('instagram.login.callback');
 
 //twitter routes
@@ -34,8 +40,8 @@ Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
  Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
  Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
  Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
-//  Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
- Route::post('/influencers/view','InfluencerController@show')->name('influencers.show');
+ Route::post('/influencers/view', 'InfluencerController@showYoutubeModal')->name('influencers.showYoutubeModal');
+ Route::post('/influencers/{influencer}','InfluencerController@show')->name('influencers.show');
  Route::get('/influencers/instagram/{influencer}', 'InfluencerController@showInstagram')->name('influencers.showInstagram');
  Route::get('/influencers/twitter/{influencer}','InfluencerController@showTwitter')->name('influencers.showTwitter');
 //  Route::get('/influencers/twitter/{influencer}', 'InfluencerController@showTweets')->name('influencers.showTwwets');
@@ -45,6 +51,13 @@ Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
 
+//Influencers Routes
+    Route::group(['middleware'=>'auth'], function(){
+    Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
+    Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
+    Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
+    Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show') ;
+});
 
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
 //Charts Routes
@@ -72,6 +85,8 @@ Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 Route::get('/users/{user}', 'UserController@show')->name('users.show') -> middleware('auth'); 
 Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit') -> middleware('auth'); 
 Route::put('/users/{user}', 'UserController@update')->name('users.update') -> middleware('auth');
+Route::delete('/users/{user}', 'UserController@destroy')->name('users.update') -> middleware('auth');
+
 
 
 //when we get the price
@@ -85,3 +100,7 @@ Route::post('/requests/charge','RequestController@charge');
 //Email Routes
 Route::get('/sendemail','SendEmailController@index');
 Route::post('/sendemail/send','SendEmailController@send');
+
+//Rating 
+Route::post('/rating','RequestController@storeRating')->name('requests.rating');
+Route::get('/test','InfluencerController@test')->name('test');

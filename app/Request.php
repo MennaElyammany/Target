@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRole;
 class Request extends Model
 {
     protected $fillable = [
-        'status', 'price', 'type','ad_date','description','company_name','website_url','product_image','client_id','influencer_id','modified_date'
+        'status', 'price', 'type','ad_date','description','company_name','website_url','product_image','client_id','influencer_id','modified_date','rate','review'
     ];
     public function users(){
         return $this-> belongsToMany(User::class);

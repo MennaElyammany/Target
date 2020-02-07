@@ -8,12 +8,18 @@ use App\User;
 use App\InstagramMedia;
 use Auth;
 use Session;
+use willvincent\Rateable\Rateable;
+use willvincent\Rateable\Rating;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 
 class InfluencerController extends Controller
 {
     
-    function index(Request $request){        
+    function index(Request $request){   
+       
         $influencers = User::where('role','Influencer')->where('youtube_url','!=',NULL);
+      
         if(request()->has('category_id')){
             $influencers = $influencers->where('category_id',request('category_id'));
         }
@@ -29,26 +35,24 @@ class InfluencerController extends Controller
                         'country_id' => request('country_id'),
                         'sort'=>request('sort')
                     ]);
+                   
         return view('influencers.index',compact('influencers'));
     }
 
-    // function show($id)
-    // {  
-        
-    //     $influencer= User::findOrFail($id);
-    //     $url=$influencer['youtube_url'];
-    //     $data= fetch_youtube_data($url);
-    //     $data['influencer_id']=$id;
-
-
-
-    //  return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
-    // }
-    function show(Request $request)
+    function show($id)
+    { 
+    $influencer= User::findOrFail($id);
+    if( Redis::ttl($id)<=0)
+    $data=fetch_youtube_data($influencer->youtube_url);
+    else
+    $data=json_decode(Redis::get($id),true);
+    $url=$influencer['youtube_url'];
+    $data['influencer_id']=$id;     
+     return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
+    }
+    function showYoutubeModal(Request $request)
     {   
         $data = fetch_youtube_data($request->url);
-           //$data = test();
-        //$data = test($request->url);
         return $data;
     }
     
@@ -57,7 +61,7 @@ class InfluencerController extends Controller
     {  
         
         $influencer= User::findOrFail($id);
-// dd($influencer['name']);
+
 $media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
 $media_url_list=[];
 foreach($media_list as $media_item)
@@ -95,11 +99,14 @@ function showTwitter($id){
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
         $influencer->verified = $influencer_data['verified']?1:0;
-        if(!$influencer->avatar)
+        if(!$influencer->provider_name)
         $influencer->avatar = $influencer_data['imageUrl'];
-        if(!$influencer->followers)
+        // if(!$influencer->followers)
+        //  !$influencer->provider_name)
         $influencer->followers = $influencer_data['subscribers'];
         $influencer->save();
+        Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+
         return redirect()->route('influencers.index');
     }
     function edit($id)
@@ -114,6 +121,10 @@ function showTwitter($id){
         return redirect()->route('influencers.index');
         
     }
-    
+    function test(){
+        $num=roundAverageRating(2.5000);
+        dd($num);
+        return view('test');
+    }
 
 }
