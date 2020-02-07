@@ -164,7 +164,26 @@ Sort:
     <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
     @endif
     @if ($influencer->twitter_id)
-    <a class="ml-2" href="/twitter/tweets"><img src="twitter.png" width='30'></i></a>
+    <a class="ml-2"data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}">
+    
+    <img src="twitter.png" width='30'></i></a>
+        
+    <div class="modal fade" id="showTwitter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div><!--modal-header-->
+      <div class="modal-body">
+      
+      </div><!--modal-body-->
+      
+    </div>
+  </div>
+</div>
     @endif
 </div>
 </div>

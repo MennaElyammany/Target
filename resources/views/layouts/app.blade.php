@@ -285,7 +285,14 @@ document.getElementById("alert").addEventListener('click',function(e){
         }
     });
   });
-
+$('#showTwitter').on('showTwitter.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    // var id = button.data('url');
+    var name = button.data('name');
+      var modal = $(this);
+      modal.find('.modal-body #input').val(youtubeUrl);
+      var url = $("#input").val();
+});
     function myFunction() {
         document.getElementById("#country").disabled = true;
         }

@@ -68,7 +68,16 @@ foreach($media_list as $media_item)
      return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
     }
 
+function showTwitter($id){
+    $influencer = User::findOrFail($id);
+    $twitterPosts = $influencer->twitterPosts;
+    $tweets = [];
+    foreach($twitterPosts as $tweet){
+        array_push($tweets,($tweet["text"]));
+    }
+    return view('influencers.showTwitter',compact('tweets'));
 
+}
 
 
 

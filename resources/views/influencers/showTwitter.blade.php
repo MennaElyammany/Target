@@ -3,14 +3,14 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Twwets</th>
+      <th scope="col">Tweets</th>
     </tr>
   </thead>
   <tbody>
-  @foreach($data as $tweet)
+  @foreach($tweets as $tweet)
     <tr>
       
-      <td>{{$tweet->text}}</td>
+      <td>{{$tweet}}</td>
     </tr>
     @endforeach
     </tbody>
