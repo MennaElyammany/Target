@@ -246,6 +246,10 @@ function findClientName($id){
     $client=User::find($id);
     return $client->name;
 }
+function findUserAvatar($id){
+    $user=User::find($id);
+    return $user->avatar;
+}
 function roundAverageRating($num){
     $averageRating = round( $num, 1, PHP_ROUND_HALF_DOWN);
     return $averageRating;

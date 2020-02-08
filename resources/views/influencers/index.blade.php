@@ -171,6 +171,7 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <img src='verified.png'style='margin-left:10px;width:15px;height:15px;'>
     @endif
     <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;margin-top:10px;'onclick="window.location='/influencers/{{$influencer->id}}'"></i>
+    <a href="/messages/create/{{$influencer->id}}"><i class='far fa-comment' style='font-size:26px;color:grey;'></i></a>
     @if ($influencer->instagram_id)
     <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
     @endif

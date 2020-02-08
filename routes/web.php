@@ -80,6 +80,12 @@ Route::post('/requests', 'RequestController@store')->name('requests.store');
 Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 
 });
+//Messages Routes
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/messages/create/{influencer}','MessageController@create')->name('messages.create');
+    Route::post('/messages','MessageController@store')->name('messages.store');
+});
+
 
 //User profile routes
 Route::get('/users/{user}', 'UserController@show')->name('users.show') -> middleware('auth'); 

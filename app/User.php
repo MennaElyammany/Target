@@ -47,4 +47,8 @@ class User extends Authenticatable implements BannableContract
     public function twitterPosts(){
         return $this->hasMany(TwitterPost::class);
     }
+    public function messages()
+    {
+        return $this->belongsToMany(Message::class, 'message_user');
+    }
 }

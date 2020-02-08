@@ -183,6 +183,11 @@
                                 @endif
                             @endif
                         @else
+                        <li class="nav-item" style="margin-top:27px;">
+                        <a href="/messages/show/{{Auth::user()->id}}">
+                        <i class='far fa-comment' style='font-size:20px;color:grey;'></i>
+                        </a>
+                        </li>
 
                         <li class="nav-item   dropdown mr-2" id="alert"  >
                         
