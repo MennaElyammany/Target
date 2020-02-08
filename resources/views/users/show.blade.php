@@ -3,7 +3,7 @@
 <br><br><br>
 <div class="container row pt-5">
 <div class="col-4 text-center">
-<img class=" d-block w-75 mb-2 mx-auto" src="{{$user->avatar}}" alt="image"> 
+<img class=" d-block w-75 mb-2 mx-auto" src="{{$user->youtube_avatar}}" alt="image"> 
 <h3 class="mb-4">{{$user->name}}</h3>
 <a class="btn btn-success mx-auto d-block w-50" href="{{ route('users.edit',['user' => Auth::user()->id ])}}">Edit Profile</a>
 </div>

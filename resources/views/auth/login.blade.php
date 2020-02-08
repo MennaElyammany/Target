@@ -73,8 +73,8 @@
                                     <strong>{{$msg}} </strong>
                                     </div>
                                     <div class="mx-auto my-2 col-12 ">
-                                     <a class="btn btn-outline-primary btn-lg offset-md-4" href="{{ route('register',['role'=>'influencer']) }}">Register As Influencer</a>
-                                     <a class="btn btn-outline-success btn-lg" href="{{ route('register',['role'=>'client']) }}">Register As Client</a>
+                                     <a class="btn btn-outline-primary btn-lg offset-md-4" href="{{ route('register',['role'=>'Influencer']) }}">Register As Influencer</a>
+                                     <a class="btn btn-outline-success btn-lg" href="{{ route('register',['role'=>'Client']) }}">Register As Client</a>
                                     </div>
                                 @endisset
                 </div>

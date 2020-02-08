@@ -14,13 +14,13 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 //facebook and google login routes
-Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
-Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
-Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
-Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
+Route::get('login/facebook', 'Auth\FacebookLoginController@redirectToProviderFacebook');
+Route::get('login/facebook/callback', 'Auth\FacebookLoginController@handleProviderFacebookCallback');
+Route::get('login/google', 'Auth\GoogleLoginController@redirectToProviderGoogle');
+Route::get('login/google/callback', 'Auth\GoogleLoginController@handleProviderGoogleCallback');
 
-Route::get('login/instagram','Auth\LoginController@redirectToInstagramProvider')->name('instagram.login');
-Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCallback')->name('instagram.login.callback');
+Route::get('login/instagram','Auth\InstagramLoginController@redirectToInstagramProvider')->name('instagram.login');
+Route::get('login/instagram/callback', 'Auth\InstagramLoginController@instagramProviderCallback')->name('instagram.login.callback');
 
 //Influencers Routes
  Route::group(['middleware'=>'auth'], function(){

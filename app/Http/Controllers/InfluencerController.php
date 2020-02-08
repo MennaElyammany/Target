@@ -13,7 +13,7 @@ class InfluencerController extends Controller
 {
     
     function index(Request $request){        
-        $influencers = User::where('role','Influencer')->where('youtube_url','!=',NULL);
+        $influencers = User::where('role','Influencer');
         if(request()->has('category_id')){
             $influencers = $influencers->where('category_id',request('category_id'));
         }
@@ -71,11 +71,14 @@ foreach($media_list as $media_item)
         $influencer = Auth::user();
         $influencer->country_id = $request->country_id;
         $influencer->category_id = $request->category_id;
+        if($influencer->instagram_id==null)
+        {
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
         $influencer->verified = $influencer_data['verified']?1:0;
-        $influencer->avatar = $influencer_data['imageUrl'];
+        $influencer->youtube_avatar = $influencer_data['imageUrl'];
         $influencer->followers = $influencer_data['subscribers'];
+        }
         $influencer->save();
         return redirect()->route('influencers.index');
     }
