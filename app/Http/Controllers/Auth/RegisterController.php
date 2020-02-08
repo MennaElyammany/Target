@@ -79,6 +79,9 @@ class RegisterController extends Controller
              case 'Client':
                     return redirect()->route('influencers.index');
                  break; 
+                 case 'Admin':
+                    return redirect()->route('Admins.index');
+                 break; 
              default:
                      return '/influencers'; 
                  break;

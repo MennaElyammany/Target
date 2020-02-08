@@ -73,7 +73,10 @@
                             <h5 class='mt-3 offset-md-4'>or                                
                             <a href="{{ url('/login/facebook?role=' . $role)}}" class="btn btn-secondary">Signup With Facebook</a>
                             <a href="{{ url('/login/google?role=' . $role)}}" class="btn btn-secondary">Signup With Google</a>
-                            <a href="{{ url('/login/instagram?role=' . $role)}}" class="btn btn-secondary">Signup With Instagram</a></h5>
+                            <a href="{{ url('/login/instagram?role=' . $role)}}" class="btn btn-secondary">Signup With Instagram</a>
+                            <a href="{{ url('/login/twitter?role=' . $role)}}" class="btn btn-secondary">Signup With Twitter</a>
+                            </h5>
+
                         </div>
                     </form>
                     

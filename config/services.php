@@ -29,6 +29,12 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'instagram
+    ' => [
+        'client_id' => env('INSTAGRAM_CLIENT_ID'),
+        'client_secret' => env('INSTAGRAM_CLIENT_SECRET'),
+        'redirect' => 'http://localhost:8000/login/instagram/callback',
+    ],
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
@@ -43,6 +49,13 @@ return [
             'client_id' => env('INSTAGRAM_CLIENT_ID'),  
             'client_secret' => env('INSTAGRAM_CLIENT_SECRET'),  
             'redirect' => env('INSTAGRAM_REDIRECT_URI'),  
+        ],
+    'twitter' => [
+        'client_id' => env('TWITTER_CONSUMER_KEY'),
+        'client_secret' => env('TWITTER_CONSUMER_SECRET'),
+        'access_token'=>env('TWITTER_ACCESS_TOKEN'),
+        'access_token_secret'=>env('TWITTER_ACCESS_TOKEN_SECRET'),
+        'redirect' => env('TWITTER_REDIRECT_URI'),
         ],
     
     'stripe' => [

@@ -56,15 +56,18 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
+                              
                                 <a href="/login/facebook" class="btn btn-dark text-white">Login With Facebook</a>
                                 <a href="/login/google" class="btn btn-dark text-white">Login With Google</a>
                                 <a href="/login/instagram" class="btn btn-secondary">Login With Instagram</a></h5>
-
+                                <a href="/login/twitter" class="btn btn-primary">Login with Twitter</a>
+                           
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                           
                             </div>
                         </div>
                     </form>

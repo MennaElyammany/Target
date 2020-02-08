@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -164,6 +164,11 @@ return [
         Alaouy\Youtube\YoutubeServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         willvincent\Rateable\RateableServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        'Thujohn\Twitter\TwitterServiceProvider',
+        
+        Cog\Laravel\Ban\Providers\BanServiceProvider::class,
+
 
 
         /*
@@ -232,6 +237,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Twitter' => 'Thujohn\Twitter\Facades\Twitter',
+        
     ],
 
 ];

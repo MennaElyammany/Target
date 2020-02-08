@@ -8,6 +8,10 @@ use App\User;
 use App\InstagramMedia;
 use Auth;
 use Session;
+use willvincent\Rateable\Rateable;
+use willvincent\Rateable\Rating;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 
 class InfluencerController extends Controller
 {
@@ -20,32 +24,42 @@ class InfluencerController extends Controller
         if(request()->has('country_id')){
             $influencers = $influencers->where('country_id',request('country_id'));
         }
+        if(request()->has('sort')){
+            $influencers = $influencers->orderBy('followers',request('sort'));
+        }
     $influencers = $influencers->paginate(10)
                     ->appends([
                         'category_id' => request('category_id'),
                         'country_id' => request('country_id'),
+                        'sort'=>request('sort')
                     ]);
+                   
         return view('influencers.index',compact('influencers'));
     }
 
     function show($id)
-    {  
-        
-        $influencer= User::findOrFail($id);
-        $url=$influencer['youtube_url'];
-        $data= fetch_youtube_data($url);
-        $data['influencer_id']=$id;
-
-
-
+    { 
+    $influencer= User::findOrFail($id);
+    if( Redis::ttl($id)<=0)
+    $data=fetch_youtube_data($influencer->youtube_url);
+    else
+    $data=json_decode(Redis::get($id),true);
+    $url=$influencer['youtube_url'];
+    $data['influencer_id']=$id;     
      return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
     }
+    function showYoutubeModal(Request $request)
+    {   
+        $data = fetch_youtube_data($request->url);
+        return $data;
+    }
+    
 
     function showInstagram($id)
     {  
         
         $influencer= User::findOrFail($id);
-// dd($influencer['name']);
+
 $media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
 $media_url_list=[];
 foreach($media_list as $media_item)
@@ -56,7 +70,16 @@ foreach($media_list as $media_item)
      return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
     }
 
+function showTwitter($id){
+    $influencer = User::findOrFail($id);
+    $twitterPosts = $influencer->twitterPosts;
+    $tweets = [];
+    foreach($twitterPosts as $tweet){
+        array_push($tweets,($tweet["text"]));
+    }
+    return view('influencers.showTwitter',compact('tweets'));
 
+}
 
 
 
@@ -80,6 +103,8 @@ foreach($media_list as $media_item)
         $influencer->followers = $influencer_data['subscribers'];
         }
         $influencer->save();
+        Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+
         return redirect()->route('influencers.index');
     }
     function edit($id)
@@ -94,6 +119,10 @@ foreach($media_list as $media_item)
         return redirect()->route('influencers.index');
         
     }
-    
+    function test(){
+        $num=roundAverageRating(2.5000);
+        dd($num);
+        return view('test');
+    }
 
 }

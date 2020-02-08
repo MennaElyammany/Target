@@ -5,7 +5,7 @@
 <div class="col-4 text-center">
 <img class=" d-block w-75 mb-2 mx-auto" src="{{$user->youtube_avatar}}" alt="image"> 
 <h3 class="mb-4">{{$user->name}}</h3>
-<a class="btn btn-success mx-auto d-block w-50" href="{{ route('users.edit',['user' => Auth::user()->id ])}}">Edit Profile</a>
+<a class="btn btn-success mx-auto d-block w-50" href="{{ route('users.edit',['user' => $user->id ])}}">Edit Profile</a>
 </div>
 
 <div class="col-8">
@@ -23,7 +23,7 @@
             <!-- <span class="review-no">422 reviews</span> -->
 
             <!-- <br/> -->
-
+            
         <button class="btn btn-success">Submit Review</button>
 
     </div>
@@ -35,7 +35,8 @@
     <td  style="text-align:center" ><p class="font-weight-bold "> Email </td>
     <td style="text-align:center">  {{ $user->email }} </td>
     </tr>
-    @role('Influencer')
+    @role('Influencer|Admin')''
+    @if($user->role=='Influencer')
     <tr   style="width: 200px;">
     <td  style="text-align:center" ><p class="font-weight-bold "> Country </td>
     <td style="text-align:center">  {{ $country_name }} </td>
@@ -52,6 +53,7 @@
     <td  style="text-align:center" ><p class="font-weight-bold "> Number of Followers </td>
     <td style="text-align:center">   {{ $user->followers }} </td>
     </tr>
+    @endif
     @endrole
     </table>
 </div>

@@ -8,10 +8,11 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Notifications\RequestChanged;
 use willvincent\Rateable\Rateable;
-
-class User extends Authenticatable
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
+class User extends Authenticatable implements BannableContract
 {
-    use Notifiable,HasRoles;
+    use Notifiable,HasRoles, Bannable;
     use Rateable;
 
     /**
@@ -42,5 +43,8 @@ class User extends Authenticatable
     ];
     public function Requests(){
         return $this-> belongsToMany(Request::class);
+    }
+    public function twitterPosts(){
+        return $this->hasMany(TwitterPost::class);
     }
 }

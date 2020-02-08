@@ -4,20 +4,20 @@
     <div class='row no-gutters'>
 
         <div class='col-6 modal-dialog  modal-dialog-scrollable mx-0 container-fluid'>
-            <div class="modal-content">
-                <div class="modal-body">
+            <div class="modal-content p-0">
+                <div class="modal-body p-0">
                 
                 <div class="row no-gutters">
                 @foreach($data['videoList'] as $index=>$video)
                 <div class="col-6">
                <div class="card" >
-               <iframe @php echo $video->videoIframe  @endphp></iframe>
+               <iframe @php echo $video['videoIframe']  @endphp></iframe>
                <div class="card-body text-light bg-secondary " style="height:60px;">
                <span>
-               <i class="far fa-thumbs-up"></i> <span class=" text-sm"> {{convertNumber($video->videoLikes)}}</span>
-               <i class="far fa-comments"></i>  <span class=" text-sm">{{convertNumber($video->videoComments)}}</span> 
-               <i class="far fa-thumbs-down"></i>  <span class=" text-sm">{{convertNumber($video->videoDislikes)}}</span>
-               <i class="far fa-eye"></i>  <span class="text-sm">{{convertNumber($video->videoViews)}}</span>
+               <i class="far fa-thumbs-up"></i> <span class=" text-sm"> {{convertNumber($video['videoLikes'])}}</span>
+               <i class="far fa-comments"></i>  <span class=" text-sm">{{convertNumber($video['videoComments'])}}</span> 
+               <i class="far fa-thumbs-down"></i>  <span class=" text-sm">{{convertNumber($video['videoDislikes'])}}</span>
+               <i class="far fa-eye"></i>  <span class="text-sm">{{convertNumber($video['videoViews'])}}</span>
                </span>
                   </div>
                    </div>
@@ -46,7 +46,7 @@
                                     echo '<i class="fas fa-check-circle"></i>'
                                     @endphp
                                     <img src="https://img.icons8.com/offices/30/000000/youtube-play.png" class="m-3 ">
-                                    @if(has_uncompleted_request($data['influencer_id']))
+                                    @if(has_uncompleted_request($data['influencer_id']) && Auth::User()->isNotBanned())
                                   <a href="{{ route('requests.create',['influencer_id'=> $data['influencer_id']]) }}" >  <i class="fas fa-file-signature text-dark " title="Request Influencer For Ad"></i></a>
                                 @endif
                                 </h3>
