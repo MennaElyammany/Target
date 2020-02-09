@@ -94,14 +94,23 @@ function showTwitter($id){
         $influencer = Auth::user();
         $influencer->country_id = $request->country_id;
         $influencer->category_id = $request->category_id;
-        if($influencer->instagram_id==null)
+        if(isset($request->youtube_url))
         {
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
         $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->youtube_avatar = $influencer_data['imageUrl'];
-        $influencer->followers = $influencer_data['subscribers'];
+        $influencer->youtube_followers = $influencer_data['subscribers'];
         }
+    if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
+    {
+        $influencer->avatar==$request->youtube_url;
+    }
+    if ($influencer->followers==null)
+    {
+    $influencer->followers== $influencer_data['subscribers'];
+    }
+
         $influencer->save();
         Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
 

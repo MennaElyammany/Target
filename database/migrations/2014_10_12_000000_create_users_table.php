@@ -35,7 +35,10 @@ class CreateUsersTable extends Migration
             $table->boolean('verified')->nullable();
             $table->integer('youtube_followers')->nullable();
             $table->integer('instagram_followers')->nullable();
+            $table->integer('followers')->nullable();
             $table->string('youtube_url')->nullable();
+            $table->string('twitter_id')->nullable();
+
 
 
 

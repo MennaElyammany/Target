@@ -50,12 +50,14 @@ class FacebookLoginController extends Controller
              $newUser->email             = $user->getEmail();
              $newUser->email_verified_at = now();
              $newUser->facebook_avatar            = $user->getAvatar();
+             $newUser->avatar = $user->getAvatar();  //the platform he registered with
              $newUser->facebook_token    =$user->token;
              $newUser->role= $role;
              $newUser->save();
              auth()->login($newUser, true);
              $newUser->assignRole($newUser->role);  //assign role
-             if($role=='Influencer') $this->checkInstagramExists($accessToken,$newUser);
+             if($role=='Influencer') $this->checkInstagramExists($accessToken,$newUser); 
+
              return redirect(redirectTo());
              }
              else
@@ -92,6 +94,8 @@ public function checkInstagramExists($accessToken,$user)
         {
             $user->instagram_id=$account->id;
             $user->instagram_avatar=$account->profile_picture_url;
+            $user->avatar=$account->profile_picture_url;
+            $user->instagram_followers=$account->followers_count;
             $user->followers=$account->followers_count;
             $user->save();
              $this->handleInstagramAccount($account);

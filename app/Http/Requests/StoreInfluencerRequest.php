@@ -30,7 +30,7 @@ class StoreInfluencerRequest extends FormRequest
                 'country_id'=> 'required',
                 'category_id'=>'required',
                 'youtube_url'=>
-                     'regex:~
+                     'required|regex:~
                      ^(?:https?://)?                           # Optional protocol
                       (?:www[.])?                              # Optional sub-domain
                       (?:youtube[.]com/) # Mandatory domain name (w/ query string in .com)

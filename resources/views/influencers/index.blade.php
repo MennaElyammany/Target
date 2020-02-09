@@ -169,12 +169,16 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     @if($influencer->verified)
     <img src='verified.png'style='margin-left:10px;width:15px;height:15px;'>
     @endif
-    <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;margin-top:10px;'onclick="window.location='/influencers/{{$influencer->id}}'"></i>
+    @if($influencer->youtube_url)
+    <a class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;margin-top:10px;' href="/influencers/{{$influencer->id}}"></a>
+    @endif
     @if ($influencer->instagram_id)
-    <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
+    <!-- <a class='fa fa-instagram' onclick="window.location='/influencers/{{$influencer->id}}'"></a> -->
+
+    <a class="ml-2 " href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" style="vertical-align:top; margin-top:13px"  width='29'></a>
     @endif
     @if ($influencer->twitter_id)
-    <a class="ml-2"data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">
+    <a class="ml-2" data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">
     
     <img src="twitter.png" width='30'></i></a>
         
@@ -226,8 +230,13 @@ $subscribers = convertNumber($influencer->followers);
 echo " <div style='display:flex'>
 <div class=' text-center mx-auto' style=''>
 <span class=' text-uppercase roboto-font'>".$subscribers."</span>
-<p style='roboto-font color:grey;'> Subscribers </p>
-</div>
+<p style='roboto-font color:grey;'> Subscribers";
+    if($influencer->provider_name=='facebook'&&$influencer->instagram_id!=null)
+     echo "<br><i class='text-secondary'> <small> on instagram </small> </i> </p>";
+    else 
+    echo "<br><i class='text-secondary'> <small> on youtube</small> </i> </p>";
+
+echo"</div>
 <div class='text-center mx-auto' style=' '>
 <span class='roboto-font text-uppercase'>3.6%</span>
 <p style='roboto-font color:grey;'>Engagement</p>

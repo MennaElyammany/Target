@@ -44,6 +44,7 @@ class GoogleLoginController extends Controller
             $newUser->email             = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->youtube_avatar            = $user->getAvatar();
+            $newUser->avatar            = $user->getAvatar();
             $newUser->role= $role;
             $newUser->save();
             auth()->login($newUser, true);

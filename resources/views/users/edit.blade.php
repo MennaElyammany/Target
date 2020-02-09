@@ -9,7 +9,11 @@
 
         <div class="form-group">
           <label for="name">Name</label>
-          <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value='{{$user->name}}'>
+          @if($user->provider_name==null)
+          <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value='{{$user->name}}'  >
+          @else <i class="text-secondary"> <small> from {{$user->provider_name}} </small> </i>
+          <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value='{{$user->name}}' readonly="readonly" >
+          @endif
           @error('name')
             <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -18,7 +22,11 @@
         </div>
         <div class="form-group">
         <label for="email">Email</label>
+        @if($user->provider_name==null)
         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"  value="{{ $user->email }}" />
+        @else <i class="text-secondary"> <small> from {{$user->provider_name}} </small> </i>
+        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"  value="{{ $user->email }}"readonly="readonly"  />
+        @endif
         @error('email')
             <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -56,6 +64,11 @@
 <div class="form-group">
     <label>Add Your Youtube Channel</label>
     <input name="youtube_url" value="{{ $user->youtube_url }}" class="form-control" type="text">
+    @error('youtube_url')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
 </div>
 @endrole
 @role('Client')
@@ -64,12 +77,6 @@
  <input type="file" class="form-control-file" name="avatar" id="avatar" >
 </div>
 @endrole
-
-
-        <!-- <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" name="password" class="form-control"  value="{{ $user->password }}" />
-        </div> -->
      
         <button type="submit" class="btn btn-primary">Update</button>
         </form>

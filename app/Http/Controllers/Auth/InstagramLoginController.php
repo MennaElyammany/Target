@@ -74,6 +74,7 @@ class InstagramLoginController extends Controller
             $newUser->email             = $instagramId.'@instagram.com';
             $newUser->email_verified_at = now();
             $newUser->instagram_avatar            = asset('default.png');
+            $newUser->avatar = asset('default.png');
             $newUser->role= $role;
             $newUser->instagram_id=$instagramId;
             $newUser->save();
