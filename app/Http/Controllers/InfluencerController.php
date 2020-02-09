@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
 use App\InstagramMedia;
+use TwitterAPIExchange;
 use Auth;
 use Session;
 use willvincent\Rateable\Rateable;
@@ -75,16 +76,36 @@ foreach($media_list as $media_item)
 function showTwitter($id){
     $influencer = User::findOrFail($id);
     $twitterPosts = $influencer->twitterPosts;
-    // dd($twitterPosts);
     $tweets = [];
     foreach($twitterPosts as $tweet){
         array_push($tweets,($tweet));
     }
     return $tweets;
-    //return view('influencers.showTwitter',compact('tweets'));
 
 }
+function postTwitterView(){
+    // dd("hi");
+    return view('influencers.postTweets');
+}
+function sendTweet(Request $request){
+    $settings = array(
+        'oauth_access_token' => $request->session()->get('TWITTER_ACCESS_TOKEN'),
+        'oauth_access_token_secret' => $request->session()->get('TWITTER_ACCESS_TOKEN_SECRET'),
+        'consumer_key' => env('TWITTER_CONSUMER_KEY'),
+        'consumer_secret' => env('TWITTER_CONSUMER_SECRET')
+        ); 
+    $posturl = 'https://api.twitter.com/1.1/statuses/update.json';
+    $requestMethod = 'POST';
+    $postfields = array(
+        'status' => $request->status,
+    );
+    $twitterpost = new TwitterAPIExchange($settings);
+    $twitterpost->buildOauth($posturl, $requestMethod)
+                 ->setPostfields($postfields)
+                 ->performRequest();
 
+    return redirect()->route('influencers.index');
+    }
 
 
     function create()

@@ -172,18 +172,19 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     @endif
     <i class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;margin-top:10px;'onclick="window.location='/influencers/{{$influencer->id}}'"></i>
     <a href="/messages/create/{{$influencer->id}}"><i class='far fa-comment' style='font-size:26px;color:grey;'></i></a>
-    @if ($influencer->instagram_id)
+    @if($influencer->instagram_id)
     <a class="ml-2" href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" width='30'></a>
     @endif
-    @if ($influencer->twitter_id)
+    @if($influencer->twitter_id)
     
     <img src="twitter.png" width='30'class="ml-2" data-toggle="modal" data-target="#twitter" 
-    data-idtwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">
+    data-idtwitter="{{$influencer->id}}" data-nametwitter="{{$influencer->name}}" data-auth="{{Auth::user()->id}}">
+    @endif
     <div class="modal fade" id="twitter" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="nameTwitter" ></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -192,10 +193,14 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
             <table class="table"id="tweetTable">
               <thead>
                 <tr>
-                <th scope="col">Tweets</th>
+                
+                <th class="col-3">Tweets</th>
+                
+                <th class="col-9" id="posttwitter"></th>
+                
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="tweetBody">
 
               <tbody>
               </table>
@@ -203,7 +208,7 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal fade -->
-    @endif
+    
 </div>
 <div class="mt-2"style="display:flex;width:300px;height:80px;margin-right:10px;">
                     <!-- <span style="margin-bottom:0px;"> {{$influencer->averageRating}}</span> -->

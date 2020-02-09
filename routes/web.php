@@ -44,10 +44,9 @@ Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
  Route::post('/influencers/{influencer}','InfluencerController@show')->name('influencers.show');
  Route::get('/influencers/instagram/{influencer}', 'InfluencerController@showInstagram')->name('influencers.showInstagram');
  Route::get('/influencers/twitter/{influencer}','InfluencerController@showTwitter')->name('influencers.showTwitter');
-//  Route::get('/influencers/twitter/{influencer}', 'InfluencerController@showTweets')->name('influencers.showTwwets');
-
+ Route::get('/influencers/posttwitter', 'InfluencerController@postTwitterView');
+ Route::post('/sendTweet','InfluencerController@sendTweet');
 });
-
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
 
