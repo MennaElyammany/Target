@@ -25,8 +25,11 @@ class SocialAuthTwitterController extends Controller
     public function callback(Request $request)
     {
         $userInfo = Socialite::driver('twitter')->user(); 
+        $request->session()->put('TWITTER_ACCESS_TOKEN',$userInfo->token);
+        $request->session()->put('TWITTER_ACCESS_TOKEN_SECRET',$userInfo->tokenSecret);
+        // dd($request->session()->get('TWITTER_ACCESS_TOKEN_SECRET'));
         $role=session('role');
-        $existingUser = User::where('twitter_id',$userInfo->id.'@gmail.com')->first();
+        $existingUser = User::where('twitter_id',$userInfo->id)->first();
         if ($existingUser) {
             auth()->login($existingUser, true);
             return redirect()->route('influencers.index');
@@ -42,6 +45,9 @@ class SocialAuthTwitterController extends Controller
         $newUser->email             = $userInfo->id.'@twitter.com';
         $newUser->email_verified_at = now();
         $newUser->avatar            = $userInfo->avatar;
+        $newUser->followers         = $userInfo->user['followers_count'];
+        if($userInfo->user['verified'] == true)$newUser->verified = 1;
+        else $newUser->verified = 0;
         $newUser->role= $role;
         $newUser->save();
         auth()->login($newUser, true);
@@ -51,16 +57,16 @@ class SocialAuthTwitterController extends Controller
         //getting tweets
         $tweets = $this->retrieveTweets($userInfo->token,$userInfo->tokenSecret);
         //saving tweets
-        $user = User::where('id',$newUser->id);
-        foreach($tweets as $tweet){
-
+        $user = User::where('id',$newUser->id)->first();
+        foreach($tweets as $tweet){             
         $twitterPost = new TwitterPost;
         $twitterPost->tweet_id = $tweet['id'];
         $twitterPost->text = $tweet['text'];
         $twitterPost->favorite_count = $tweet['favorite_count'];
         $twitterPost->retweet_count = $tweet['retweet_count'];
-        $twitterPost->user_id = $newUser->id;
-        $twitterPost->save();}
+        $twitterPost->user_id = $user->id;
+        $twitterPost->save();
+        }
         return redirect(redirectTo());
         
             }
@@ -101,25 +107,6 @@ class SocialAuthTwitterController extends Controller
             
                 $tweets = json_decode($tweets,true);
                 return $tweets;
-    }
-    function postTweet($token,$tokenSecret){
-        $settings = array(
-            'oauth_access_token' => $token,
-            'oauth_access_token_secret' => $tokenSecret,
-            'consumer_key' => env('TWITTER_CONSUMER_KEY'),
-            'consumer_secret' => env('TWITTER_CONSUMER_SECRET')
-            ); 
-        $posturl = 'https://api.twitter.com/1.1/statuses/update.json';
-        $requestMethod = 'POST';
-        $postfields = array(
-            'status' => 'hello',
-        );
-        $twitterpost = new TwitterAPIExchange($settings);
-        $twitterpost->buildOauth($posturl, $requestMethod)
-                     ->setPostfields($postfields)
-                     ->performRequest();
-        return $twitterpost;
-        //return "You tweeted a new post";
     }
     function getEngagement($token,$tokenSecret){
         $settings = array(

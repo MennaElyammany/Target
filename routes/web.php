@@ -42,10 +42,9 @@ Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
  Route::post('/influencers/{influencer}','InfluencerController@show')->name('influencers.show');
  Route::get('/influencers/instagram/{influencer}', 'InfluencerController@showInstagram')->name('influencers.showInstagram');
  Route::get('/influencers/twitter/{influencer}','InfluencerController@showTwitter')->name('influencers.showTwitter');
-//  Route::get('/influencers/twitter/{influencer}', 'InfluencerController@showTweets')->name('influencers.showTwwets');
-
+ Route::get('/influencers/posttwitter', 'InfluencerController@postTwitterView');
+ Route::post('/sendTweet','InfluencerController@sendTweet');
 });
-
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
 
@@ -78,6 +77,15 @@ Route::post('/requests', 'RequestController@store')->name('requests.store');
 Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 
 });
+//Messages Routes
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/messages/create/{influencer}','MessageController@create')->name('messages.create');
+    Route::post('/messages','MessageController@store')->name('messages.store');
+    Route::get('/messages/index/{influencer}','MessageController@index')->name('messages.index');
+    Route::get('/messages/displayConversation/{client}','MessageController@displayConversation')->name('messages.displayConversation');
+    Route::post('/messages/storeInfluencer/{id}/{auth}/{msg}','MessageController@storeInfluencer')->name('messages.storeInfluencer');
+});
+
 
 //User profile routes
 Route::get('/users/{user}', 'UserController@show')->name('users.show') -> middleware('auth'); 

@@ -92,11 +92,12 @@ Sort:
 <!-- <div class="card" onclick="window.location='/influencers/{{$influencer->id}}'"> -->
 <div style="display:flex;">
 
-<img class="rounded-circle"style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" src="{{$influencer->avatar}}" alt="Card image cap"
+<img class="rounded-circle"style="display:inline-block; 100px;width: 100px; margin-top:20px;margin-right:10px;margin-left:20px" 
+src="{{$influencer->avatar}}" alt="Card image cap"
 data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
 
 <!-- Modal -->
- <div class="modal fade " id="show" role="dialog">
+ <div class="modal fade" id="show" role="dialog">
     <div class="modal-dialog" style="max-width:1000px;">    
       <div class="modal-content">
         <div class="modal-header">
@@ -178,28 +179,40 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <a class="ml-2 " href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" style="vertical-align:top; margin-top:13px"  width='29'></a>
     @endif
     @if ($influencer->twitter_id)
-    <a class="ml-2" data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">
-    
-    <img src="twitter.png" width='30'></i></a>
-        
-    <div class="modal fade" id="showTwitter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <a class="ml-2" data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">    
+    <img src="twitter.png" width='30'class="ml-2" data-toggle="modal" data-target="#twitter" 
+    data-idtwitter="{{$influencer->id}}" data-nametwitter="{{$influencer->name}}" data-auth="{{Auth::user()->id}}">
+    @endif
+    <a href="/messages/create/{{$influencer->id}}"><i class='far fa-comment' style='font-size:26px;color:grey;'></i></a>
+    <div class="modal fade" id="twitter" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="nameTwitter" ></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div><!--modal-header-->
-      <div class="modal-body-twitter">
-      <div id="inputTwitter"></div>
-      
-      </div><!--modal-body-->
-      
-    </div>
-  </div>
-</div>
-    @endif
+      <div class="modal-body">
+            <table class="table"id="tweetTable">
+              <thead>
+                <tr>
+                
+                <th class="col-3">Tweets</th>
+                
+                <th class="col-9" id="posttwitter"></th>
+                
+                </tr>
+              </thead>
+              <tbody id="tweetBody">
+
+              <tbody>
+              </table>
+      </div><!--modal-body-twitter"-->
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal fade -->
+    
 </div>
 <div class="mt-2"style="display:flex;width:300px;height:80px;margin-right:10px;">
                     <!-- <span style="margin-bottom:0px;"> {{$influencer->averageRating}}</span> -->

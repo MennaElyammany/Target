@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" , initial-scale=1">
+    <meta name="viewport" , initial-scale="1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -183,6 +183,11 @@
                                 @endif
                             @endif
                         @else
+                        <li class="nav-item" style="margin-top:27px;">
+                        <a href="/messages/index/{{Auth::user()->id}}">
+                        <i class='far fa-comment' style='font-size:20px;color:grey;'></i>
+                        </a>
+                        </li>
 
                         <li class="nav-item   dropdown mr-2" id="alert"  >
                         
@@ -328,32 +333,87 @@ document.getElementById("alert").addEventListener('click',function(e){
         }
     });
   });
-  // $('#showTwitter').on('showTwitter.bs.modal', function (event) {
-//     var button = $(event.relatedTarget) 
-//     var id = button.data('id');
-//     var name = button.data('name');
-//     var modal = $(this);
-//     modal.find('.modal-body-twitter #inputTwitter').val(id);
-//     var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
-//       $.ajax({
-//         type:'POST',
-//         url:'/influencers/twitter/'+id,
-//         data:{
-//             'url':youtubeUrl,
-//             '_token':csrf //pass CSRF
-//             },
-//         success:function(data){
-//             console.log('success');
-//         },
-//         error:function(){
-//             console.log('error in twitter');
-//         }
+  </script>
+  @csrf
+  <script>
+  $('#twitter').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var id = button.data('idtwitter');
+    var name = button.data('nametwitter');
+    var auth =button.data('auth');
+    var modal = $(this);
+    var tableBody = document.getElementById("tweetBody");
+    var post = document.getElementById("posttwitter");
+    while (post.firstChild) {
+        post.removeChild(post.firstChild);
+            }
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
+            }
+    var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
+      $.ajax({
+        type:'GET',
+        url:'/influencers/twitter/'+id,
+        data:{
+            '_token':csrf //pass CSRF
+            },
+        success:function(data){
+            console.log('success');
+            console.log(data);
+            console.log(typeof(id));
+            console.log(auth);
+            var table = document.getElementById("tweetTable");
+            var nameTwitter = document.getElementById("nameTwitter");
+            nameTwitter.innerHTML = name;
+            var postBtn = document.createElement("button");
+            postBtn.setAttribute("class","btn btn-primary");
+            postBtn.innerHTML = "post";
+            
+            if(id == auth){
+                post.appendChild(postBtn);             
+            }
+            postBtn.onclick = function () {
+                location.href = "/influencers/posttwitter";
+            };
+            for(i = 0; i < data.length;i++){
+                var container = document.createElement('div');
+                var text = document.createElement("div");
+                text.innerHTML = data[i]['text'];
+                container.appendChild(text);
+                var favorite = document.createElement("div");
+                var favIcon = document.createElement("div");
+                favIcon.setAttribute("class","fa fa-heart");
+                favorite.appendChild(favIcon);
+                var favorite_count = document.createElement("div");
+                favorite_count.innerHTML = data[i]['favorite_count'];
+                favorite.appendChild(favorite_count);
+                container.appendChild(favorite);
+                var retweet = document.createElement("div");
+                var retIcon = document.createElement("div");
+                retIcon.setAttribute("class","fa fa-retweet");
+                retweet.appendChild(retIcon);
+                var retweet_count = document.createElement("div");
+                retweet_count.innerHTML = data[i]['retweet_count'];
+                retweet.appendChild(retweet_count);
+                container.appendChild(retweet);
+                var hr = document.createElement("hr");
+                container.appendChild(hr);
+                tableBody.appendChild(container);
+                }
+            
+        },
+        error:function(){
+            console.log('error in twitter');
+        }
       
-// });
+});});
+</script>
+<script>
     function myFunction() {
         document.getElementById("#country").disabled = true;
         }
-  
 </script>
+  
+
 </body>
 </html>
