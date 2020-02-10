@@ -231,7 +231,7 @@ echo " <div style='display:flex'>
 <div class=' text-center mx-auto' style=''>
 <span class=' text-uppercase roboto-font'>".$subscribers."</span>
 <p style='roboto-font color:grey;'> Subscribers";
-    if($influencer->provider_name=='facebook'&&$influencer->instagram_id!=null)
+    if($influencer->provider_name=='facebook'&& $influencer->instagram_id!=null)
      echo "<br><i class='text-secondary'> <small> on instagram </small> </i> </p>";
     else 
     echo "<br><i class='text-secondary'> <small> on youtube</small> </i> </p>";

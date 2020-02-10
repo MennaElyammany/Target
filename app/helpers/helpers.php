@@ -107,7 +107,7 @@ function convertNumber($number){
     }
    
 else
-$number=$number;
+$number=$number?$number:0;
 
 return $number;
 }
