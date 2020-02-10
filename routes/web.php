@@ -83,6 +83,9 @@ Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/messages/create/{influencer}','MessageController@create')->name('messages.create');
     Route::post('/messages','MessageController@store')->name('messages.store');
+    Route::get('/messages/index/{influencer}','MessageController@index')->name('messages.index');
+    Route::get('/messages/displayConversation/{client}','MessageController@displayConversation')->name('messages.displayConversation');
+    Route::post('/messages/storeInfluencer/{id}/{auth}/{msg}','MessageController@storeInfluencer')->name('messages.storeInfluencer');
 });
 
 

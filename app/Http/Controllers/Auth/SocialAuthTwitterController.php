@@ -108,25 +108,6 @@ class SocialAuthTwitterController extends Controller
                 $tweets = json_decode($tweets,true);
                 return $tweets;
     }
-    function postTweet($token,$tokenSecret){
-        $settings = array(
-            'oauth_access_token' => $token,
-            'oauth_access_token_secret' => $tokenSecret,
-            'consumer_key' => env('TWITTER_CONSUMER_KEY'),
-            'consumer_secret' => env('TWITTER_CONSUMER_SECRET')
-            ); 
-        $posturl = 'https://api.twitter.com/1.1/statuses/update.json';
-        $requestMethod = 'POST';
-        $postfields = array(
-            'status' => 'hello',
-        );
-        $twitterpost = new TwitterAPIExchange($settings);
-        $twitterpost->buildOauth($posturl, $requestMethod)
-                     ->setPostfields($postfields)
-                     ->performRequest();
-        return $twitterpost;
-        //return "You tweeted a new post";
-    }
     function getEngagement($token,$tokenSecret){
         $settings = array(
             'oauth_access_token' => $token,

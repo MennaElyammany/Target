@@ -84,7 +84,6 @@ function showTwitter($id){
 
 }
 function postTwitterView(){
-    // dd("hi");
     return view('influencers.postTweets');
 }
 function sendTweet(Request $request){
