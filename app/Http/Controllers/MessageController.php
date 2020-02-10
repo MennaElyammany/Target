@@ -34,13 +34,13 @@ class MessageController extends Controller
     }
     //users chat
     function index(Request $request){
-        $msgs = Message::where('sender_id',$request->influencer)->orderBy('created_at','desc')->get();
+        $msgs = Message::where('reciever_id',$request->influencer)->orderBy('created_at','desc')->get();
         $recievers = [];
         $conversations = [];        
         foreach($msgs as $msg){
-            if(!in_array($msg['reciever_id'], $recievers)){
-             array_push($recievers,$msg['reciever_id']);
-             $reciever = User::findOrFail($msg['reciever_id']);
+            if(!in_array($msg['sender_id'], $recievers)){
+             array_push($recievers,$msg['sender_id']);
+             $reciever = User::findOrFail($msg['sender_id']);
              $conversation = array(
                 "content" => $msg->content,
                 "reciever_name" => $reciever->name,
