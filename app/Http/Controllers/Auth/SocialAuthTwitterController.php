@@ -31,6 +31,9 @@ class SocialAuthTwitterController extends Controller
         $existingUser = User::where('twitter_id',$userInfo->id)->first();
         if ($existingUser) {
             auth()->login($existingUser, true);
+            $existingUser->followers= $userInfo->user['followers_count'];
+            $existingUser->avatar = $userInfo->avatar;
+            $existingUser->save();
             $twitterPosts = TwitterPost::where('user_id',$existingUser->id)->get();
             foreach($twitterPosts as $twitterPost){
                 $twitterPost->delete();

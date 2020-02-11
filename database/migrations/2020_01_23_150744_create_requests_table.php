@@ -26,6 +26,8 @@ class CreateRequestsTable extends Migration
             $table->string('product_image')->nullable();
             $table->unsignedInteger('client_id')->references('id')->on('users');
             $table->unsignedInteger('influencer_id')->references('id')->on('users');
+            $table->date('modified_date')->nullable();
+
 
 
         });

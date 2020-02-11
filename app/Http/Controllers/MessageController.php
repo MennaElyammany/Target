@@ -34,7 +34,6 @@ class MessageController extends Controller
     }
     //users chat
     function index(Request $request){
-
         $msgs = Message::where('reciever_id',$request->influencer)->orderBy('created_at','desc')->get();
         $recievers = [];
         $conversations = [];        

@@ -334,10 +334,13 @@ document.getElementById("alert").addEventListener('click',function(e){
     });
   });
   </script>
+
+
+  
   @csrf
   <script>
   $('#twitter').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) 
+    var button = $(event.relatedTarget) ;
     var id = button.data('idtwitter');
     var name = button.data('nametwitter');
     var auth =button.data('auth');
@@ -408,6 +411,10 @@ document.getElementById("alert").addEventListener('click',function(e){
       
 });});
 </script>
+
+
+
+
 <script>
     function myFunction() {
         document.getElementById("#country").disabled = true;

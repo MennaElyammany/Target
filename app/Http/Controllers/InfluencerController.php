@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Redis;
 class InfluencerController extends Controller
 {
     
-    function index(Request $request){   
-       
-        $influencers = User::where('role','Influencer')->where('youtube_url','!=',NULL);
-      
+    function index(Request $request){        
+        $influencers = User::where('role','Influencer');
         if(request()->has('category_id')){
             $influencers = $influencers->where('category_id',request('category_id'));
         }
@@ -60,17 +58,16 @@ class InfluencerController extends Controller
 
     function showInstagram($id)
     {  
-        
         $influencer= User::findOrFail($id);
-
-$media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
-$media_url_list=[];
-foreach($media_list as $media_item)
-{
-    array_push($media_url_list,($media_item['media_url']));
-}
-
-     return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
+        $media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
+        $media_url_list=[];
+        foreach($media_list as $media_item)
+        {
+        array_push($media_url_list,($media_item['media_url']));
+        }
+        // dd($media_url_list);
+        return $media_url_list;
+     //return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
     }
 
 function showTwitter($id){
@@ -118,16 +115,26 @@ function sendTweet(Request $request){
         $influencer = Auth::user();
         $influencer->country_id = $request->country_id;
         $influencer->category_id = $request->category_id;
+        if(isset($request->youtube_url))
+        {
         $influencer->youtube_url = $request->youtube_url;
         $influencer_data = fetch_youtube_data($request->youtube_url);
         $influencer->verified = $influencer_data['verified']?1:0;
-        if(!$influencer->provider_name)
-        $influencer->avatar = $influencer_data['imageUrl'];
-        // if(!$influencer->followers)
-        //  !$influencer->provider_name)
-        $influencer->followers = $influencer_data['subscribers'];
-        $influencer->save();
+        $influencer->youtube_avatar = $influencer_data['imageUrl'];
+        $influencer->youtube_followers = $influencer_data['subscribers'];
+        if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
+        {
+        $influencer->avatar==$influencer_data['imageUrl'];
+        }
+        if ($influencer->followers==null)
+        {
+        $influencer->followers== $influencer_data['subscribers'];
+        }
         Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+        }
+    
+
+        $influencer->save();
 
         return redirect()->route('influencers.index');
     }
