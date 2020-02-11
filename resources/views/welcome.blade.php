@@ -8,17 +8,17 @@
                 <div id="carouselContent" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner mt-3" role="listbox">
                         <div class="carousel-item active text-center p-4">
-                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">Find your influencers</h1>
-            <p class="text-center text paragraph-size"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. <br> Sociis natoque penatibus et magnis.</p>
+                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">TARGET TAKES IT TO THE NEXT LEVEL</h1>
+            <p class="text-center text paragraph-size"> Increase your revenues with influencer marketing. <br>With Target you save time and maximize impact by finding the right influencer</p>
                         </div>
                         <div class="carousel-item text-center p-4">
-                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">Find your influencers</h1>
-            <p class="text-center text paragraph-size"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. <br> Sociis natoque penatibus et magnis.</p>
+                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">FIND YOUR INFLUENCERS</h1>
+            <p class="text-center text paragraph-size"> Set up fully customised influencer marketing campaigns using our advanced targeting tools and market expertise </p>
                             
                         </div>
                         <div class="carousel-item text-center p-4">
-                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">Find your influencers</h1>
-            <p class="text-center text paragraph-size"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. <br> Sociis natoque penatibus et magnis.</p>
+                        <h1  style="margin-top:100px; margin-bottom:30px;" class="text-center text">FREE SUBSCRIPTION</h1>
+            <p class="text-center text paragraph-size"> ONLY PAY FOR THE CONTENT YOU LOVE.<br>ON-DEMAND.</p>
                             
                         </div>
                     </div>
