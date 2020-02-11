@@ -106,10 +106,8 @@ foreach($media_list as $media_item)
         
     }
     function test(){
-      if(checkIfRated(23)=='no'){
-          var_dump('working');
-      }
-        
+
+       $ch= checkIfRated(26,11);
        
     }
 

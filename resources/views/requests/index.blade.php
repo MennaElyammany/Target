@@ -90,18 +90,22 @@
       <a class="btn btn-outline-danger my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Declined</a>
 </td>
 @elseif($request->status=='completed')
-<td style="text-align:center">    
-@php
-if(checkIfRated($request->client_id)=='no')
-     echo' <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#exampleModal">
-Rate your Experience</button>';
-@endphp
+<td style="text-align:center">   
+
+      @if(checkIfRated($request->influencer_id,$request->id)==='no')
+      <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#ratingInfluencerModal" data-id="{{$request->id}}" data-influencer-name="{{$influencer->name}}" data-influencer-id="{{$influencer->id}}" data-request-id="{{$request->id}}">
+      Rate your Experience</button>
+      @else 
+      <div style="margin-top:30px;">
+      <p>Thanks for rating!</p>
+      </div>
+      @endif
 </td>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ratingInfluencerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Rate {{$influencer->name}}</h5>
+        <h5 class="modal-title" data-name="" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -125,11 +129,13 @@ Rate your Experience</button>';
   </div>
   </div>
   <div class="form-group">
-    <label>How was your experience with {{$influencer->name}}?</label>
+    <label class="modal-label"></label>
     <textarea class="form-control" rows="5" name="review"></textarea>
 
   </div>
-  <input type="hidden" name="rateable_id" value="{{$influencer->id}}">
+  <input type="hidden" class="modal-influencer-id" name="rateable_id">
+  <input type="hidden" class="modal-request-id" name="request_id">
+
 
   <div class="modal-footer">
   <button type="submit" class="btn btn-primary">Submit</button>
@@ -189,19 +195,21 @@ Rate your Experience</button>';
       <td >
       <center>
       <a class="btn btn-outline-danger my-3 "href="/requests/{{$request->id}}" role="button" >View Request</a>
-      <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#exampleModal">
-Rate your Experience</button>
+@if($request->status=='completed'&&checkIfRated($request->client_id,$request->id)=='no')
+ @php
+ $clientName=findClientName($request->client_id);
+echo'
+      <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#ratingClientModal" data-client-name='.$clientName.' data-client-id='.$request->client_id.' data-request-id='.$request->id.'>
+Rate your Experience</button>';
+@endphp
+@endif
 </center>
       </td>
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="ratingClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-      @php 
-  $name=findClientName($request->client_id);
-  echo '
-        <h5 class="modal-title" id="exampleModalLabel">Rate '.$name.'</h5>';
-    @endphp
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -224,16 +232,15 @@ Rate your Experience</button>
     <label for="star1" title="text">1 star</label>
   </div>
   </div>
-  @php 
-  $name=findClientName($request->client_id);
-  echo "<div class='form-group'>
-    <label>How was your experience with ".$name."?</label>";
-   @endphp
+  <div class='form-group'>
+    <label class="modal-label"></label>
 
     <textarea class="form-control" rows="5" name="review"></textarea>
 
   </div>
-  <input type="hidden" name="rateable_id" value="{{$request->client_id}}">
+  <input type="hidden" class="modal-client-id" name="rateable_id">
+  <input type="hidden" class="modal-request-id" name="request_id">
+
 
   <div class="modal-footer">
   <button type="submit" class="btn btn-primary">Submit</button>
@@ -296,13 +303,41 @@ Rate your Experience</button>
 @endrole
 @endsection
 @section('scripts')
-<!-- <script>
-$('#editDateModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('id') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+<script>
+$('#ratingClientModal').on('show.bs.modal', function (event) {
+  console.log('hi');
+  var button = $(event.relatedTarget) 
+  var clientName = button.data('client-name') 
+  console.log(clientName)
+  var clientId = button.data('client-id')
+  console.log(clientId)
+  var requestId = button.data('request-id')
+  console.log(requestId)
+
+
   var modal = $(this)
+  modal.find('.modal-title').text('Rate ' + clientName);
+  modal.find('.modal-label').text('How was your experience with ' + clientName +'?');
+  modal.find('.modal-client-id').val(clientId)
+  modal.find('.modal-request-id').val(requestId)
+
+  
 })
-</script> -->
+</script>
+<script>
+$('#ratingInfluencerModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) 
+  var influencerName = button.data('influencer-name') 
+  var influencerId = button.data('influencer-id')
+  var requestId = button.data('request-id')
+
+  var modal = $(this)
+  modal.find('.modal-title').text('Rate ' + influencerName);
+  modal.find('.modal-label').text('How was your experience with ' + influencerName +'?');
+  modal.find('.modal-influencer-id').val(influencerId)
+  modal.find('.modal-request-id').val(requestId)
+
+  
+})
+</script>
 @endsection

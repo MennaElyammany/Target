@@ -184,6 +184,7 @@ class RequestController extends Controller
             $rating->rating = $request->rate;
             $rating->user_id = \Auth::id();
             $rating->rateable_id=$request->rateable_id;
+            $rating->request_id=$request->request_id;
             $rating->review=$request->review;
             $rateableUser->ratings()->save($rating);
             return redirect()->route('requests.index');

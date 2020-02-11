@@ -255,16 +255,14 @@ function getRequestbyId($id){
     $request=Request::find($id);
     return $request;
 }
-function checkIfRated($rateable_id){
-    $user_id=Auth::user()->id;
-    $ratings=User::find($rateable_id)->ratings;
-    foreach($ratings as $rating){
-        if($rating->user_id==$user_id){
-            return 'yes';
-        }
-        else{
-            return 'no';
-        }             
 
-    }
+function checkIfRated($rateable_id,$request_id){
+    $user_id=Auth::user()->id;
+    $rating=User::find($rateable_id)->ratings->where('request_id','=',$request_id)->where('user_id','=',$user_id);
+    if($rating->first()){
+        return 'yes';
+    }    
+    else{
+        return 'no';
+    }      
 }
