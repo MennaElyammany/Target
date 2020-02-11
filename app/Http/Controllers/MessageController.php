@@ -52,6 +52,9 @@ class MessageController extends Controller
             }
         }
 
+
+
+
         // $senderMsgs = Message::where('sender_id',$request->influencer)->get();
         // $recieverMsgs = Message::where('reciever_id',$request->influencer)->get();
         // $messages = [];
@@ -67,6 +70,7 @@ class MessageController extends Controller
         // $senders = [];
         // $conversations = [];        
         // foreach($messages as $msg){
+        //     //client is the one who sent the last msg
         //     if(!in_array($msg['sender_id'], $senders) && $request->influencer != $msg['sender']){
         //      array_push($senders,$msg['sender_id']);
         //      $sender = User::findOrFail($msg['sender_id']);
@@ -78,7 +82,8 @@ class MessageController extends Controller
         //      );
         //      array_push($conversations,$conversation);   
         //     }
-        //     else if(!in_array($msg['sender_id'], $senders) && $request->influencer == $msg['sender']){
+        // //inluencer is the one who send the lastmsg
+        //     else if(!in_array($msg['reciever_id'], $senders) && $request->influencer == $msg['sender']){
         //         $reciever = User::findOrFail($msg['reciever_id']);
         //         $conversation = array(
         //             "content" => $msg->content,
