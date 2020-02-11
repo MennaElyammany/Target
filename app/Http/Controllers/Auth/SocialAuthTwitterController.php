@@ -27,11 +27,24 @@ class SocialAuthTwitterController extends Controller
         $userInfo = Socialite::driver('twitter')->user(); 
         $request->session()->put('TWITTER_ACCESS_TOKEN',$userInfo->token);
         $request->session()->put('TWITTER_ACCESS_TOKEN_SECRET',$userInfo->tokenSecret);
-        // dd($request->session()->get('TWITTER_ACCESS_TOKEN_SECRET'));
         $role=session('role');
         $existingUser = User::where('twitter_id',$userInfo->id)->first();
         if ($existingUser) {
             auth()->login($existingUser, true);
+            $twitterPosts = TwitterPost::where('user_id',$existingUser->id)->get();
+            foreach($twitterPosts as $twitterPost){
+                $twitterPost->delete();
+            }
+            $tweets = $this->retrieveTweets($userInfo->token,$userInfo->tokenSecret);
+            foreach($tweets as $tweet){             
+                $twitterPost = new TwitterPost;
+                $twitterPost->tweet_id = $tweet['id'];
+                $twitterPost->text = $tweet['text'];
+                $twitterPost->favorite_count = $tweet['favorite_count'];
+                $twitterPost->retweet_count = $tweet['retweet_count'];
+                $twitterPost->user_id = $existingUser->id;
+                $twitterPost->save();
+                }
             return redirect()->route('influencers.index');
         }
         else{
@@ -72,15 +85,7 @@ class SocialAuthTwitterController extends Controller
             }
         else
         return view('auth.login',['msg'=> 'You are not regitered.']);
-        }        
-        //posting tweet
-        //$postTweet = $this->postTweet($userInfo->token,$userInfo->tokenSecret);
-        // if($postTweet['httpStatusCode']==200){
-        //     dd("success");
-        // }
-        // else{
-        //     dd("error");
-        // }        
+        }               
         //$user = Socialite::driver('twitter')->userFromTokenAndSecret('1048707230667816961-CnnlB8b0pQCbBGz6P8Q1QGuvkyG6tl', 'kK5GgJq2ja1O60eSNkxMeiXhl0CAt9clKYd8pHVMLavm3');
         
 

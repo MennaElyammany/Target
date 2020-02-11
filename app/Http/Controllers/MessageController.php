@@ -34,13 +34,14 @@ class MessageController extends Controller
     }
     //users chat
     function index(Request $request){
-        $msgs = Message::where('sender_id',$request->influencer)->orderBy('created_at','desc')->get();
+
+        $msgs = Message::where('reciever_id',$request->influencer)->orderBy('created_at','desc')->get();
         $recievers = [];
         $conversations = [];        
         foreach($msgs as $msg){
-            if(!in_array($msg['reciever_id'], $recievers)){
-             array_push($recievers,$msg['reciever_id']);
-             $reciever = User::findOrFail($msg['reciever_id']);
+            if(!in_array($msg['sender_id'], $recievers)){
+             array_push($recievers,$msg['sender_id']);
+             $reciever = User::findOrFail($msg['sender_id']);
              $conversation = array(
                 "content" => $msg->content,
                 "reciever_name" => $reciever->name,
@@ -49,8 +50,48 @@ class MessageController extends Controller
              );
              array_push($conversations,$conversation);   
             }
-            
         }
+
+        // $senderMsgs = Message::where('sender_id',$request->influencer)->get();
+        // $recieverMsgs = Message::where('reciever_id',$request->influencer)->get();
+        // $messages = [];
+        // if($senderMsgs || $recieverMsgs){
+        //     foreach($senderMsgs as $msgSender){
+        //         array_push($messages,$msgSender);
+        //     }
+        //     foreach($recieverMsgs as $msgReciever){
+        //         array_push($messages,$msgReciever);
+        //     } 
+        // }
+        // array_multisort( array_column($messages, "created_at"), SORT_ASC,$messages);
+        // $senders = [];
+        // $conversations = [];        
+        // foreach($messages as $msg){
+        //     if(!in_array($msg['sender_id'], $senders) && $request->influencer != $msg['sender']){
+        //      array_push($senders,$msg['sender_id']);
+        //      $sender = User::findOrFail($msg['sender_id']);
+        //      $conversation = array(
+        //         "content" => $msg->content,
+        //         "reciever_name" => $sender->name,
+        //         "reciever_avatar" => $sender->avatar,
+        //         "reciever_id" => $sender->id
+        //      );
+        //      array_push($conversations,$conversation);   
+        //     }
+        //     else if(!in_array($msg['sender_id'], $senders) && $request->influencer == $msg['sender']){
+        //         $reciever = User::findOrFail($msg['reciever_id']);
+        //         $conversation = array(
+        //             "content" => $msg->content,
+        //             "reciever_name" => $reciever->name,
+        //             "reciever_avatar" => $reciever->avatar,
+        //             "reciever_id" => $reciever->id
+        //         );
+        //         array_push($conversations,$conversation);   
+        //     }
+        //     else
+        //     continue;
+            
+        // }
         // dd($conversations);
         return view('messages.index',compact('conversations'));
     }
