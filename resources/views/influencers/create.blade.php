@@ -37,7 +37,7 @@
 </select> 
 </div>
 <div class="form-group">
-    <label>Add Your Youtube Channel</label>
+    <label>Add Your Youtube Channel </label> @if ($influencer->instagram_id!=null) <b>(optional)</b> @endif
     <input name="youtube_url" class="form-control" type="text">
 </div>
 

@@ -1,5 +1,4 @@
     <?php
-
 //Main routes
 Route::get('/', function () { return view('welcome');})->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -19,24 +18,33 @@ Route::group(['middleware'=>['auth','role:Admin']], function(){
     Route::get('/users/{user}/ban','AdminController@ban');
 });
 //facebook and google login routes
-Route::get('login/facebook', 'Auth\LoginController@redirectToProviderFacebook');
-Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
-Route::get('login/google', 'Auth\LoginController@redirectToProviderGoogle');
-Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
+Route::get('login/facebook', 'Auth\FacebookLoginController@redirectToProviderFacebook');
+Route::get('login/facebook/callback', 'Auth\FacebookLoginController@handleProviderFacebookCallback');
+Route::get('login/google', 'Auth\GoogleLoginController@redirectToProviderGoogle');
+Route::get('login/google/callback', 'Auth\GoogleLoginController@handleProviderGoogleCallback');
 
-Route::get('login/instagram','Auth\LoginController@redirectToInstagramProvider')->name('instagram.login');
+Route::get('login/instagram','Auth\InstagramLoginController@redirectToInstagramProvider')->name('instagram.login');
+Route::get('login/instagram/callback', 'Auth\InstagramLoginController@instagramProviderCallback')->name('instagram.login.callback');
 
-Route::get('login/instagram/callback', 'Auth\LoginController@instagramProviderCallback')->name('instagram.login.callback');
+//twitter routes
+Route::get('login/twitter', 'Auth\SocialAuthTwitterController@redirect');
+Route::get('login/twitter/callback', 'Auth\SocialAuthTwitterController@callback');
+Route::get('/twitter/tweets', 'TwitterController@twitterUserTimeLine');
+Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
+
 
 //Influencers Routes
  Route::group(['middleware'=>'auth'], function(){
  Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
  Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
  Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
- Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show');
+ Route::post('/influencers/view', 'InfluencerController@showYoutubeModal')->name('influencers.showYoutubeModal');
+ Route::post('/influencers/{influencer}','InfluencerController@show')->name('influencers.show');
  Route::get('/influencers/instagram/{influencer}', 'InfluencerController@showInstagram')->name('influencers.showInstagram');
+ Route::get('/influencers/twitter/{influencer}','InfluencerController@showTwitter')->name('influencers.showTwitter');
+ Route::get('/influencers/posttwitter', 'InfluencerController@postTwitterView');
+ Route::post('/sendTweet','InfluencerController@sendTweet');
 });
-
 Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
 
@@ -69,6 +77,15 @@ Route::post('/requests', 'RequestController@store')->name('requests.store');
 Route::patch('/requests/{requestt}', 'RequestController@requestModified');
 
 });
+//Messages Routes
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/messages/create/{influencer}','MessageController@create')->name('messages.create');
+    Route::post('/messages','MessageController@store')->name('messages.store');
+    Route::get('/messages/index/{influencer}','MessageController@index')->name('messages.index');
+    Route::get('/messages/displayConversation/{client}','MessageController@displayConversation')->name('messages.displayConversation');
+    Route::post('/messages/storeInfluencer/{id}/{auth}/{msg}','MessageController@storeInfluencer')->name('messages.storeInfluencer');
+});
+
 
 //User profile routes
 Route::get('/users/{user}', 'UserController@show')->name('users.show') -> middleware('auth'); 

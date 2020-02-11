@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" , initial-scale=1">
+    <meta name="viewport" , initial-scale="1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -23,9 +23,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Ajax -->
+
+
+    <!-- Ajax -->    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 </head>
     <!-- Styles -->
@@ -175,6 +183,11 @@
                                 @endif
                             @endif
                         @else
+                        <li class="nav-item" style="margin-top:27px;">
+                        <a href="/messages/index/{{Auth::user()->id}}">
+                        <i class='far fa-comment' style='font-size:20px;color:grey;'></i>
+                        </a>
+                        </li>
 
                         <li class="nav-item   dropdown mr-2" id="alert"  >
                         
@@ -263,23 +276,152 @@ document.getElementById("alert").addEventListener('click',function(e){
 })
 });
 })
+<<<<<<< HEAD
 $(function () {
     // $('#datetimepicker1').datetimepicker();
  });
+=======
+// $(function () {
+//     $('#datetimepicker1').datetimepicker();
+//  });
+>>>>>>> 224e81ad98a111e4ad3af3e4a3dc0a4acaa95edb
  </script>
-
-
-<script>
-  
+@csrf
+<script> 
   $('#show').on('show.bs.modal', function (event) {
       console.log('ggg');
       var button = $(event.relatedTarget) 
-      var urlYoutube = button.data('url');
-    //   var name = button.data('name');
-      var modal = $(this);
-      modal.find('.modal-body #youtubeUrl').val(urlYoutube);
-    //   modal.find('.modal-body #name').val(name);
-});
+      var youtubeUrl = button.data('url');
+      var name = button.data('name');
+      var modal = $(this);    
+      var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
+      $.ajax({
+        type:'POST',
+        url:'/influencers/view',
+        data:{
+            'url':youtubeUrl,
+            '_token':csrf //pass CSRF
+            },
+        success:function(data){
+            console.log("success");            
+            console.log(data);
+            youtubeData = document.getElementById('youtubeData');          
+            videos = data['videoList'];
+            while (youtubeData.firstChild) {
+                youtubeData.removeChild(youtubeData.firstChild);
+            }
+            var verified = document.getElementById('verified');
+            verified.classList.remove("fas");
+            verified.classList.remove("fa-check-circle");
+            for(i=0;i<videos.length;i++){
+                var iframe = document.createElement('iframe');
+                str=videos[i]['videoIframe'];
+                sub=str.substring(5, str.length-1);
+                console.log("here is the substring",sub)
+                iframe.src = sub;
+                iframe.setAttribute("width", "200");
+                iframe.setAttribute("height", "200");
+                iframe.setAttribute("controls", "controls");
+                youtubeData.appendChild(iframe);
+            }    
+            $('#name').html(data['name']);
+            $('#subscribers').html(data['subscribers']);
+            $('#subscriptions').html(data['subscriptions']);
+            $('#showPic').attr('src', data['imageUrl']);
+            $('#videoCount').html(data['videoCount']);
+            $('#country').html(data['country']);
+            $('#about').html(data['about']);    
+            if(data['verified']){
+                $('#verified').attr('class',"fas fa-check-circle");
+            }
+            
+        },
+        error:function(){
+                console.log("error");
+        }
+    });
+  });
+  </script>
+  @csrf
+  <script>
+  $('#twitter').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var id = button.data('idtwitter');
+    var name = button.data('nametwitter');
+    var auth =button.data('auth');
+    var modal = $(this);
+    var tableBody = document.getElementById("tweetBody");
+    var post = document.getElementById("posttwitter");
+    while (post.firstChild) {
+        post.removeChild(post.firstChild);
+            }
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
+            }
+    var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
+      $.ajax({
+        type:'GET',
+        url:'/influencers/twitter/'+id,
+        data:{
+            '_token':csrf //pass CSRF
+            },
+        success:function(data){
+            console.log('success');
+            console.log(data);
+            console.log(typeof(id));
+            console.log(auth);
+            var table = document.getElementById("tweetTable");
+            var nameTwitter = document.getElementById("nameTwitter");
+            nameTwitter.innerHTML = name;
+            var postBtn = document.createElement("button");
+            postBtn.setAttribute("class","btn btn-primary");
+            postBtn.innerHTML = "post";
+            
+            if(id == auth){
+                post.appendChild(postBtn);             
+            }
+            postBtn.onclick = function () {
+                location.href = "/influencers/posttwitter";
+            };
+            for(i = 0; i < data.length;i++){
+                var container = document.createElement('div');
+                var text = document.createElement("div");
+                text.innerHTML = data[i]['text'];
+                container.appendChild(text);
+                var favorite = document.createElement("div");
+                var favIcon = document.createElement("div");
+                favIcon.setAttribute("class","fa fa-heart");
+                favorite.appendChild(favIcon);
+                var favorite_count = document.createElement("div");
+                favorite_count.innerHTML = data[i]['favorite_count'];
+                favorite.appendChild(favorite_count);
+                container.appendChild(favorite);
+                var retweet = document.createElement("div");
+                var retIcon = document.createElement("div");
+                retIcon.setAttribute("class","fa fa-retweet");
+                retweet.appendChild(retIcon);
+                var retweet_count = document.createElement("div");
+                retweet_count.innerHTML = data[i]['retweet_count'];
+                retweet.appendChild(retweet_count);
+                container.appendChild(retweet);
+                var hr = document.createElement("hr");
+                container.appendChild(hr);
+                tableBody.appendChild(container);
+                }
+            
+        },
+        error:function(){
+            console.log('error in twitter');
+        }
+      
+});});
 </script>
+<script>
+    function myFunction() {
+        document.getElementById("#country").disabled = true;
+        }
+</script>
+  
+
 </body>
 </html>

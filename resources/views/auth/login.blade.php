@@ -53,19 +53,22 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary mb-2">
                                     {{ __('Login') }}
                                 </button>
                               
-                                <a href="/login/facebook" class="btn btn-dark text-white">Login With Facebook</a>
-                                <a href="/login/google" class="btn btn-dark text-white">Login With Google</a>
-                                <a href="/login/instagram" class="btn btn-secondary">Login With Instagram</a></h5>
-
+                               
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                                <h5> <i> or </i> </h5>
+                                <a href="/login/facebook" class="mb-2 mr-1 btn btn-secondary" style="width:200px">Login With Facebook</a>
+                                <a href="/login/google" class="mb-2 mr-1 btn btn-secondary" style="width:200px">Login With Google</a>
+                                <a href="/login/instagram" class="mb-2 mr-1 btn btn-secondary" style="width:200px">Login With Instagram</a></h5>
+                                <a href="/login/twitter" class="mb-2 mr-1 btn btn-secondary" style="width:200px">Login with Twitter</a>
+                           
                            
                             </div>
                         </div>
@@ -75,8 +78,8 @@
                                     <strong>{{$msg}} </strong>
                                     </div>
                                     <div class="mx-auto my-2 col-12 ">
-                                     <a class="btn btn-outline-primary btn-lg offset-md-4" href="{{ route('register',['role'=>'influencer']) }}">Register As Influencer</a>
-                                     <a class="btn btn-outline-success btn-lg" href="{{ route('register',['role'=>'client']) }}">Register As Client</a>
+                                     <a class="btn btn-outline-primary btn-lg offset-md-4" href="{{ route('register',['role'=>'Influencer']) }}">Register As Influencer</a>
+                                     <a class="btn btn-outline-success btn-lg" href="{{ route('register',['role'=>'Client']) }}">Register As Client</a>
                                     </div>
                                 @endisset
                 </div>
