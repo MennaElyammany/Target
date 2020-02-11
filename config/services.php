@@ -50,6 +50,13 @@ return [
             'client_secret' => env('INSTAGRAM_CLIENT_SECRET'),  
             'redirect' => env('INSTAGRAM_REDIRECT_URI'),  
         ],
+    'twitter' => [
+        'client_id' => env('TWITTER_CONSUMER_KEY'),
+        'client_secret' => env('TWITTER_CONSUMER_SECRET'),
+        'access_token'=>env('TWITTER_ACCESS_TOKEN'),
+        'access_token_secret'=>env('TWITTER_ACCESS_TOKEN_SECRET'),
+        'redirect' => env('TWITTER_REDIRECT_URI'),
+        ],
     
     'stripe' => [
         'secret' => env('STRIPE_SECRET_KEY'),

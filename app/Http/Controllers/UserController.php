@@ -80,7 +80,13 @@ class UserController extends Controller
                 'required',
                 'email',
                 Rule::unique('users')->ignore($user->id),
-            ],            
+            ],   
+            'youtube_url'=>
+            'nullable|regex:~
+            ^(?:https?://)?                           # Optional protocol
+             (?:www[.])?                              # Optional sub-domain
+             (?:youtube[.]com/) # Mandatory domain name (w/ query string in .com)
+              ~x',             
         ]);
 
         $user->name = request('name');
@@ -94,6 +100,23 @@ class UserController extends Controller
             );    
             $user->update(['avatar'=>asset('storage/'.$user->id.'.png')]);
             }
+
+        if($user->role=='Influencer'&&isset($request->youtube_url)){    
+        if($request->youtube_url!=$user->youtube_url)
+            {
+            $user->youtube_url = $request->youtube_url;
+            $influencer_data = fetch_youtube_data($request->youtube_url);
+            $user->verified = $influencer_data['verified']?1:0;
+            $user->youtube_avatar = $influencer_data['imageUrl'];
+            $user->youtube_followers = $influencer_data['subscribers'];
+            if($user->provider_name==null || $user->provider_name=='google' || $user->avatar==asset('default.png'))
+            {
+                $user->avatar=$influencer_data['imageUrl'];
+                $user->followers= $influencer_data['subscribers'];
+            }
+
+            }
+        }
         $user->save();
         return redirect()->route('users.show',['user' => Auth::user()->id ]);
 
@@ -109,9 +132,5 @@ function destroy($id){
         $user->delete();
         return back();
 }
-public function review(User $user)
-{
 
-
-}
 }

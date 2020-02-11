@@ -21,7 +21,7 @@ class User extends Authenticatable implements BannableContract
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','provider_name','provider_id','role','country_id','category_id','avatar'
+        'name', 'email', 'password','provider_name','provider_id','role','country_id','category_id','avatar','facebook_avatar','instagram_avatar','youtube_avatar','followers','instagram_followers','youtube_followers'
     ];
 
     /**
@@ -43,5 +43,12 @@ class User extends Authenticatable implements BannableContract
     ];
     public function Requests(){
         return $this-> belongsToMany(Request::class);
+    }
+    public function twitterPosts(){
+        return $this->hasMany(TwitterPost::class);
+    }
+    public function messages()
+    {
+        return $this->belongsToMany(Message::class, 'message_user');
     }
 }

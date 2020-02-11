@@ -25,6 +25,7 @@ use App\Request;
      }
     
      
+     
      $videoList = Youtube::listChannelVideos($channelId,40);
   
      $verified=checkVerification($url);
@@ -110,7 +111,7 @@ function convertNumber($number){
     }
    
 else
-$number=$number;
+$number=$number?$number:0;
 
 return $number;
 }
@@ -251,6 +252,10 @@ function findClientName($id){
 }
 
 
+function findUserAvatar($id){
+    $user=User::find($id);
+    return $user->avatar;
+}
 function roundAverageRating($num){
     $averageRating = round( $num, 1, PHP_ROUND_HALF_DOWN);
     return $averageRating;
@@ -261,3 +266,4 @@ function getRequestbyId($id){
     $request=Request::find($id);
     return $request;
 }
+
