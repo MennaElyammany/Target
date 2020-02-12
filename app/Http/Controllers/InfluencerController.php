@@ -58,19 +58,16 @@ class InfluencerController extends Controller
 
     function showInstagram($id)
     {  
-        
         $influencer= User::findOrFail($id);
-
-$media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
-$media_url_list=[];
-foreach($media_list as $media_item)
-{
-    array_push($media_url_list,($media_item['media_url']));
-}
-
-if($influencer->provider_name=='facebook')
-
-     return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
+        $media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
+        $media_url_list=[];
+        foreach($media_list as $media_item)
+        {
+        array_push($media_url_list,($media_item['media_url']));
+        }
+        // dd($media_url_list);
+        return $media_url_list;
+     //return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
     }
 
 function showTwitter($id){
@@ -132,11 +129,10 @@ function sendTweet(Request $request){
         if ($influencer->followers==null)
         {
         $influencer->followers== $influencer_data['subscribers'];
-        }    
-     Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
-
-    }
- 
+        }
+        Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+        }
+    
 
         $influencer->save();
 

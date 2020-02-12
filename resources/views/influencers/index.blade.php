@@ -28,6 +28,10 @@
         padding: 0px !important;
         margin: auto !important;
     }
+    .colInsta{
+      border-radius: 20px;
+      margin-top:7px;
+    }
 
 </style>
 <i class="glyphicon glyphicon-star-empty"></i>
@@ -173,13 +177,36 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     @if($influencer->youtube_url)
     <a class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;margin-top:10px;' href="/influencers/{{$influencer->id}}"></a>
     @endif
+
+    <!-- INSTAGRAM -->
     @if ($influencer->instagram_id)
-    <a class="ml-2 " href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" style="vertical-align:top; margin-top:13px"  width='29'></a>
+<!-- "href="/influencers/instagram/{{$influencer->id}}" -->
+    <a class="ml-2"
+    data-toggle="modal" data-target="#showInstaMedia" data-idinsta="{{$influencer->id}}" data-nameinsta="{{$influencer->name}}">
+    <img src="{{asset('instagram.png')}}" style="vertical-align:top; margin-top:13px"  width='29'></a>
+    <div class="modal fade" id="showInstaMedia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="max-width:1000px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div><!-- header -->
+          <div class="modal-body"id="instaBody">
+          </div><!-- body -->
+        </div><!-- content -->
+      </div><!-- modal dialog -->
+    </div><!-- modal -->
     @endif
+
+
+    <!-- TWITTER -->
+
     @if ($influencer->twitter_id)
-    <a class="ml-2" data-toggle="modal" data-target="#showTwitter" data-idTwitter="{{$influencer->id}}" data-name="{{$influencer->name}}">    
+    <a class="ml-2" data-toggle="modal" data-target="#showTwitter" >    
     <img src="twitter.png" width='30'class="ml-2" data-toggle="modal" data-target="#twitter" 
-    data-idtwitter="{{$influencer->id}}" data-nametwitter="{{$influencer->name}}" data-auth="{{Auth::user()->id}}">
+    data-idtwitter="{{$influencer->id}}" data-nametwitter="{{$influencer->name}}" data-auth="{{Auth::user()->id}}"></a>
     @endif
     <a href="/messages/create/{{$influencer->id}}"><i class='far fa-comment' style='font-size:26px;color:grey;'></i></a>
     <div class="modal fade" id="twitter" tabindex="-1" role="dialog">
@@ -210,6 +237,9 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal fade -->
+
+
+
     
 </div>
 <div class="mt-2"style="display:flex;width:300px;height:80px;margin-right:10px;">
@@ -244,6 +274,8 @@ echo " <div style='display:flex'>
 <p style='roboto-font color:grey;'> Subscribers";
     if($influencer->provider_name=='facebook'&& $influencer->instagram_id!=null)
      echo "<br><i class='text-secondary'> <small> on instagram </small> </i> </p>";
+    else if($influencer->provider_name=='twitter')
+    echo "<br><i class='text-secondary'> <small> on twitter </small> </i> </p>";
     else 
     echo "<br><i class='text-secondary'> <small> on youtube</small> </i> </p>";
 
@@ -273,4 +305,53 @@ echo "    <div style='display: flex;'>
 <div class="font" style="margin-top:1320px;margin-left:650px;">
     {{$influencers->links()}}
 </div>
+@endsection
+@section('scripts')
+@csrf
+<script>
+  $('#showInstaMedia').on('show.bs.modal', function (event) {
+    var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
+    var button = $(event.relatedTarget) 
+    var id = button.data('idinsta');
+    var name = button.data('nameinsta');
+    console.log("id",button.data('id'));
+    console.log("name",name)
+    var modal = $(this);
+    var tableBody = document.getElementById("instaBody");
+    var title = document.getElementById("title");
+    title.innerHTML = name;
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
+            }
+      $.ajax({
+        type:'GET',
+        url:'/influencers/instagram/'+id,
+        data:{ 
+            '_token':csrf //pass CSRF
+        },
+        success:function(data){
+          console.log("success");
+          console.log(data);
+          var row = document.createElement('div');
+            row.classList.add("row");
+          for(i=0;i<data.length;i++){             
+            col = document.createElement('div');
+            col.classList.add('col-4');
+            var img = document.createElement("IMG");
+            img.src = data[i];
+            img.width = "280";
+            img.height = "280";
+            img.classList.add('colInsta');
+            col.appendChild(img);
+            row.appendChild(col);
+            }
+          tableBody.appendChild(row);
+        },
+        error:function(){
+          console.log("error");
+        }
+      });
+  
+  });
+</script>
 @endsection
