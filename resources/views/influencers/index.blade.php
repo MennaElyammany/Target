@@ -181,8 +181,7 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <!-- INSTAGRAM -->
     @if ($influencer->instagram_id)
 <!-- "href="/influencers/instagram/{{$influencer->id}}" -->
-    <a class="ml-2"
-    data-toggle="modal" data-target="#showInstaMedia" data-idinsta="{{$influencer->id}}" data-nameinsta="{{$influencer->name}}">
+    <a class="ml-2" href data-toggle="modal" data-target="#showInstaMedia" data-idinsta="{{$influencer->id}}" data-nameinsta="{{$influencer->name}}">
     <img src="{{asset('instagram.png')}}" style="vertical-align:top; margin-top:13px"  width='29'></a>
     <div class="modal fade" id="showInstaMedia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" style="max-width:1000px;">
