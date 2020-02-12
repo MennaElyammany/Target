@@ -191,7 +191,10 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
       <div class="modal-dialog" style="max-width:1000px;">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="title"></h5>
+            <h5 class="modal-title" id="title">
+            <div class = "col-6"><a href="{{ route('requests.create',['influencer_id'=> $influencer->id]) }}" >
+            <i class="fas fa-file-signature text-dark "></i></a></div>
+            </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -216,7 +219,10 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="nameTwitter" ></h5>
+        <h5 class="modal-title" id="nameTwitter" >
+        <div class = "col-6"><a href="{{ route('requests.create',['influencer_id'=> $influencer->id]) }}" >
+            <i class="fas fa-file-signature text-dark "></i></a></div>
+        </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -322,7 +328,10 @@ echo "    <div style='display: flex;'>
     var modal = $(this);
     var tableBody = document.getElementById("instaBody");
     var title = document.getElementById("title");
-    title.innerHTML = name;
+    nameDiv = document.createElement('div');
+    nameDiv.innerHTML = name;
+    // nameDiv.classList.add("col-6");
+    title.appendChild(nameDiv);
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
             }

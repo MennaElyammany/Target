@@ -379,7 +379,10 @@ document.getElementById("alert").addEventListener('click',function(e){
             console.log(auth);
             var table = document.getElementById("tweetTable");
             var nameTwitter = document.getElementById("nameTwitter");
-            nameTwitter.innerHTML = name;
+            var divname = document.createElement('div');
+            divname.innerHTML = name;
+            // nameTwitter.innerHTML = name;
+            nameTwitter.appendChild(divname);
             var postBtn = document.createElement("button");
             postBtn.setAttribute("class","btn btn-primary");
             postBtn.innerHTML = "post";
