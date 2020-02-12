@@ -276,15 +276,9 @@ document.getElementById("alert").addEventListener('click',function(e){
 })
 });
 })
-<<<<<<< HEAD
-$(function () {
-    // $('#datetimepicker1').datetimepicker();
- });
-=======
 // $(function () {
 //     $('#datetimepicker1').datetimepicker();
 //  });
->>>>>>> 224e81ad98a111e4ad3af3e4a3dc0a4acaa95edb
  </script>
 @csrf
 <script> 

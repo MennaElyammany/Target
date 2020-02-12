@@ -8,7 +8,6 @@ use App\Request;
 
 
  function fetch_youtube_data($url){
-  
      if(Str::contains($url, '/user')){
         $channelName=substr($url,strpos($url,'user/')+5);
         $channel = Youtube::getChannelByName($channelName);

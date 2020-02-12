@@ -123,10 +123,9 @@ function sendTweet(Request $request){
         $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->youtube_avatar = $influencer_data['imageUrl'];
         $influencer->youtube_followers = $influencer_data['subscribers'];
-        }
-    if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
+        if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
     {
-        $influencer->avatar==$request->youtube_url;
+        $influencer->avatar==$influencer_data['imageUrl'];
     }
     if ($influencer->followers==null)
     {
@@ -135,6 +134,8 @@ function sendTweet(Request $request){
 
         $influencer->save();
         Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+        }
+    
 
         return redirect()->route('influencers.index');
     }
@@ -152,7 +153,7 @@ function sendTweet(Request $request){
     }
     function test(){
 
-       $ch= checkIfRated(26,11);
+       dd(Auth::user());
        
     }
 

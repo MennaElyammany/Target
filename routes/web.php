@@ -63,6 +63,8 @@ Route::get('/genderchart/{id}','ChartDataController@getAudienceGender');
 Route::get('/locationchart/{id}','ChartDataController@getAudienceLocation');
 Route::get('/agechart/{id}','ChartDataController@getAudienceAge');
 Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influencers.chart');
+Route::get('/influencers/instagramcharts/{id}','ChartDataController@InstagramChart')->name('instagram.chart');
+
 
 //Requests Routes
 Route::group(['middleware'=>'auth'], function(){

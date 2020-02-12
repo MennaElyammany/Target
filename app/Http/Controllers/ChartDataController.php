@@ -99,4 +99,8 @@ class ChartDataController extends Controller
         $result =calcEngagement($request->data);
         return View::make('influencers.chart', ['id' => $id,'result'=>$result]);
     }
+    function InstagramChart(request $request, $id){
+        return View::make('influencers.instagramChart',['id'=> $id]);
+
+    }
 }
