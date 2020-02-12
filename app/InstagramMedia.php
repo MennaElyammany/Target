@@ -8,7 +8,7 @@ class InstagramMedia extends Model
 {
     protected $table = 'instagram_media';
     protected $fillable = [
-        'user_id', 'instagram_id', 'media_id','media_url'
+        'user_id', 'instagram_id', 'media_id','media_url','like_count','comments_count'
     ];
 
 }

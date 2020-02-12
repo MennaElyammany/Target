@@ -23,31 +23,31 @@
                 <div class="row mb-2"> 
                     <div class="col-4 text-center"> 
                 <img src="{{asset('instagram-logo.png ')}}"  width='70' style="vertical-align:top;">
-                <i class="fas fa-info-circle mt-2" style="color:#427EAC;" title="If you have an Instagram Business Account that is linked to a facebook page of your own, we encourage you to register with facebook to benefit the most of our website services.However, if you don't have one, you can still sign up with instagram."></i>
+                <i class="fas fa-info-circle mt-2" style="color:#427EAC;" title="If you have an Instagram Business Account linked to a facebook page that you manage, we encourage you to register with facebook to benefit the most of our website services."></i>
                 <!-- <button class="fas fa-info-circle mt-2 btn btn-outline-light btn-sm " style="color:steelblue;" title="If you have an Instagram Business Account that is linked to a facebook page of your own, we encourage you to register with facebook to benefit the most of our website services. However, if you don't have one, you can still sign up with instagram. ">	</button> -->
 
             </div>
                  <div class="col-8">               
-                      <a href="{{ url('/login/facebook?role=' . $role)}}" class="btn btn-secondary mx-auto" style="width:200px">Signup With Facebook</a> <i> or </i> <a href="{{ url('/login/instagram?role=' . $role)}}" class="btn btn-secondary" style="width:200px">Signup With Instagram</a>
+                      <a href="{{ url('/login/facebook?role=' . $role)}}" class="btn btn-secondary mx-auto" style="width:200px">Signup With Facebook</a>
                     </div> 
                 </div>
-                <div class="row mt-4 mb-2"> <div class="col-4 text-center"> 
-                <img src="{{asset('twitter-logo.png ')}}"  width='70' style="vertical-align:top;">
+                <div class="row mt-4 mb-4"> <div class="col-4 text-center"> 
+                <img src="{{asset('twitter-logo.png ')}}"  width='70' style="vertical-align:top;" class="mr-3">
                 </div> 
                 <div class="col-8 ">                                            
                     <a href="{{ url('/login/twitter?role=' . $role)}}" class="btn btn-secondary" style="width:200px">Signup With Twitter</a>
                 </div> 
                 </div>
-                <div class="row mt-3 mb-2"> 
+                <!-- <div class="row mt-3 mb-2"> 
                     <div class="col-4 text-center"> 
                 <img src="{{asset('facebook-logo.png ')}}" class="border-rounded m" width='95' style="vertical-align:top;">
                       </div> 
                       <div class="col-8 ">                
                           <a href="{{ url('/login/facebook?role=' . $role)}}" class="mt-4 btn btn-secondary mx-auto" style="width:200px">Signup With Facebook</a> 
                         </div> 
-                    </div>
+                    </div> -->
                     <hr>
-                    <div class="mb-4">       
+                    <div class="mb-4 ">       
                     <h5 class="text-center"> OR <br>
 
             <u>  You can register by our simple registeration form </u>  </h5>

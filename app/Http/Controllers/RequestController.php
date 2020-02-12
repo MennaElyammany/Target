@@ -120,7 +120,6 @@ class RequestController extends Controller
 
     }
     function decline($id){
-       
         $request= Request::findOrFail($id);
         if(Auth::user()->id==$request->client_id)
             $notified_user=$request->influencer_id;

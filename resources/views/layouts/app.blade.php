@@ -119,7 +119,19 @@
 .ratinglabel{
     margin-top:12px;
 }
+.twittericons{
+    display:flex;
     
+}
+.iconmargin{
+    margin:5px;
+}
+.fav{
+    color:red;
+}
+.ret{
+    color:#22B2FA;
+}
     </style>
 </head>
 <body>
@@ -336,10 +348,13 @@ document.getElementById("alert").addEventListener('click',function(e){
     });
   });
   </script>
+
+
+
   @csrf
   <script>
   $('#twitter').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) 
+    var button = $(event.relatedTarget) ;
     var id = button.data('idtwitter');
     var name = button.data('nametwitter');
     var auth =button.data('auth');
@@ -382,22 +397,31 @@ document.getElementById("alert").addEventListener('click',function(e){
                 var text = document.createElement("div");
                 text.innerHTML = data[i]['text'];
                 container.appendChild(text);
+                var icons = document.createElement("div");
+                icons.classList.add("twittericons");
                 var favorite = document.createElement("div");
                 var favIcon = document.createElement("div");
-                favIcon.setAttribute("class","fa fa-heart");
+                favIcon.setAttribute("class","fa fa-heart fav");
+                favIcon.classList.add("iconmargin");
                 favorite.appendChild(favIcon);
                 var favorite_count = document.createElement("div");
                 favorite_count.innerHTML = data[i]['favorite_count'];
-                favorite.appendChild(favorite_count);
-                container.appendChild(favorite);
+                favorite_count.classList.add("iconmargin");
+                icons.appendChild(favorite);
+                icons.appendChild(favorite_count);
+                // container.appendChild(favorite);
                 var retweet = document.createElement("div");
                 var retIcon = document.createElement("div");
-                retIcon.setAttribute("class","fa fa-retweet");
+                retIcon.setAttribute("class","fa fa-retweet ret");
+                retIcon.classList.add("iconmargin");
                 retweet.appendChild(retIcon);
                 var retweet_count = document.createElement("div");
                 retweet_count.innerHTML = data[i]['retweet_count'];
-                retweet.appendChild(retweet_count);
-                container.appendChild(retweet);
+                retweet_count.classList.add("iconmargin");
+                icons.appendChild(retweet);
+                icons.appendChild(retweet_count);
+                // container.appendChild(retweet);
+                container.appendChild(icons);
                 var hr = document.createElement("hr");
                 container.appendChild(hr);
                 tableBody.appendChild(container);
@@ -410,6 +434,10 @@ document.getElementById("alert").addEventListener('click',function(e){
       
 });});
 </script>
+
+
+
+
 <script>
     function myFunction() {
         document.getElementById("#country").disabled = true;
