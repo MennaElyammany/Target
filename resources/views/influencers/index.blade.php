@@ -30,7 +30,7 @@
     }
     .colInsta{
       border-radius: 20px;
-      margin-top:5px;
+      margin-top:7px;
     }
 
 </style>
@@ -339,11 +339,11 @@ echo "    <div style='display: flex;'>
             row.classList.add("row");
           for(i=0;i<data.length;i++){             
             col = document.createElement('div');
-            col.classList.add('col-6');
+            col.classList.add('col-4');
             var img = document.createElement("IMG");
             img.src = data[i];
-            img.width = "400";
-            img.height = "400";
+            img.width = "280";
+            img.height = "280";
             img.classList.add('colInsta');
             col.appendChild(img);
             row.appendChild(col);
