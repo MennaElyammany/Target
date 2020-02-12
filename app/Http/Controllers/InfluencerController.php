@@ -68,6 +68,8 @@ foreach($media_list as $media_item)
     array_push($media_url_list,($media_item['media_url']));
 }
 
+if($influencer->provider_name=='facebook')
+
      return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
     }
 
@@ -123,18 +125,20 @@ function sendTweet(Request $request){
         $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->youtube_avatar = $influencer_data['imageUrl'];
         $influencer->youtube_followers = $influencer_data['subscribers'];
+        if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
+        {
+            $influencer->avatar= $influencer_data['imageUrl'];
         }
-    if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
-    {
-        $influencer->avatar==$request->youtube_url;
+        if ($influencer->followers==null)
+        {
+        $influencer->followers== $influencer_data['subscribers'];
+        }    
+     Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+
     }
-    if ($influencer->followers==null)
-    {
-    $influencer->followers== $influencer_data['subscribers'];
-    }
+ 
 
         $influencer->save();
-        Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
 
         return redirect()->route('influencers.index');
     }

@@ -174,8 +174,6 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <a class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;margin-top:10px;' href="/influencers/{{$influencer->id}}"></a>
     @endif
     @if ($influencer->instagram_id)
-    <!-- <a class='fa fa-instagram' onclick="window.location='/influencers/{{$influencer->id}}'"></a> -->
-
     <a class="ml-2 " href="/influencers/instagram/{{$influencer->id}}"><img src="{{asset('instagram.png')}}" style="vertical-align:top; margin-top:13px"  width='29'></a>
     @endif
     @if ($influencer->twitter_id)
