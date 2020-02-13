@@ -126,6 +126,7 @@ function sendTweet(Request $request){
     }
     function store(StoreInfluencerRequest $request){
         $influencer = Auth::user();
+        // dd(Auth::user());
         $influencer->country_id = $request->country_id;
         $influencer->category_id = $request->category_id;
         if(isset($request->youtube_url))
@@ -135,13 +136,14 @@ function sendTweet(Request $request){
         $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->youtube_avatar = $influencer_data['imageUrl'];
         $influencer->youtube_followers = $influencer_data['subscribers'];
-        if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
+        //if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
+        // {
+        // $influencer->avatar==$influencer_data['imageUrl'];
+        // }
+        if (!$influencer->instagram_id || !$influencer->twitter_id)
         {
-        $influencer->avatar==$influencer_data['imageUrl'];
-        }
-        if ($influencer->followers==null)
-        {
-        $influencer->followers== $influencer_data['subscribers'];
+            $influencer->avatar = $influencer_data['imageUrl'];
+            $influencer->followers = $influencer_data['subscribers'];
         }
         Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
         }

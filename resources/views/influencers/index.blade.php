@@ -32,6 +32,13 @@
       border-radius: 20px;
       margin-top:7px;
     }
+    .modal-dialog{
+      overflow-y: initial !important
+}
+.modal-body{
+  height: 500px;
+  overflow-y: auto;
+}
 
 </style>
 <i class="glyphicon glyphicon-star-empty"></i>
@@ -213,7 +220,6 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <a class="ml-2" data-toggle="modal" data-target="#showTwitter" >    
     <img src="twitter.png" width='30'class="ml-2" data-toggle="modal" data-target="#twitter" data-followers="{{$influencer->followers}}"
     data-idtwitter="{{$influencer->id}}" data-img="{{$influencer->avatar}}"data-nametwitter="{{$influencer->name}}" data-auth="{{Auth::user()->id}}"></a>
-    @endif
     <div class="modal fade" id="twitter" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:800px;">
     <div class="modal-content">
@@ -291,6 +297,7 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal fade -->
+@endif
 
 
 
