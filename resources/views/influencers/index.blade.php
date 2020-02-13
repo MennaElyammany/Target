@@ -207,9 +207,8 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
           <div class="modal-body row" id="instaBody">
               <div class='col-6 modal-body mx-0  border-right' style="height:500px; overflow-y:auto;" id="instaMedia">
                 </div>  <!--media-->
-              <div class='col-6  mx-0 ' id="instaInfo">
+              <div class='col-6  mx-0 ' style="height:500px; overflow-y:auto;" id="instaInfo">
               <div class="row">
-              
                             <div class="col-4">
                                 <img id="instaImg" class="rounded-circle img-fluid">
                             </div>
