@@ -12,7 +12,8 @@
 		},
 		ajaxGetAudienceGender: function () {
             var url = window.location.pathname;
-            var id = url.substring(url.lastIndexOf('/') + 1);
+			var id = url.substring(url.lastIndexOf('/') + 1);
+			console.log(id);
 			var urlPath =  '/genderchart/'+id;
 			var request = $.ajax( {
 				method: 'GET',
@@ -47,7 +48,14 @@
                ],
                data: response.gender_count
              }]
-           }
+		   },
+		   options: {
+			legend: { display: false },
+			title: {
+			  display: true,
+			  text: 'Audience Gender'
+			}
+		  }
          });
 
 
