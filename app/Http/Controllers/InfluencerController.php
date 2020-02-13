@@ -7,6 +7,7 @@ use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
 use App\InstagramMedia;
 use App\InstagramAccount;
+use App\TwitterAccount;
 use TwitterAPIExchange;
 use Auth;
 use Session;
@@ -77,11 +78,23 @@ class InfluencerController extends Controller
 function showTwitter($id){
     $influencer = User::findOrFail($id);
     $twitterPosts = $influencer->twitterPosts;
+    $twitterAccount = TwitterAccount::where('twitter_id',$influencer->twitter_id)->first();
+    $twitterData = [];
+    $accountInfo = array(
+        "nickname" => $twitterAccount->nickname,
+        "description" => $twitterAccount->description,
+        "statuses_count" => $twitterAccount->statuses_count,
+        "friends_count" => $twitterAccount->friends_count,
+        "location" => $twitterAccount->location,
+        "expanded_url"=> $twitterAccount->expanded_url
+    );
     $tweets = [];
     foreach($twitterPosts as $tweet){
         array_push($tweets,($tweet));
     }
-    return $tweets;
+    array_push($twitterData,$tweets);
+    array_push($twitterData,$accountInfo);
+    return $twitterData;
 
 }
 function postTwitterView(){
@@ -117,6 +130,7 @@ function sendTweet(Request $request){
     }
     function store(StoreInfluencerRequest $request){
         $influencer = Auth::user();
+        // dd(Auth::user());
         $influencer->country_id = $request->country_id;
         $influencer->category_id = $request->category_id;
         if(isset($request->youtube_url))
@@ -132,7 +146,8 @@ function sendTweet(Request $request){
         }
         if ($influencer->followers==null)
         {
-        $influencer->followers== $influencer_data['subscribers'];
+            $influencer->avatar = $influencer_data['imageUrl'];
+            $influencer->followers = $influencer_data['subscribers'];
         }
         Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
         }
