@@ -164,9 +164,7 @@ return [
         Alaouy\Youtube\YoutubeServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         willvincent\Rateable\RateableServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        'Thujohn\Twitter\TwitterServiceProvider',
-        
+        Laravel\Socialite\SocialiteServiceProvider::class,        
         Cog\Laravel\Ban\Providers\BanServiceProvider::class,
 
 

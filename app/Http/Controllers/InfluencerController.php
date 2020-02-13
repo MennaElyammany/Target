@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
 use App\InstagramMedia;
+use App\InstagramAccount;
 use App\TwitterAccount;
 use TwitterAPIExchange;
 use Auth;
@@ -47,8 +48,9 @@ class InfluencerController extends Controller
     else
     $data=json_decode(Redis::get($id),true);
     $url=$influencer['youtube_url'];
-    $data['influencer_id']=$id;     
-     return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
+    $data['influencer_id']=$id; 
+    $engagement = calcEngagement($data);  
+     return view('influencers.showYoutube',['data'=>$data,'id'=>$id,'engagement'=>$engagement]);
     }
     function showYoutubeModal(Request $request)
     {   
@@ -59,15 +61,18 @@ class InfluencerController extends Controller
 
     function showInstagram($id)
     {  
-        $influencer= User::findOrFail($id);
+        $influencer= User::where('id', $id)->first();
         $media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
+        $account = InstagramAccount::where('instagram_id', $influencer['instagram_id'])->first();
+        $data=[$account->username,$account->media_count,$account->followers_count,$account->follows_count,$influencer->engagement,$account->biography,getCountryName($influencer->country_id)[0]->country_name];
         $media_url_list=[];
         foreach($media_list as $media_item)
         {
-        array_push($media_url_list,($media_item['media_url']));
+        array_push($media_url_list,[$media_item['media_url'],$media_item['like_count'],$media_item['comments_count']]);
         }
-        // dd($media_url_list);
-        return $media_url_list;
+        // dd($account);
+        array_push($data,$media_url_list);
+        return $data;
      //return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
     }
 
@@ -136,14 +141,24 @@ function sendTweet(Request $request){
         $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->youtube_avatar = $influencer_data['imageUrl'];
         $influencer->youtube_followers = $influencer_data['subscribers'];
-        if (!$influencer->instagram_id && !$influencer->twitter_id)
-        {
-            $influencer->avatar = $influencer_data['imageUrl'];
-            $influencer->followers = $influencer_data['subscribers'];
+        if($influencer->provider_name =='google' || $influencer->provider_name ==null)
+        { 
+            $influencer->avatar= $influencer_data['imageUrl'];
+            $influencer->followers= $influencer_data['subscribers'];
+            Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
         }
-        Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+
         }
-    
+        //save influencer's engagement
+        if(isset($influencer->instagram_id)){
+            $result = calcInstagramEngagement($influencer->id);  
+            $engagement =$result['engagement'];
+        }
+        else{
+            $result = calcEngagement($influencer_data);
+            $engagement =$result['engagement'];
+        }
+        $influencer->engagement = $engagement;
 
         $influencer->save();
 
@@ -162,9 +177,9 @@ function sendTweet(Request $request){
         
     }
     function test(){
-        $num=roundAverageRating(2.5000);
-        dd($num);
-        return view('test');
+
+       dd(Auth::user());
+       
     }
 
 }

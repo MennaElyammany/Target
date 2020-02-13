@@ -29,6 +29,8 @@
         margin: auto !important;
     }
     .colInsta{
+        /* border:solid;
+        border-color:white; */
       border-radius: 20px;
       margin-top:7px;
     }
@@ -185,28 +187,85 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <a class='fa fa-youtube-play' style='font-size:36px;color:red;padding-left:10px;margin-top:10px;' href="/influencers/{{$influencer->id}}"></a>
     @endif
 
-
-
-
     <!-- INSTAGRAM -->
     @if ($influencer->instagram_id)
 <!-- "href="/influencers/instagram/{{$influencer->id}}" -->
-    <a class="ml-2"
-    data-toggle="modal" data-target="#showInstaMedia" data-idinsta="{{$influencer->id}}" data-nameinsta="{{$influencer->name}}">
+    <a class="ml-2" href data-toggle="modal" data-target="#showInstaMedia" data-idinsta="{{$influencer->id}}" data-nameinsta="{{$influencer->name}}" data-imginsta="{{$influencer->avatar}}" data-influencer="{{$influencer}}">
     <img src="{{asset('instagram.png')}}" style="vertical-align:top; margin-top:13px"  width='29'></a>
     <div class="modal fade" id="showInstaMedia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" style="max-width:1000px;">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="title">
-            <div class = "col-6"><a href="{{ route('requests.create',['influencer_id'=> $influencer->id]) }}" >
-            <i class="fas fa-file-signature text-dark "></i></a></div>
+            <div class = "col-6">
+            </div>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div><!-- header -->
-          <div class="modal-body"id="instaBody">
+          <div class="modal-body row" id="instaBody">
+              <div class='col-6 modal-body mx-0  border-right' style="height:500px; overflow-y:auto;" id="instaMedia">
+                </div>  <!--media-->
+              <div class='col-6  mx-0 ' style="height:500px; overflow-y:auto;" id="instaInfo">
+              <div class="row">
+                            <div class="col-4">
+                                <img id="instaImg" class="rounded-circle img-fluid">
+                            </div>
+                            <div class="col-8 mt-4">
+                            <div class="row" id="row1">
+                              <h3 id="instaName" class='d-inline'> </h3>
+                              <!-- @if(has_uncompleted_request($influencer->id) && Auth::User()->isNotBanned()) -->
+                                  <a id='request_link' href=""  >  <i class="fas fa-lg fa-file-signature text-dark ml-2" title="Request Influencer For Ad"></i></a>
+                                  <a id='message_link' href=""> <i class='far fa-comment ml-2' style='font-size:26px;color:grey;' title="Message Influencer"></i></a>
+
+                                <!-- @endif -->
+                                </div> <!--row1-->
+                            <div class="row" id="row2">
+                            <h5 id="instaUsername" class='d-inline'> </h5>
+                            <img class='ml-2 d-inline' src='instagram.png' width='25' height='25'>
+                            </div> <!--row2-->
+                      
+                            </div> <!--col8-->
+                            
+                 </div> <!--row-->           
+                  <hr>
+                 <div id="statistics">
+                        <div class="row no-gutters text-center">
+                            <div class="col-3">
+                                <h3 class="font-weight-bold" id="media_count"></h3>
+                                <span >photos</span>
+                            </div>
+                            <div class="col-3">
+                                <h3 class="font-weight-bold" id="follower_count"></h3>
+                                <span >followers</span>
+                            </div>
+                            <div class="col-3">
+                                <center>
+                                    <h3 class="font-weight-bold" id="follows_count"></h3>
+                                </center>
+                                <span>Subscriptions</span>
+                            </div>
+                            <div class="col-3">
+                                <center>
+                                    <h3 class="font-weight-bold" id="engagement"></h3>
+                                </center>
+                                <span>Engagement</span>
+                            </div>
+                        </div>
+                    </div> <!--statistics-->
+                    <br>
+                    <div id="instaAbout" class='container' >
+                    <p id='instaBiography'></p>
+                    <img src="https://img.icons8.com/offices/30/000000/globe.png" class='d-inline' width='25'>  
+                   
+                    <h6 id='instaCountry' class='d-inline ml-1'> </h6>
+                   <br>
+                    </div>
+
+
+
+                </div>  <!--info-->
           </div><!-- body -->
         </div><!-- content -->
       </div><!-- modal dialog -->
@@ -342,7 +401,7 @@ echo " <div style='display:flex'>
 
 echo"</div>
 <div class='text-center mx-auto' style=' '>
-<span class='roboto-font text-uppercase'>3.6%</span>
+<span class='roboto-font text-uppercase'>".$influencer->engagement."%</span>
 <p style='roboto-font color:grey;'>Engagement</p>
 </div>
 </div>";
@@ -368,48 +427,84 @@ echo "    <div style='display: flex;'>
 </div>
 @endsection
 @section('scripts')
-@csrf
+<!-- @csrf -->
 <script>
   $('#showInstaMedia').on('show.bs.modal', function (event) {
-    var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
+    // var csrf=document.querySelector("input[name='_token']").getAttribute('value'); 
     var button = $(event.relatedTarget) 
-    var id = button.data('idinsta');
-    var name = button.data('nameinsta');
-    console.log("id",button.data('id'));
-    console.log("name",name)
+    var influencer= button.data('influencer');
+    // console.log(inf.country_id);
     var modal = $(this);
-    var tableBody = document.getElementById("instaBody");
-    var title = document.getElementById("title");
-    nameDiv = document.createElement('div');
-    nameDiv.innerHTML = name;
-    // nameDiv.classList.add("col-6");
-    title.appendChild(nameDiv);
-    while (tableBody.firstChild) {
-        tableBody.removeChild(tableBody.firstChild);
+    var instaBody = document.getElementById("instaBody");
+    var instaMedia = document.getElementById("instaMedia");
+    //first row in instaInfo
+    var instaName = document.getElementById("instaName");
+    var request_link=document.getElementById("request_link");
+    var message_link=document.getElementById("message_link");
+    var instaImg = document.getElementById("instaImg");
+    var instaUsername=document.getElementById("instaUsername");
+    //second row in insta info
+    var media_count=document.getElementById("media_count");
+    var follower_count=document.getElementById("follower_count");
+    var follows_count=document.getElementById("follows_count");
+    var engagement=document.getElementById("engagement");
+    //3rd part in insta info
+    var biography=document.getElementById("instaBiography");
+    var country=document.getElementById("instaCountry");
+//fill instaMedia
+    while (instaMedia.firstChild) {
+        instaMedia.removeChild(instaMedia.firstChild);
             }
       $.ajax({
         type:'GET',
-        url:'/influencers/instagram/'+id,
+        url:'/influencers/instagram/'+influencer.id,
         data:{ 
-            '_token':csrf //pass CSRF
+            // '_token':csrf //pass CSRF
         },
         success:function(data){
           console.log("success");
           console.log(data);
+          var media=data[7];
           var row = document.createElement('div');
             row.classList.add("row");
-          for(i=0;i<data.length;i++){             
+          for(i=0;i<media.length;i++){             
             col = document.createElement('div');
-            col.classList.add('col-4');
+            col.classList.add('col-6','mb-4','text-center');
             var img = document.createElement("IMG");
-            img.src = data[i];
-            img.width = "280";
-            img.height = "280";
-            img.classList.add('colInsta');
+            var likes = document.createElement("i");
+            var comments = document.createElement("i");
+            img.src = media[i][0];
+            img.classList.add('colInsta','img-fluid');
+            likes.innerHTML=media[i][1];            
+            likes.setAttribute("class", "far fa-thumbs-up mr-3");
+
+            comments.innerHTML=media[i][2];
+            comments.setAttribute("class", "far fa-comment");
             col.appendChild(img);
+            col.appendChild(likes);
+            col.appendChild(comments);
             row.appendChild(col);
             }
-          tableBody.appendChild(row);
+          instaMedia.appendChild(row);
+          //fill instaInfo
+          instaImg.src=influencer.avatar;
+          instaName.innerHTML = influencer.name;
+          request_link.href="requests/create?influencer_id="+influencer.id;
+          message_link.setAttribute("href","/messages/create/"+influencer.id);
+          instaUsername.innerHTML='('+data[0]+')';
+
+          media_count.innerHTML=data[1];
+          follower_count.innerHTML=data[2];
+          follows_count.innerHTML=data[3];
+          engagement.innerHTML=data[4]+'%';
+
+          biography.innerHTML=data[5];
+         
+          country.innerHTML=data[6];
+
+
+
+
         },
         error:function(){
           console.log("error");
