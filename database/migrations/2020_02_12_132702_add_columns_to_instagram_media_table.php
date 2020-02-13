@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSenderIdToMessagesTable extends Migration
+class AddColumnsToInstagramMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddSenderIdToMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::table('messages', function (Blueprint $table) {
-            $table->unsignedInteger('sender_id')->references('id')->on('users');
+        Schema::table('instagram_media', function (Blueprint $table) {
+            $table->integer('like_count');
+            $table->integer('comments_count');
+            $table->string('media_time');
         });
     }
 
@@ -25,7 +27,7 @@ class AddSenderIdToMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('messages', function (Blueprint $table) {
+        Schema::table('instagram_media', function (Blueprint $table) {
             //
         });
     }

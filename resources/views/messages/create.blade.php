@@ -61,7 +61,7 @@ body {
     @endphp
       <img src="{{$avatar}}" alt="Avatar" style="width:100%;">
       <p>{{$msg->content}}</p>
-      <p>{{findUserName($msg->sender_id)}}</p>
+      <!-- <p>{{findUserName($msg->sender_id)}}</p> -->
     </div>
     @else
     @php
@@ -70,7 +70,7 @@ body {
     <div class="container darker">
     <img src="{{$avatar}}" alt="Avatar" class="right" style="width:100%;">
       <p>{{$msg->content}}</p>
-      <p>{{findUserName($msg->reciever_id)}}</p>
+      <!-- <p>{{findUserName($msg->reciever_id)}}</p> -->
     </div>
     @endif
 @endforeach

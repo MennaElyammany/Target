@@ -81,7 +81,7 @@ public function checkInstagramExists($accessToken,$user)
 {
         //Get instagram business account id and info (if the user has one)
         $client = new Client();
-        $response1 = $client->request('GET', "https://graph.facebook.com/v3.0/me/accounts?fields=name,id,access_token,instagram_business_account{id,username,profile_picture_url,biography,ig_id,followers_count,follows_count,media_count,name,media{id,media_url}}&access_token={$accessToken}");
+        $response1 = $client->request('GET', "https://graph.facebook.com/v3.0/me/accounts?fields=name,id,access_token,instagram_business_account{id,username,profile_picture_url,biography,ig_id,followers_count,follows_count,media_count,name,media{id,media_url,like_count,comments_count,timestamp}}&access_token={$accessToken}");
         $content1 = $response1->getBody()->getContents();
         $oAuth1 = json_decode($content1); 
         foreach($oAuth1->data as $page)   //Loop over pages to check if a page has business instagram account
@@ -91,7 +91,7 @@ public function checkInstagramExists($accessToken,$user)
         }
         //If instagram account exists store its data in instagram accounts table and instagram media table
         if(isset($account))            
-        {
+        { 
             $user->instagram_id=$account->id;
             $user->instagram_avatar=$account->profile_picture_url;
             $user->avatar=$account->profile_picture_url;
@@ -100,7 +100,9 @@ public function checkInstagramExists($accessToken,$user)
             $user->save();
              $this->handleInstagramAccount($account);
              $this->handleInstagramMedia($account);
+             if($account->followers_count>100)
              $this->handleInstagramInsights($account,$accessToken);
+             else ( dd('you have less than 100 followers on instagram'));
 
         }
 }
@@ -123,17 +125,18 @@ public function checkInstagramExists($accessToken,$user)
 }
 
  function handleInstagramMedia($account){       //store account media in instagram media table
-  $i = 0;
-  foreach($account->media->data as $media_item)
+
+    foreach($account->media->data as $media_item)
   {
      $newMedia= new InstagramMedia;
      $newMedia->user_id=Auth::user()->id;
      $newMedia->instagram_id=$account->id;
      $newMedia->media_id=$media_item->id;
      $newMedia->media_url=$media_item->media_url;
+     $newMedia->like_count=$media_item->like_count;
+     $newMedia->comments_count=$media_item->comments_count;
+     $newMedia->media_time=$media_item->timestamp;
      $newMedia->save();
-     if(++$i == 40) break;
-
   }
 }
 
@@ -144,11 +147,9 @@ public function checkInstagramExists($accessToken,$user)
   $timestamp1 = strtotime('-7 days', $timestamp2);
   $client = new Client();
   $response3 = $client->request('GET', "https://graph.facebook.com/v5.0/{$account_id}/insights?metric=audience_country,audience_gender_age&period=lifetime&access_token={$accessToken}");
-  $response4 = $client->request('GET', "https://graph.facebook.com/v5.0/{$account_id}/insights?metric=profile_views&period=day&since={$timestamp1}&until={$timestamp2}&access_token={$accessToken}");
-  $response5 = $client->request('GET', "https://graph.facebook.com/v5.0/{$account_id}/insights?metric=impressions,reach&period=day&since={$timestamp1}&until={$timestamp2}&access_token={$accessToken}");
+  $response4 = $client->request('GET', "https://graph.facebook.com/v5.0/{$account_id}/insights?metric=profile_views,impressions,reach,follower_count&period=day&since={$timestamp1}&until={$timestamp2}&access_token={$accessToken}");
   $content3 = json_decode($response3->getBody()->getContents()); //audience_country,audience_gender_age
-  $content4 = json_decode($response4->getBody()->getContents()); //profile_views
-  $content5 = json_decode($response5->getBody()->getContents()); //impressions,reach
+  $content4 = json_decode($response4->getBody()->getContents()); //profile_views ,impressions,reach,followers_count
 #Location
   foreach($content3->data[0]->values[0]->value as $country => $count){
   DB::insert('insert into audience_location (country, count,influencer_id) values (?, ?, ?)', [$country, $count,Auth::user()->id]);
@@ -182,12 +183,13 @@ foreach($content3->data[1]->values[0]->value as $key => $value){
 
   DB::insert('insert into audience_age (more_than_65,between_55_and_65,between_45_and_55,between_35_and_45,between_25_and_35,between_18_and_25,between_13_and_18,
   less_than_13,influencer_id) values (?, ?, ?,?,?,?,?,?,?)', [ $more_than_65,$between_55_and_65,$between_45_and_55,$between_35_and_45,$between_25_and_35,$between_18_and_25,$between_13_and_18,$less_than_13,Auth::user()->id]);   
- #Insights over time (profile views, impressions, reach)
+ #Insights over time (profile views, impressions, reach, follower_count)
   for ($i = 0; $i <= 6; $i++) {
     $profile_views_item=$content4->data[0]->values[$i];
-    $impressions_item=$content5->data[0]->values[$i];
-    $reach_item=$content5->data[1]->values[$i];
-    DB::insert('insert into instagram_insights (profile_views_value,profile_views_time,impressions_value, impressions_time,reach_value,reach_time,influencer_id,instagram_id) values (?, ?, ?,?,?,?,?,?)', [ $profile_views_item->value,$profile_views_item->end_time,$impressions_item->value,$impressions_item->end_time,$reach_item->value,$reach_item->end_time,Auth::user()->id,$account->id]);
+    $impressions_item=$content4->data[1]->values[$i];
+    $reach_item=$content4->data[2]->values[$i];
+    $follower_count_item=$content4->data[3]->values[$i];
+    DB::insert('insert into instagram_insights (profile_views_value,profile_views_time,impressions_value, impressions_time,reach_value,reach_time,follower_count_value,follower_count_time,influencer_id,instagram_id) values (?, ?, ?,?,?,?,?,?,?,?)', [ $profile_views_item->value,$profile_views_item->end_time,$impressions_item->value,$impressions_item->end_time,$reach_item->value,$reach_item->end_time,$follower_count_item->value,$follower_count_item->end_time,Auth::user()->id,$account->id]);
 }
 
 }

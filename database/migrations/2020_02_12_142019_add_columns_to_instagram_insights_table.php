@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRecieverIdToMessagesTable extends Migration
+class AddColumnsToInstagramInsightsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddRecieverIdToMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::table('messages', function (Blueprint $table) {
-            $table->unsignedInteger('reciever_id')->references('id')->on('users');
+        Schema::table('instagram_insights', function (Blueprint $table) {
+            $table->integer('follower_count_value');
+            $table->string('follower_count_time')->nullable();
         });
     }
 
@@ -25,7 +26,7 @@ class AddRecieverIdToMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('messages', function (Blueprint $table) {
+        Schema::table('instagram_insights', function (Blueprint $table) {
             //
         });
     }
