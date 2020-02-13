@@ -186,7 +186,7 @@ function has_uncompleted_request($id){
     $completed=true;
 foreach($requests as $request)
 {
-    if($request->influencer_id==$id && $request->status!="completed")
+    if($request->influencer_id==$id && $request->status!="completed" && $request->status!="declined" )
     $completed=false;
 }
 return $completed;
