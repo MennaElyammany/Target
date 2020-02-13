@@ -25,7 +25,7 @@ class StoreInfluencerRequest extends FormRequest
     public function rules()
     {
         $influencer = Auth::user();
-        if($influencer->instagram_id==null){
+        if($influencer->provider_name =='google' || $influencer->provider_name ==null){
         return [
                 'country_id'=> 'required',
                 'category_id'=>'required',

@@ -141,15 +141,13 @@ function sendTweet(Request $request){
         $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->youtube_avatar = $influencer_data['imageUrl'];
         $influencer->youtube_followers = $influencer_data['subscribers'];
-        if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
-        {
+        if($influencer->provider_name =='google' || $influencer->provider_name ==null)
+        { 
             $influencer->avatar= $influencer_data['imageUrl'];
+            $influencer->followers= $influencer_data['subscribers'];
+            Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
         }
-        if ($influencer->followers==null)
-        {
-        $influencer->followers= $influencer_data['subscribers'];
-        }
-        Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
+
         }
         //save influencer's engagement
         if(isset($influencer->instagram_id)){
