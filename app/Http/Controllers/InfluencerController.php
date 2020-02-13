@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreInfluencerRequest;
 use App\User;
 use App\InstagramMedia;
+use App\InstagramAccount;
 use TwitterAPIExchange;
 use Auth;
 use Session;
@@ -58,15 +59,18 @@ class InfluencerController extends Controller
 
     function showInstagram($id)
     {  
-        $influencer= User::findOrFail($id);
+        $influencer= User::where('id', $id)->first();
         $media_list = InstagramMedia::where('instagram_id', $influencer['instagram_id'])->get();
+        $account = InstagramAccount::where('instagram_id', $influencer['instagram_id'])->first();
+        $data=[$account->username,$account->media_count,$account->followers_count,$account->follows_count,'X',$account->biography,getCountryName($influencer->country_id)[0]->country_name];
         $media_url_list=[];
         foreach($media_list as $media_item)
         {
-        array_push($media_url_list,($media_item['media_url']));
+        array_push($media_url_list,[$media_item['media_url'],$media_item['like_count'],$media_item['comments_count']]);
         }
-        // dd($media_url_list);
-        return $media_url_list;
+        // dd($account);
+        array_push($data,$media_url_list);
+        return $data;
      //return view('influencers.showInstagram',['media_url_list'=>$media_url_list,'id'=>$id]);
     }
 
