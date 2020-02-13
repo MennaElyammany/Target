@@ -45,24 +45,18 @@ Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
  Route::get('/influencers/posttwitter', 'InfluencerController@postTwitterView');
  Route::post('/sendTweet','InfluencerController@sendTweet');
 });
-Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
 
-
-//Influencers Routes
-    Route::group(['middleware'=>'auth'], function(){
-    Route::get('/influencers', 'InfluencerController@index')->name('influencers.index');
-    Route::get('/influencers/create', 'InfluencerController@create')->name('influencers.create');
-    Route::post('/influencers', 'InfluencerController@store')->name('influencers.store');
-    Route::get('/influencers/{influencer}', 'InfluencerController@show')->name('influencers.show') ;
-});
-
-Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
 //Charts Routes
 Route::get('/subscriberschart/{id}','ChartDataController@getSubscribers');
+Route::get('/followerschart/{id}','ChartDataController@getFollowers');
 Route::get('/genderchart/{id}','ChartDataController@getAudienceGender');
 Route::get('/locationchart/{id}','ChartDataController@getAudienceLocation');
 Route::get('/agechart/{id}','ChartDataController@getAudienceAge');
 Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influencers.chart');
+Route::get('/influencers/instagramcharts/{id}','ChartDataController@InstagramChart')->name('instagram.chart');
+Route::get('/tests','ChartDataController@test');
+
+
 
 
 

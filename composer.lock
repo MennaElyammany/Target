@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc536060604274f4d614d7b64220b051",
+    "content-hash": "56b6d1c55783a0a9624846374cc7b4e7",
     "packages": [
         {
             "name": "alaouy/youtube",
@@ -1479,16 +1479,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.15.1",
+            "version": "v6.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b7c152e3327c03428fb68d5abb63ca8b3eca8422"
+                "reference": "2842924b9ce7ffc43b09b96966a64a2ce0708aaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b7c152e3327c03428fb68d5abb63ca8b3eca8422",
-                "reference": "b7c152e3327c03428fb68d5abb63ca8b3eca8422",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/2842924b9ce7ffc43b09b96966a64a2ce0708aaf",
+                "reference": "2842924b9ce7ffc43b09b96966a64a2ce0708aaf",
                 "shasum": ""
             },
             "require": {
@@ -1621,7 +1621,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-02-12T21:56:14+00:00"
+            "time": "2020-02-11T14:26:43+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -3077,6 +3077,70 @@
                 "uuid"
             ],
             "time": "2019-12-17T08:18:51+00:00"
+        },
+        {
+            "name": "reliqarts/thujohn-twitter",
+            "version": "2.2.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reliqarts/thujohn-twitter.git",
+                "reference": "367ac1ed5a751083815dfd468f397535d7632c16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reliqarts/thujohn-twitter/zipball/367ac1ed5a751083815dfd468f397535d7632c16",
+                "reference": "367ac1ed5a751083815dfd468f397535d7632c16",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0",
+                "php": "^7.2",
+                "themattharris/tmhoauth": "0.8.4",
+                "vlucas/phpdotenv": "^3.6"
+            },
+            "replace": {
+                "thujohn/twitter": "2.2.5"
+            },
+            "require-dev": {
+                "phpro/grumphp": "^0.15.2",
+                "phpunit/phpunit": "^8.3",
+                "wearejust/grumphp-extra-tasks": "^2.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ReliqArts\\Thujohn\\Twitter\\TwitterServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ReliqArts\\Thujohn\\Twitter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thujohn",
+                    "email": "jonathan.thuau@gmail.com"
+                },
+                {
+                    "name": "reliq",
+                    "email": "reliq@reliqarts.com"
+                }
+            ],
+            "description": "Twitter API for Laravel. Literally the Twitter API built by thujohn, supporting Laravel ^6.0.",
+            "keywords": [
+                "laravel",
+                "laravel6",
+                "thujohn",
+                "twitter"
+            ],
+            "time": "2019-09-28T12:49:20+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -4852,68 +4916,6 @@
                 "twitter"
             ],
             "time": "2014-08-06T22:29:35+00:00"
-        },
-        {
-            "name": "thujohn/twitter",
-            "version": "2.2.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/atymic/twitter.git",
-                "reference": "451dde95a3de5a89a5826aad6b8f5ea630ecbf49"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/atymic/twitter/zipball/451dde95a3de5a89a5826aad6b8f5ea630ecbf49",
-                "reference": "451dde95a3de5a89a5826aad6b8f5ea630ecbf49",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5.5 || ~6.0",
-                "php": ">7.0",
-                "themattharris/tmhoauth": "0.8.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Thujohn\\Twitter\\TwitterServiceProvider"
-                    ],
-                    "aliases": {
-                        "Twitter": "Thujohn\\Twitter\\Facades\\Twitter"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Thujohn\\Twitter": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "thujohn",
-                    "email": "jonathan.thuau@gmail.com"
-                },
-                {
-                    "name": "atymic",
-                    "email": "atymicq@gmail.com",
-                    "homepage": "https://atymic.dev"
-                }
-            ],
-            "description": "Twitter API for Laravel",
-            "keywords": [
-                "laravel",
-                "laravel4",
-                "laravel5",
-                "twitter"
-            ],
-            "time": "2019-12-16T04:13:45+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

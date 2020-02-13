@@ -264,9 +264,10 @@
         </main>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script> -->
 <script src="{{ asset('js/app.js') }}" defer></script>
     @yield('scripts')
 
@@ -291,9 +292,12 @@ document.getElementById("alert").addEventListener('click',function(e){
 //     $('#datetimepicker1').datetimepicker();
 //  });
  </script>
+
+ <!-- YOUTUBE -->
 @csrf
 <script> 
   $('#show').on('show.bs.modal', function (event) {
+      console.log('ggg');
       var button = $(event.relatedTarget) 
       var youtubeUrl = button.data('url');
       var name = button.data('name');
@@ -348,7 +352,7 @@ document.getElementById("alert").addEventListener('click',function(e){
   </script>
 
 
-
+<!-- TWITTER -->
   @csrf
   <script>
   $('#twitter').on('show.bs.modal', function (event) {
@@ -356,11 +360,22 @@ document.getElementById("alert").addEventListener('click',function(e){
     var id = button.data('idtwitter');
     var name = button.data('nametwitter');
     var auth =button.data('auth');
+    var twitterImg = button.data('img');
+    console.log("img",twitterImg)
+    var img  = document.getElementById('Img');
+    img.src = twitterImg;
+    var followers = button.data('followers');
+    var twitterFollowers = document.getElementById("followers");
+    twitterFollowers.innerHTML = followers;
+    var nameTwitter = document.getElementById("nameTwitter");
     var modal = $(this);
     var tableBody = document.getElementById("tweetBody");
     var post = document.getElementById("posttwitter");
     while (post.firstChild) {
         post.removeChild(post.firstChild);
+            }
+    while (nameTwitter.firstChild) {
+        nameTwitter.removeChild(nameTwitter.firstChild);
             }
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
@@ -378,8 +393,10 @@ document.getElementById("alert").addEventListener('click',function(e){
             console.log(typeof(id));
             console.log(auth);
             var table = document.getElementById("tweetTable");
-            var nameTwitter = document.getElementById("nameTwitter");
-            nameTwitter.innerHTML = name;
+            var divname = document.createElement('div');
+            divname.innerHTML = name;
+            // nameTwitter.innerHTML = name;
+            nameTwitter.appendChild(divname);
             var postBtn = document.createElement("button");
             postBtn.setAttribute("class","btn btn-primary");
             postBtn.innerHTML = "post";
@@ -390,10 +407,23 @@ document.getElementById("alert").addEventListener('click',function(e){
             postBtn.onclick = function () {
                 location.href = "/influencers/posttwitter";
             };
-            for(i = 0; i < data.length;i++){
+            var locTwitter = document.getElementById('locTwitter');
+            locTwitter.innerHTML = data[1]["location"];
+            var nickname = document.getElementById('nickname');
+            nickname.innerHTML = data[1]["nickname"];
+            var description = document.getElementById('description');
+            description.innerHTML = data[1]["description"];
+            var expUrl = document.getElementById('expanded_url');
+            expUrl.innerHTML = data[1]["expanded_url"];
+            expUrl.href = data[1]["expanded_url"];
+            var friendsCount = document.getElementById('friends_count');
+            friendsCount.innerHTML = data[1]["friends_count"];
+            var statusesCount = document.getElementById('statuses_count');
+            statusesCount.innerHTML = data[1]["statuses_count"];
+            for(i = 0; i < data[0].length;i++){
                 var container = document.createElement('div');
                 var text = document.createElement("div");
-                text.innerHTML = data[i]['text'];
+                text.innerHTML = data[0][i]['text'];
                 container.appendChild(text);
                 var icons = document.createElement("div");
                 icons.classList.add("twittericons");
@@ -403,7 +433,7 @@ document.getElementById("alert").addEventListener('click',function(e){
                 favIcon.classList.add("iconmargin");
                 favorite.appendChild(favIcon);
                 var favorite_count = document.createElement("div");
-                favorite_count.innerHTML = data[i]['favorite_count'];
+                favorite_count.innerHTML = data[0][i]['favorite_count'];
                 favorite_count.classList.add("iconmargin");
                 icons.appendChild(favorite);
                 icons.appendChild(favorite_count);
@@ -414,7 +444,7 @@ document.getElementById("alert").addEventListener('click',function(e){
                 retIcon.classList.add("iconmargin");
                 retweet.appendChild(retIcon);
                 var retweet_count = document.createElement("div");
-                retweet_count.innerHTML = data[i]['retweet_count'];
+                retweet_count.innerHTML = data[0][i]['retweet_count'];
                 retweet_count.classList.add("iconmargin");
                 icons.appendChild(retweet);
                 icons.appendChild(retweet_count);
