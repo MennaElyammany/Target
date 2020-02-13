@@ -59,11 +59,14 @@ Route::post('/influencers', 'InfluencerController@store')->name('influencers.sto
 Route::get('/influencers/{influencer}', 'InfluencerController@show')->middleware('auth');
 //Charts Routes
 Route::get('/subscriberschart/{id}','ChartDataController@getSubscribers');
+Route::get('/followerschart/{id}','ChartDataController@getFollowers');
 Route::get('/genderchart/{id}','ChartDataController@getAudienceGender');
 Route::get('/locationchart/{id}','ChartDataController@getAudienceLocation');
 Route::get('/agechart/{id}','ChartDataController@getAudienceAge');
 Route::get('/influencers/charts/{id}','ChartDataController@chart')->name('influencers.chart');
 Route::get('/influencers/instagramcharts/{id}','ChartDataController@InstagramChart')->name('instagram.chart');
+Route::get('/tests','ChartDataController@test');
+
 
 
 //Requests Routes

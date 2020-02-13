@@ -280,7 +280,7 @@ echo " <div style='display:flex'>
 
 echo"</div>
 <div class='text-center mx-auto' style=' '>
-<span class='roboto-font text-uppercase'>3.6%</span>
+<span class='roboto-font text-uppercase'>".$influencer->engagement."%</span>
 <p style='roboto-font color:grey;'>Engagement</p>
 </div>
 </div>";

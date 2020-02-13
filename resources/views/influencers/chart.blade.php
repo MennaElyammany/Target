@@ -10,12 +10,12 @@
             
         <div  style=" display:inline-block; float:left;margin-right:150px;margin-left:200px;">
         <center>
-            <!-- <h3> Engagement: <br> {{$result['engagement']}}%<h3> -->
+            <h3> Engagement: <br> {{$result['engagement']}}%<h3>
             </center>
             </div>
             <div>
             <center>
-            <!-- <h3>Average Views: <br> {{$result['average_views']}}<h3> -->
+            <h3>Average Views: <br> {{$result['average_views']}}<h3>
             </center>
             </div>
             </div>

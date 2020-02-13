@@ -228,7 +228,7 @@ function calcEngagement($channel){
 
     }
 
-    $engagement_rate = round((($likes_sum+$dislikes_sum+$comments_sum)/$views_sum)*100,2,PHP_ROUND_HALF_UP);
+    $engagement_rate = round((($likes_sum+$dislikes_sum+$comments_sum)/$views_sum)*100,1,PHP_ROUND_HALF_UP);
     $avg_views=convertNumber(round($views_sum/$videos_count));
     return $value= [
         'engagement'=> $engagement_rate,
@@ -264,3 +264,37 @@ function checkIfRated($rateable_id,$request_id){
         return 'no';
     }      
 }
+
+function calcInstagramEngagement($id){
+        $likes= DB::table('instagram_media')->where('user_id','=',$id)->pluck('like_count');
+        $comments=DB::table('instagram_media')->where('user_id','=',$id)->pluck('comments_count');
+        $likes_sum =0;
+        $comments_sum=0;
+        $impressions_sum=0;
+        $likes_counter=0;
+        $comments_counter=0;
+        foreach($likes as $like){
+            $likes_sum = $likes_sum + $like;
+            $likes_counter++;
+        }
+        foreach($comments as $comment){
+            $comments_sum = $comments_sum +$comment;
+            $comments_counter++;
+        }
+        $user = User::find($id)->get();
+        $followers = $user[0]->followers;
+        $engagement = round(($likes_sum+$comments_sum)/$followers,1,PHP_ROUND_HALF_UP);
+        $averageLikes = round($likes_sum/$likes_counter);
+        $averageComments = round($comments_sum/$comments_counter);
+
+        return $result=[
+            'engagement'=> $engagement,
+            'averageLikes'=>$averageLikes,
+            'averageComments'=>$averageComments
+        ];
+           // $impressions= DB::table('instagram_insights')->where('influencer_id','=',$id)->pluck('impressions_value');
+        // foreach($impressions as $impression){
+        //     $impressions_sum = $impressions_sum +$impression;
+        // }
+}
+ 

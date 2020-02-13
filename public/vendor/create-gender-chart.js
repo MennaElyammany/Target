@@ -48,7 +48,14 @@
                ],
                data: response.gender_count
              }]
-           }
+		   },
+		   options: {
+			legend: { display: false },
+			title: {
+			  display: true,
+			  text: 'Audience Gender'
+			}
+		  }
          });
 
 

@@ -46,8 +46,9 @@ class InfluencerController extends Controller
     else
     $data=json_decode(Redis::get($id),true);
     $url=$influencer['youtube_url'];
-    $data['influencer_id']=$id;     
-     return view('influencers.showYoutube',['data'=>$data,'id'=>$id]);
+    $data['influencer_id']=$id; 
+    $engagement = calcEngagement($data);  
+     return view('influencers.showYoutube',['data'=>$data,'id'=>$id,'engagement'=>$engagement]);
     }
     function showYoutubeModal(Request $request)
     {   
@@ -128,11 +129,20 @@ function sendTweet(Request $request){
         }
         if ($influencer->followers==null)
         {
-        $influencer->followers== $influencer_data['subscribers'];
+        $influencer->followers= $influencer_data['subscribers'];
         }
         Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
         }
-    
+        //save influencer's engagement
+        if(isset($influencer->instagram_id)){
+            $result = calcInstagramEngagement($influencer->id);  
+            $engagement =$result['engagement'];
+        }
+        else{
+            $result = calcEngagement($influencer_data);
+            $engagement =$result['engagement'];
+        }
+        $influencer->engagement = $engagement;
 
         $influencer->save();
 
