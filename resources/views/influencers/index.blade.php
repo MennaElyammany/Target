@@ -215,11 +215,10 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
                             <div class="col-8 mt-4">
                             <div class="row" id="row1">
                               <h3 id="instaName" class='d-inline'> </h3>
-                              <!-- @if(has_uncompleted_request($influencer->id) && Auth::User()->isNotBanned()) -->
+                              @if(has_uncompleted_request($influencer->id) && Auth::User()->isNotBanned())
                                   <a id='request_link' href=""  >  <i class="fas fa-lg fa-file-signature text-dark ml-2" title="Request Influencer For Ad"></i></a>
+                              @endif
                                   <a id='message_link' href=""> <i class='far fa-comment ml-2' style='font-size:26px;color:grey;' title="Message Influencer"></i></a>
-
-                                <!-- @endif -->
                                 </div> <!--row1-->
                             <div class="row" id="row2">
                             <h5 id="instaUsername" class='d-inline'> </h5>

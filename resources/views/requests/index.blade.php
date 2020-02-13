@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
 @role('Client')
+<br>
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr>
-      <th scope="col" style="text-align:center">Username</th>
+      <th scope="col" style="text-align:center">Influencer name</th>
       <th scope="col"style="text-align:center">Followers</th>
       <th scope="col"style="text-align:center">Engagement</th>
       <th scope="col"style="text-align:center">Price</th>
@@ -35,7 +36,10 @@
     </div>
   </div>
 </div>
+@if ($influencer->provider_name =='google' || $influencer->provider_name ==null)
 <a class="btn btn-outline-secondary float-left my-3" href="/influencers/{{$request->influencer_id}}" role="button" width="30px">View</a>
+@endif
+
       </td>
       <td style="text-align:center" ><p class="font-weight-bold my-4 ">{{convertNumber($influencer->followers)}}</p></td>
       <td style="text-align:center"><p class="font-weight-bold my-4 ">{{$influencer->engagement}}</p></td>

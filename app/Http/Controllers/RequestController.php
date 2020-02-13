@@ -135,8 +135,7 @@ class RequestController extends Controller
         $request->save();
         $this->sendNotification('declined',$notified_user);
 
-        return back();
-
+        return redirect()->route('requests.index');
 
     }
     function completed($id){
@@ -147,7 +146,7 @@ class RequestController extends Controller
         $request->status='completed';
         $request->save();
         $this->sendNotification('completed',$notified_user);
-        return back();
+        return redirect()->route('requests.index');
 
 
     }  

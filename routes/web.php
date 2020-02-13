@@ -2,8 +2,8 @@
 //Main routes
 Route::get('/', function () { return view('welcome');})->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/influencers/about',function(){return view('about');});
-Route::get('/influencers/contactUs',function(){ return view('contactUs');});
+Route::get('/influencers/about',function(){return view('about');})->name('about');
+Route::get('/influencers/contactUs',function(){ return view('contactUs');})->name('contact');
 
 //Registerantion and login routes instead of // Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
