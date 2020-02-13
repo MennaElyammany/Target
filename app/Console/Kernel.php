@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\cachedData',
     ];
 
     /**
@@ -26,7 +26,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-    }
+
+    $schedule->command('cached:data')
+    ->daily();
+;    }
 
     /**
      * Register the commands for the application.

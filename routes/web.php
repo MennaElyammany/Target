@@ -58,6 +58,19 @@ Route::get('/tests','ChartDataController@test');
 
 
 
+
+
+
+//when we get the price
+//Route::get('/requests/checkout/{price}','RequestController@checkout')->name('requests.checkout');
+Route::get('/requests/checkout','RequestController@checkout')->name('requests.checkout');
+//Route::post('/requests/charge','RequestController@checkout')->name('requests.checkout');
+Route::post('/requests/charge','RequestController@charge');
+// ->name('requests.charge');
+
+
+
+
 //Requests Routes
 Route::group(['middleware'=>'auth'], function(){
 Route::get('/requests','RequestController@index')->name('requests.index');
@@ -89,12 +102,7 @@ Route::delete('/users/{user}', 'UserController@destroy')->name('users.update') -
 
 
 
-//when we get the price
-//Route::get('/requests/checkout/{price}','RequestController@checkout')->name('requests.checkout');
-Route::get('/requests/checkout','RequestController@checkout')->name('requests.checkout');
-//Route::post('/requests/charge','RequestController@checkout')->name('requests.checkout');
-Route::post('/requests/charge','RequestController@charge');
-// ->name('requests.charge');
+
 
 
 //Email Routes

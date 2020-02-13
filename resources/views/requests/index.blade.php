@@ -83,7 +83,7 @@
 </td>
 @elseif($request->status=='accepted')
 <td style="text-align:center">    
-      <a class="btn btn-outline-success my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Accepted</a>
+      <a class="btn btn-outline-success my-3 " href="/requests/checkout" role="button" >Accepted Pay Now</a>
 </td>
 @elseif($request->status=='declined')
 <td style="text-align:center">    

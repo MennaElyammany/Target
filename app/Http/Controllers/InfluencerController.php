@@ -15,6 +15,7 @@ use willvincent\Rateable\Rateable;
 use willvincent\Rateable\Rating;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\carbon;
 
 class InfluencerController extends Controller
 {
@@ -43,15 +44,21 @@ class InfluencerController extends Controller
     function show($id)
     { 
     $influencer= User::findOrFail($id);
-    if( Redis::ttl($id)<=0)
+
+    if( Redis::ttl($id)<=0){
     $data=fetch_youtube_data($influencer->youtube_url);
-    else
-    $data=json_decode(Redis::get($id),true);
-    $url=$influencer['youtube_url'];
-    $data['influencer_id']=$id; 
-    $engagement = calcEngagement($data);  
-     return view('influencers.showYoutube',['data'=>$data,'id'=>$id,'engagement'=>$engagement]);
+    Redis::setex($id,60*60*48, json_encode($data));
+     $influencer->updated_at=now();
+     $influencer->save();
     }
+   else
+   $data=json_decode(Redis::get($id),true); 
+
+        $url=$influencer['youtube_url'];
+        $data['influencer_id']=$id;
+        $engagement = calcEngagement($data);  
+        return view('influencers.showYoutube',['data'=>$data,'id'=>$id,'engagement'=>$engagement]);  
+      }
     function showYoutubeModal(Request $request)
     {   
         $data = fetch_youtube_data($request->url);

@@ -24,6 +24,7 @@ use App\Request;
      }
     
      
+     
      $videoList = Youtube::listChannelVideos($channelId,40);
   
      $verified=checkVerification($url);
@@ -40,12 +41,15 @@ use App\Request;
      $country="Middle East";
      $views=$channelData->statistics->viewCount;
      $subscribers=$channelData->statistics->subscriberCount;
-     if(!$subscribers) $subscribers=0;
+     if(!$subscribers)
+     $subscribers=0;
      $videoCount=$channelData->statistics->videoCount;
      $about=$channelData->snippet->description;
      $activities=Youtube::getActivitiesByChannelId($channelId);
-     if(!$activities) $subscriptions=0;
-     else $subscriptions = count( $activities);
+     if(count($activities)==0) 
+     $subscriptions=0;
+     else 
+     $subscriptions = count( $activities);
      $videoList = Youtube::listChannelVideos($channelId, 40); //fetch channel videos
      $videoInf=[];
      if ($videoList)
@@ -58,9 +62,9 @@ use App\Request;
         $videoIframe=substr($videoIframe,strpos($videoIframe,'src'),-122);
 
         $videoViews=$info->statistics->viewCount;
-        $videoLikes=$info->statistics->likeCount;
+       $videoLikes=$info->statistics->likeCount;
         $videoComments=$info->statistics->commentCount;
-        $videoDislikes=$info->statistics->dislikeCount;
+       $videoDislikes=$info->statistics->dislikeCount;
         
         $newVideo=new stdClass();
         $newVideo->videoIframe=$videoIframe;
@@ -181,7 +185,7 @@ function has_uncompleted_request($id){
     $completed=true;
 foreach($requests as $request)
 {
-    if($request->influencer_id==$id && $request->status!="completed")
+    if($request->influencer_id==$id && $request->status!="completed" && $request->status!="declined" )
     $completed=false;
 }
 return $completed;
@@ -241,6 +245,8 @@ function findClientName($id){
     $client=User::find($id);
     return $client->name;
 }
+
+
 function findUserAvatar($id){
     $user=User::find($id);
     return $user->avatar;
@@ -249,6 +255,8 @@ function roundAverageRating($num){
     $averageRating = round( $num, 1, PHP_ROUND_HALF_DOWN);
     return $averageRating;
 }
+
+
 function getRequestbyId($id){
     $request=Request::find($id);
     return $request;
