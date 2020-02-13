@@ -32,13 +32,13 @@
       border-radius: 20px;
       margin-top:7px;
     }
-    .modal-dialog{
+    .twitter-dialog{
       overflow-y: initial !important
-}
-.modal-body{
-  height: 500px;
-  overflow-y: auto;
-}
+    }
+  .twitter-body{
+    height: 500px;
+    overflow-y: auto;
+  }
 
 </style>
 <i class="glyphicon glyphicon-star-empty"></i>
@@ -107,14 +107,14 @@ Sort:
 src="{{$influencer->avatar}}" alt="Card image cap"
 data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
 
-<!-- Modal -->
+<!-- Youtube Modal -->
  <div class="modal fade" id="show" role="dialog">
-    <div class="modal-dialog" style="max-width:1000px;">    
+    <div class="modal-dialog" style="max-width:1000px; overflow-y: initial !important">    
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body"style=" height: 500px;overflow-y: auto;">
         <div class="row">
         <!--left container-->
         <div class='col-5'> 
@@ -221,7 +221,7 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <img src="twitter.png" width='30'class="ml-2" data-toggle="modal" data-target="#twitter" data-followers="{{$influencer->followers}}"
     data-idtwitter="{{$influencer->id}}" data-img="{{$influencer->avatar}}"data-nametwitter="{{$influencer->name}}" data-auth="{{Auth::user()->id}}"></a>
     <div class="modal fade" id="twitter" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style="max-width:800px;">
+    <div class="modal-dialog twitter-dialog" role="document" style="max-width:800px;">
     <div class="modal-content">
       <div class="modal-header">
       <img id="Img" class="rounded-circle"
@@ -274,7 +274,7 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
         </button>
 
       </div><!--modal-header-->
-      <div class="modal-body">
+      <div class="modal-body twitter-body">
             <table class="table"id="tweetTable">
               <thead>
                 <tr>

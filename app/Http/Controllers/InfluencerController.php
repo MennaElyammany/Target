@@ -136,11 +136,7 @@ function sendTweet(Request $request){
         $influencer->verified = $influencer_data['verified']?1:0;
         $influencer->youtube_avatar = $influencer_data['imageUrl'];
         $influencer->youtube_followers = $influencer_data['subscribers'];
-        //if($influencer->avatar==null||$influencer->avatar==asset('default.png'))
-        // {
-        // $influencer->avatar==$influencer_data['imageUrl'];
-        // }
-        if (!$influencer->instagram_id || !$influencer->twitter_id)
+        if (!$influencer->instagram_id && !$influencer->twitter_id)
         {
             $influencer->avatar = $influencer_data['imageUrl'];
             $influencer->followers = $influencer_data['subscribers'];
