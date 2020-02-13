@@ -48,6 +48,7 @@
                                     <img src="https://img.icons8.com/offices/30/000000/youtube-play.png" class="m-3 ">
                                     @if(has_uncompleted_request($data['influencer_id']) && Auth::User()->isNotBanned())
                                   <a href="{{ route('requests.create',['influencer_id'=> $data['influencer_id']]) }}" >  <i class="fas fa-file-signature text-dark " title="Request Influencer For Ad"></i></a>
+                                  <a href="/messages/create/{{$data['influencer_id']}}"><i class='far fa-comment' style='font-size:26px;color:grey;'></i></a>
                                 @endif
                                 </h3>
                             </div>

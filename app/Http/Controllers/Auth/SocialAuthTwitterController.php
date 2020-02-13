@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use App\User;
 use App\TwitterPost;
+use App\TwitterAccount;
 use App\Http\Controllers\Controller;
 use Socialite;
 use Validator,Redirect,Response,File;
@@ -25,6 +26,7 @@ class SocialAuthTwitterController extends Controller
     public function callback(Request $request)
     {
         $userInfo = Socialite::driver('twitter')->user(); 
+        // dd($userInfo->user);
         $request->session()->put('TWITTER_ACCESS_TOKEN',$userInfo->token);
         $request->session()->put('TWITTER_ACCESS_TOKEN_SECRET',$userInfo->tokenSecret);
         $role=session('role');
@@ -48,6 +50,16 @@ class SocialAuthTwitterController extends Controller
                 $twitterPost->user_id = $existingUser->id;
                 $twitterPost->save();
                 }
+
+                $twitterAccount = TwitterAccount::where('twitter_id',$existingUser->twitter_id)->first();
+                $twitterAccount->expanded_url = $userInfo->user['entities']['url']['urls'][0]['expanded_url'];
+                $twitterAccount->description = $userInfo->user['description'];
+                $twitterAccount->nickname = $userInfo->nickname;
+                $twitterAccount->statuses_count = $userInfo->user['statuses_count'];
+                $twitterAccount->friends_count = $userInfo->user['friends_count'];
+                $twitterAccount->location = $userInfo->user['location'];
+                $twitterAccount->save();
+
             return redirect()->route('influencers.index');
         }
         else{
@@ -83,6 +95,16 @@ class SocialAuthTwitterController extends Controller
         $twitterPost->user_id = $user->id;
         $twitterPost->save();
         }
+        $twitterAccount = new TwitterAccount;
+        $twitterAccount->expanded_url = $userInfo->user['entities']['url']['urls'][0]['expanded_url'];
+        $twitterAccount->description = $userInfo->user['description'];
+        $twitterAccount->nickname = $userInfo->nickname;
+        $twitterAccount->statuses_count = $userInfo->user['statuses_count'];
+        $twitterAccount->friends_count = $userInfo->user['friends_count'];
+        $twitterAccount->location = $userInfo->user['location'];
+        $twitterAccount->twitter_id = $user->twitter_id;
+        $twitterAccount->influencer_id = $user->id;
+        $twitterAccount->save();
         return redirect(redirectTo());
         
             }
@@ -104,7 +126,7 @@ class SocialAuthTwitterController extends Controller
             'consumer_secret' => env('TWITTER_CONSUMER_SECRET')
             );   
         $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
-        $getfield = '?count=20';
+        $getfield = '?count=100';
         $requestMethod = 'GET';
     
         $twitter = new TwitterAPIExchange($settings);

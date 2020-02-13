@@ -211,21 +211,62 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
 
     @if ($influencer->twitter_id)
     <a class="ml-2" data-toggle="modal" data-target="#showTwitter" >    
-    <img src="twitter.png" width='30'class="ml-2" data-toggle="modal" data-target="#twitter" 
-    data-idtwitter="{{$influencer->id}}" data-nametwitter="{{$influencer->name}}" data-auth="{{Auth::user()->id}}"></a>
+    <img src="twitter.png" width='30'class="ml-2" data-toggle="modal" data-target="#twitter" data-followers="{{$influencer->followers}}"
+    data-idtwitter="{{$influencer->id}}" data-img="{{$influencer->avatar}}"data-nametwitter="{{$influencer->name}}" data-auth="{{Auth::user()->id}}"></a>
     @endif
-    <a href="/messages/create/{{$influencer->id}}"><i class='far fa-comment' style='font-size:26px;color:grey;'></i></a>
     <div class="modal fade" id="twitter" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="max-width:800px;">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="nameTwitter" >
-        <div class = "col-6"><a href="{{ route('requests.create',['influencer_id'=> $influencer->id]) }}" >
-            <i class="fas fa-file-signature text-dark "></i></a></div>
-        </h5>
+      <img id="Img" class="rounded-circle"
+      style="height:50px;width:50px;margin-right:10px;margin-left:20px">
+      <!-- <div class=row -->
+      <div style=" display: block;">
+      <h5 class="modal-title" style="font-weight: bold;"id="nameTwitter"></h5>
+      <div style="color:grey"id="nickname"></div> 
+      <div style=""id="description"></div>
+      <a href style=""id="expanded_url"></a>
+      </div>
+      
+     
+      <div style=" display: block;">
+      <div style="margin-left:100px;margin-top:5px;margin-bottom:5px;">
+            <a href="/messages/create/{{$influencer->id}}">
+            <i class='far fa-comment' style='font-size:20px;color:grey;margin-right:15px;margin-top:10px;'></i></a>
+            <a href="{{ route('requests.create',['influencer_id'=> $influencer->id])}}">
+            <i class="fas fa-file-signature text-dark "></i></a>      
+      </div>
+      <div  style="margin-left:100px;">
+      <div style="display:flex;">
+      <div style="display:block">
+      <i class="fa fa-globe" style="margin-left:10px;"aria-hidden="true"></i>
+      <div id="locTwitter"></div>
+      </div>
+      <div style="display:block">
+      <div style="margin-left:60px;font-weight: bold;"id="followers"></div>
+      <div style="margin-left:50px;"> Followers </div>
+      </div>
+      <div style="display:block">
+      <div style="margin-left:60px;font-weight: bold;" id="friends_count"></div>
+      <div style="margin-left:40px;"> Following </div>
+      </div>
+      <div style="display:block">
+      <div style="margin-left:60px;font-weight: bold;"id="statuses_count"></div>
+      <div style="margin-left:50px;"> Tweets </div>
+      </div>
+      
+      </div>
+      </div>
+      </div>
+      
+      
+      
+
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+
       </div><!--modal-header-->
       <div class="modal-body">
             <table class="table"id="tweetTable">
@@ -237,6 +278,10 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
                 <th class="col-9" id="posttwitter"></th>
                 
                 </tr>
+                <!-- <tr>
+                <p>
+                </p>
+                </tr> -->
               </thead>
               <tbody id="tweetBody">
 

@@ -291,6 +291,8 @@ document.getElementById("alert").addEventListener('click',function(e){
 //     $('#datetimepicker1').datetimepicker();
 //  });
  </script>
+
+ <!-- YOUTUBE -->
 @csrf
 <script> 
   $('#show').on('show.bs.modal', function (event) {
@@ -348,7 +350,7 @@ document.getElementById("alert").addEventListener('click',function(e){
   </script>
 
 
-
+<!-- TWITTER -->
   @csrf
   <script>
   $('#twitter').on('show.bs.modal', function (event) {
@@ -356,11 +358,22 @@ document.getElementById("alert").addEventListener('click',function(e){
     var id = button.data('idtwitter');
     var name = button.data('nametwitter');
     var auth =button.data('auth');
+    var twitterImg = button.data('img');
+    console.log("img",twitterImg)
+    var img  = document.getElementById('Img');
+    img.src = twitterImg;
+    var followers = button.data('followers');
+    var twitterFollowers = document.getElementById("followers");
+    twitterFollowers.innerHTML = followers;
+    var nameTwitter = document.getElementById("nameTwitter");
     var modal = $(this);
     var tableBody = document.getElementById("tweetBody");
     var post = document.getElementById("posttwitter");
     while (post.firstChild) {
         post.removeChild(post.firstChild);
+            }
+    while (nameTwitter.firstChild) {
+        nameTwitter.removeChild(nameTwitter.firstChild);
             }
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
@@ -378,7 +391,6 @@ document.getElementById("alert").addEventListener('click',function(e){
             console.log(typeof(id));
             console.log(auth);
             var table = document.getElementById("tweetTable");
-            var nameTwitter = document.getElementById("nameTwitter");
             var divname = document.createElement('div');
             divname.innerHTML = name;
             // nameTwitter.innerHTML = name;
@@ -393,10 +405,23 @@ document.getElementById("alert").addEventListener('click',function(e){
             postBtn.onclick = function () {
                 location.href = "/influencers/posttwitter";
             };
-            for(i = 0; i < data.length;i++){
+            var locTwitter = document.getElementById('locTwitter');
+            locTwitter.innerHTML = data[1]["location"];
+            var nickname = document.getElementById('nickname');
+            nickname.innerHTML = data[1]["nickname"];
+            var description = document.getElementById('description');
+            description.innerHTML = data[1]["description"];
+            var expUrl = document.getElementById('expanded_url');
+            expUrl.innerHTML = data[1]["expanded_url"];
+            expUrl.href = data[1]["expanded_url"];
+            var friendsCount = document.getElementById('friends_count');
+            friendsCount.innerHTML = data[1]["friends_count"];
+            var statusesCount = document.getElementById('statuses_count');
+            statusesCount.innerHTML = data[1]["statuses_count"];
+            for(i = 0; i < data[0].length;i++){
                 var container = document.createElement('div');
                 var text = document.createElement("div");
-                text.innerHTML = data[i]['text'];
+                text.innerHTML = data[0][i]['text'];
                 container.appendChild(text);
                 var icons = document.createElement("div");
                 icons.classList.add("twittericons");
@@ -406,7 +431,7 @@ document.getElementById("alert").addEventListener('click',function(e){
                 favIcon.classList.add("iconmargin");
                 favorite.appendChild(favIcon);
                 var favorite_count = document.createElement("div");
-                favorite_count.innerHTML = data[i]['favorite_count'];
+                favorite_count.innerHTML = data[0][i]['favorite_count'];
                 favorite_count.classList.add("iconmargin");
                 icons.appendChild(favorite);
                 icons.appendChild(favorite_count);
@@ -417,7 +442,7 @@ document.getElementById("alert").addEventListener('click',function(e){
                 retIcon.classList.add("iconmargin");
                 retweet.appendChild(retIcon);
                 var retweet_count = document.createElement("div");
-                retweet_count.innerHTML = data[i]['retweet_count'];
+                retweet_count.innerHTML = data[0][i]['retweet_count'];
                 retweet_count.classList.add("iconmargin");
                 icons.appendChild(retweet);
                 icons.appendChild(retweet_count);
