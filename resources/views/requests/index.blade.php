@@ -83,12 +83,17 @@
 </td>
 @elseif($request->status=='accepted')
 <td style="text-align:center">    
-      <a class="btn btn-outline-success my-3 " href="/requests/checkout" role="button" >Accepted Pay Now</a>
+      <a class="btn btn-outline-success my-3 " href="/requests/checkout/{{$request->id}}" role="button" >Accepted Pay Now</a>
 </td>
 @elseif($request->status=='declined')
 <td style="text-align:center">    
       <a class="btn btn-outline-danger my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Declined</a>
 </td>
+@elseif($request->status=='paid')
+<td style="text-align:center"> 
+<a class="btn btn-outline-success my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Successfuly Paid</a>
+</td>
+
 @elseif($request->status=='completed')
 <td style="text-align:center">    
       <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#exampleModal">

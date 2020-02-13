@@ -65,6 +65,9 @@ class RequestController extends Controller
         if(Auth::user()->id==$request->client_id){
             $notified_user=$request->influencer_id;
             $request->update(['modified_date'=>request()->ad_date]);
+            if($request->status=="accepted")
+            $request->update(['status'=>'paid']);
+            else
             $request->update(['status'=>'modifiedByClient']);
             $this->notifyModifiedRequest($notified_user);
 
@@ -191,7 +194,8 @@ class RequestController extends Controller
       Auth::User()->unreadNotifications()->update(['read_at' => now()]);
         
     }
-    function checkout(){
+    function checkout($request){
+        $this->requestModified($request);
         return view('requests.checkout');
     }
     function charge(Request $request){
