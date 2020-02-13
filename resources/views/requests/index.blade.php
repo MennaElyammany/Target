@@ -82,7 +82,7 @@
 
 </td>
 @elseif($request->status=='accepted')
-<td style="text-align:center">    
+<td style="text-align:center">  
       <a class="btn btn-outline-success my-3 " href="/requests/checkout/{{$request->id}}" role="button" >Accepted Pay Now</a>
 </td>
 @elseif($request->status=='declined')
@@ -163,6 +163,7 @@
 <p class="font-weight-bold text-danger ">Requested date:{{$request->modified_date}}</p> 
 @endif
 </td>
+
     
     </tr>
     @endforeach

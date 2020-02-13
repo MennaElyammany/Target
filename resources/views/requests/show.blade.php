@@ -44,9 +44,14 @@
                     <a class="btn btn-outline-success my-3 " href="/requests/completed/{{$request->id}}"
                         role="button">Completed</a>
                     @elseif($request->status =='completed')
+                      <h3 class="text-success">Completed</h3>
                     <!-- <h3 class="text-primary"> Rate Your Experience </h3>
                     <input id="input-1-ltr-star-xs" name="input-1-ltr-star-xs"
                         class="kv-ltr-theme-svg-star rating-loading" value="1" dir="ltr" data-size="xs"> -->
+                        @elseif($request->status =='declined')
+                        <a class="btn btn-outline-danger my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Declined</a>
+
+                      
 
                     @else
 
