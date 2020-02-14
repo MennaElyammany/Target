@@ -121,9 +121,9 @@ class ChartDataController extends Controller
     function getAudienceAge($id){
         $ages= DB::table('audience_age')->where('influencer_id',$id)->get();
         $ages_array=array();
-        array_push($ages_array,'<13','13-18','18-25','25-35','35-45');
+        array_push($ages_array,'<13','13-18','18-25','25-35','35-45','45-55','55-65');
         $ages_count_array=array();
-        array_push($ages_count_array,$ages[0]->less_than_13,$ages[0]->between_13_and_18,$ages[0]->between_18_and_25,$ages[0]->between_25_and_35,$ages[0]);
+        array_push($ages_count_array,$ages[0]->less_than_13,$ages[0]->between_13_and_18,$ages[0]->between_18_and_25,$ages[0]->between_25_and_35,$ages[0]->between_35_and_45,$ages[0]->between_45_and_55,$ages[0]->between_55_and_65);
         return $audience_age=array(
             'ages'=>$ages_array,
             'count'=>$ages_count_array

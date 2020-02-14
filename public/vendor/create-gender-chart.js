@@ -11,9 +11,16 @@
 
 		},
 		ajaxGetAudienceGender: function () {
-            var url = window.location.pathname;
-			var id = url.substring(url.lastIndexOf('/') + 1);
-			console.log(id);
+			var url = window.location.pathname;
+			if(url.match(/[0-9]+$/)){
+				var id = url.substring(url.lastIndexOf('/') + 1);
+			}
+			else{
+				var button = document.getElementById('instaButton');
+				var id= button.getAttribute('data-idinsta');
+
+			}
+         
 			var urlPath =  '/genderchart/'+id;
 			var request = $.ajax( {
 				method: 'GET',
@@ -53,7 +60,10 @@
 			legend: { display: false },
 			title: {
 			  display: true,
-			  text: 'Audience Gender'
+			  text: 'Audience Gender',
+			  fontSize:18,
+			  fontFamily: 'Helvetica Neue',
+			  padding:5
 			}
 		  }
          });
