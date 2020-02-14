@@ -190,10 +190,10 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
     <!-- INSTAGRAM -->
     @if ($influencer->instagram_id)
 <!-- "href="/influencers/instagram/{{$influencer->id}}" -->
-    <a class="ml-2" href data-toggle="modal" data-target="#showInstaMedia" data-idinsta="{{$influencer->id}}" data-nameinsta="{{$influencer->name}}" data-imginsta="{{$influencer->avatar}}" data-influencer="{{$influencer}}">
+    <a id ="instaButton" class="ml-2" href data-toggle="modal" data-target="#showInstaMedia" data-idinsta="{{$influencer->id}}" data-nameinsta="{{$influencer->name}}" data-imginsta="{{$influencer->avatar}}" data-influencer="{{$influencer}}">
     <img src="{{asset('instagram.png')}}" style="vertical-align:top; margin-top:13px"  width='29'></a>
     <div class="modal fade" id="showInstaMedia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" style="max-width:1000px;">
+      <div class="modal-dialog modal-lg" style="max-width:1400px;">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="title">
@@ -262,6 +262,58 @@ data-toggle="modal" data-target="#show" data-url="{{$influencer->youtube_url}}">
                     <h6 id='instaCountry' class='d-inline ml-1'> </h6>
                    <br>
                     </div>
+                    <div class="container mt-5">
+    <h3>Core Metrics</h3>
+    <div class="card mb-3" style="width:100%">
+        <div class="card-header">
+            <i class="fa fa-area-chart"></i> Photo Post Metrics </div>
+        <div class="card-body" >
+@php 
+$engagement=calcInstagramEngagement($influencer->id);
+         echo   '<div style=" display:inline-block; float:left;margin-right:50px;margin-left:100px;">
+                <center> 
+                  <p> Average Likes: <br><b style="font-size:40px;">'.$engagement['averageLikes'].' </b>
+
+                </center>
+            </div>
+            <div>
+                <center>
+                <p> Average Comments:  <br> <b style="font-size:40px;">'.$engagement['averageComments'],'</b>';
+
+                  @endphp
+
+
+                </center>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at @php echo date('F j, Y', time() ) @endphp</div>
+    </div>
+    <!-- Area Chart Example-->
+    <div style="width:100%;" class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-area-chart"></i> Followers Growth </div>
+        <div class="card-body">
+            <canvas id="myChart" width="100%" height="60"></canvas>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at @php echo date('F j, Y', time() ) @endphp</div>
+    </div>
+    <div  style="width:100%;" class="card mb-3">
+        <div class="card-header mt-3">
+            <i class="fa fa-area-chart"></i> Audience Insights</div>
+        <div class="card-body mt-3">
+            <canvas id="GenderChart" width="100%" height="70"></canvas>
+        </div>
+        <div class="card-body mt-3">
+            <canvas id="LocationChart" width="100%" height="70"></canvas>
+        </div>
+        <div>
+            <canvas id="AgeChart" width="100%" height="70"></canvas>
+
+        </div>
+
+        <div class="card-footer small text-muted">Updated yesterday at @php echo date('F j, Y', time() ) @endphp</div>
+    </div>
+</div>
 
 
 
@@ -513,4 +565,10 @@ echo "    <div style='display: flex;'>
   
   });
 </script>
+<script src="{{url( 'vendor/jquery.min.js' )}}"></script>
+<script src="{{url( 'vendor/Chart.min.js' )}}"></script>
+<script src="{{url( 'vendor/create-followers-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-gender-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-location-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-age-chart.js' )}}"></script>
 @endsection

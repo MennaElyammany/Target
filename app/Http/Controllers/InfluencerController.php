@@ -37,6 +37,7 @@ class InfluencerController extends Controller
                         'country_id' => request('country_id'),
                         'sort'=>request('sort')
                     ]);
+    
                    
         return view('influencers.index',compact('influencers'));
     }
@@ -138,7 +139,6 @@ function sendTweet(Request $request){
     }
     function store(StoreInfluencerRequest $request){
         $influencer = Auth::user();
-        // dd(Auth::user());
         $influencer->country_id = $request->country_id;
         $influencer->category_id = $request->category_id;
         if(isset($request->youtube_url))

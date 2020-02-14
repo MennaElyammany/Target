@@ -7,94 +7,94 @@ use App\Request;
 
 
 
- function fetch_youtube_data($url){
-     if(Str::contains($url, '/user')){
-        $channelName=substr($url,strpos($url,'user/')+5);
-        $channel = Youtube::getChannelByName($channelName);
-       
-        $channelId=$channel->id;
-
-     }
-     else if(Str::contains($url, '/channel'))
-     {
-    
-        $channelId=substr($url,strpos($url,'channel/')+8);
-        $channel = Youtube::getChannelById($channelId);
-    
-     }
-    
-     
-     
-     $videoList = Youtube::listChannelVideos($channelId,40);
-  
-     $verified=checkVerification($url);
-     $channelData=$channel;
-     $name=$channelData->snippet->title;
-     $imageUrl=$channelData->snippet->thumbnails->medium->url;
-     $imageUrlSmall=$channelData->snippet->thumbnails->default->url;
-
-   
-     if (isset($channelData->snippet->country)){   //check if country is set
-      $country=$channelData->snippet->country;
-     }
-    else
-     $country="Middle East";
-     $views=$channelData->statistics->viewCount;
-     $subscribers=$channelData->statistics->subscriberCount;
-     if(!$subscribers)
-     $subscribers=0;
-     $videoCount=$channelData->statistics->videoCount;
-     $about=$channelData->snippet->description;
-     $activities=Youtube::getActivitiesByChannelId($channelId);
-     if(count($activities)==0) 
-     $subscriptions=0;
-     else 
-     $subscriptions = count( $activities);
-     $videoList = Youtube::listChannelVideos($channelId, 40); //fetch channel videos
-     $videoInf=[];
-     if ($videoList)
-     {
-    foreach($videoList as $index=>$video){
-     
-        $info = Youtube::getVideoInfo($video->id->videoId); //get each video Info
+function fetch_youtube_data($url){
+    if(Str::contains($url, '/user')){
+       $channelName=substr($url,strpos($url,'user/')+5);
+       $channel = Youtube::getChannelByName($channelName);
       
-        $videoIframe=$info->player->embedHtml;
-        $videoIframe=substr($videoIframe,strpos($videoIframe,'src'),-122);
+       $channelId=$channel->id;
 
-        $videoViews=$info->statistics->viewCount;
-       $videoLikes=$info->statistics->likeCount;
-        $videoComments=$info->statistics->commentCount;
-       $videoDislikes=$info->statistics->dislikeCount;
-        
-        $newVideo=new stdClass();
-        $newVideo->videoIframe=$videoIframe;
-        $newVideo->videoViews=$videoViews;
-        $newVideo->videoLikes=$videoLikes;
-        $newVideo->videoComments=$videoComments;
-        $newVideo->videoDislikes=$videoDislikes;
-        array_push($videoInf,$newVideo);           //generate array of objects of video info
-       
     }
-}
+    else if(Str::contains($url, '/channel'))
+    {
+   
+       $channelId=substr($url,strpos($url,'channel/')+8);
+       $channel = Youtube::getChannelById($channelId);
+   
+    }
+   
     
-     $data=[
-         'name'=>$name,
-         'imageUrl'=>$imageUrl,
-         'country'=>$country,
-         'views'=>$views,
-         'subscribers'=>$subscribers,
-         'videoCount'=>$videoCount,
-         'verified'=>$verified,
-         'imageUrlSmall'=>$imageUrlSmall,
-         'subscriptions'=>$subscriptions,
-         'about'=>$about,
-         'videoList'=>$videoInf,
-     ];
+    
+    $videoList = Youtube::listChannelVideos($channelId,40);
+ 
+    $verified=checkVerification($url);
+    $channelData=$channel;
+    $name=$channelData->snippet->title;
+    $imageUrl=$channelData->snippet->thumbnails->medium->url;
+    $imageUrlSmall=$channelData->snippet->thumbnails->default->url;
 
+  
+    if (isset($channelData->snippet->country)){   //check if country is set
+     $country=$channelData->snippet->country;
+    }
+   else
+    $country="Middle East";
+    $views=$channelData->statistics->viewCount;
+    $subscribers=$channelData->statistics->subscriberCount;
+    if(!$subscribers)
+    $subscribers=0;
+    $videoCount=$channelData->statistics->videoCount;
+    $about=$channelData->snippet->description;
+    $activities=Youtube::getActivitiesByChannelId($channelId);
+    if(count($activities)==0) 
+    $subscriptions=0;
+    else 
+    $subscriptions = count( $activities);
+    $videoList = Youtube::listChannelVideos($channelId, 40); //fetch channel videos
+    $videoInf=[];
+    if ($videoList)
+    {
+   foreach($videoList as $index=>$video){
+    
+       $info = Youtube::getVideoInfo($video->id->videoId); //get each video Info
+     
+       $videoIframe=$info->player->embedHtml;
+       $videoIframe=substr($videoIframe,strpos($videoIframe,'src'),-122);
 
-     return $data;
-
+       $videoViews=$info->statistics->viewCount;
+      $videoLikes=$info->statistics->likeCount;
+       $videoComments=$info->statistics->commentCount;
+      $videoDislikes=$info->statistics->dislikeCount;
+       
+       $newVideo=new stdClass();
+       $newVideo->videoIframe=$videoIframe;
+       $newVideo->videoViews=$videoViews;
+       $newVideo->videoLikes=$videoLikes;
+       $newVideo->videoComments=$videoComments;
+       $newVideo->videoDislikes=$videoDislikes;
+       array_push($videoInf,$newVideo);           //generate array of objects of video info
+      
+   }
 }
+   
+    $data=[
+        'name'=>$name,
+        'imageUrl'=>$imageUrl,
+        'country'=>$country,
+        'views'=>$views,
+        'subscribers'=>$subscribers,
+        'videoCount'=>$videoCount,
+        'verified'=>$verified,
+        'imageUrlSmall'=>$imageUrlSmall,
+        'subscriptions'=>$subscriptions,
+        'about'=>$about,
+        'videoList'=>$videoInf,
+    ];
+
+
+    return $data;
+
+}   
 function convertNumber($number){
     if($number>=1000000){
         $number=($number/1000000);
@@ -200,11 +200,12 @@ function calcEngagement($channel){
     $views_array=array();
     $comments_array=array();
     $videos_count=0;
-    foreach($videos as $video=>$value){
-        $likes_per_video= $value['videoLikes'];
-        $dislikes_per_video= $value['videoDislikes'];
-        $views_per_video= $value['videoViews'];
-        $comments_per_video= $value['videoComments'];
+    foreach($videos as $video){
+        $video=json_decode(json_encode($video,true));
+        $likes_per_video= $video->videoLikes;
+        $dislikes_per_video= $video->videoDislikes;
+        $views_per_video= $video->videoViews;
+        $comments_per_video= $video->videoComments;
         array_push($likes_array,$likes_per_video);
         array_push($dislikes_array,$dislikes_per_video);
         array_push($views_array,$views_per_video);
@@ -234,10 +235,13 @@ function calcEngagement($channel){
 
     $engagement_rate = round((($likes_sum+$dislikes_sum+$comments_sum)/$views_sum)*100,1,PHP_ROUND_HALF_UP);
     $avg_views=convertNumber(round($views_sum/$videos_count));
+    $avg_likes=convertNumber(round($likes_sum/$videos_count));
+    $avg_comments=convertNumber(round($comments_sum/$videos_count));
     return $value= [
         'engagement'=> $engagement_rate,
-        'average_views'=>$avg_views
-
+        'averageViews'=>$avg_views,
+        'averageLikes'=>$avg_likes,
+        'averageComments'=>$avg_comments
 ];
 
 };
@@ -289,8 +293,8 @@ function calcInstagramEngagement($id){
             $comments_sum = $comments_sum +$comment;
             $comments_counter++;
         }
-        $user = User::find($id)->get();
-        $followers = $user[0]->followers;
+        $user = User::findOrFail($id);
+        $followers = $user->followers;
         $engagement = round(($likes_sum+$comments_sum)/$followers,1,PHP_ROUND_HALF_UP);
         $averageLikes = round($likes_sum/$likes_counter);
         $averageComments = round($comments_sum/$comments_counter);

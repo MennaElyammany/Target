@@ -13,7 +13,14 @@
 		},
 		ajaxGetSubscribersPerMonth: function () {
 			var url = window.location.pathname;
-            var id = url.substring(url.lastIndexOf('/') + 1);
+			if(url.match(/[0-9]+$/)){
+				var id = url.substring(url.lastIndexOf('/') + 1);
+			}
+			else{
+				var button = document.getElementById('instaButton');
+				var id= button.getAttribute('data-idinsta');
+
+			}
 			var urlPath =  '/subscriberschart/'+id;
 			var request = $.ajax( {
 				method: 'GET',
@@ -67,6 +74,10 @@
 							},
 							ticks: {
 								maxTicksLimit: 7
+							},
+							scaleLabel:{
+								display:true,
+								labelString:'Date'
 							}
 						}],
 						yAxes: [{
