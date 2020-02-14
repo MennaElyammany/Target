@@ -197,10 +197,10 @@ function calcEngagement($channel){
     $comments_array=array();
     $videos_count=0;
     foreach($videos as $video=>$value){
-        $likes_per_video= $value['videoLikes'];
-        $dislikes_per_video= $value['videoDislikes'];
-        $views_per_video= $value['videoViews'];
-        $comments_per_video= $value['videoComments'];
+        $likes_per_video= $value->videoLikes;
+        $dislikes_per_video= $value->videoDislikes;
+        $views_per_video= $value->videoViews;
+        $comments_per_video= $value->videoComments;
         array_push($likes_array,$likes_per_video);
         array_push($dislikes_array,$dislikes_per_video);
         array_push($views_array,$views_per_video);

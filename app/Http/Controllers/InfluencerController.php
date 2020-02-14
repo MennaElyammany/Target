@@ -150,15 +150,15 @@ function sendTweet(Request $request){
 
         }
         //save influencer's engagement
-        if(isset($influencer->instagram_id)){
-            $result = calcInstagramEngagement($influencer->id);  
-            $engagement =$result['engagement'];
-        }
-        else{
-            $result = calcEngagement($influencer_data);
-            $engagement =$result['engagement'];
-        }
-        $influencer->engagement = $engagement;
+        // if(isset($influencer->instagram_id)){
+        //     $result = calcInstagramEngagement($influencer->id);  
+        //     $engagement =$result['engagement'];
+        // }
+        // else{
+        //     $result = calcEngagement($influencer_data);
+        //     $engagement =$result['engagement'];
+        // }
+        // $influencer->engagement = $engagement;
 
         $influencer->save();
 
