@@ -152,9 +152,10 @@ function sendTweet(Request $request){
         { 
             $influencer->avatar= $influencer_data['imageUrl'];
             $influencer->followers= $influencer_data['subscribers'];
-            // $result = calcEngagement($influencer_data);
-            // $engagement =$result['engagement'];
-            // $influencer->engagement = $engagement;
+            //save influencer's engagement
+            $result = calcEngagement($influencer_data);
+            $engagement =$result['engagement'];
+            $influencer->engagement = $engagement;
             Redis::setex(Auth::user()->id,60*60*48, json_encode($influencer_data));
         }
 
@@ -165,15 +166,6 @@ function sendTweet(Request $request){
             $engagement =$result['engagement'];
             $influencer->engagement = $engagement;
         }
-        // else if(isset($influnecer->twitter_id)){
-        //     $influencer->engagement = null;
-        // }
-        // else{
-        //     $result = calcEngagement($influencer_data);
-        //     $engagement =$result['engagement'];
-        //     $influencer->engagement = $engagement;
-        // }
-        
 
         $influencer->save();
 
