@@ -132,11 +132,14 @@
 .ret{
     color:#22B2FA;
 }
+.nav-item.active {
+  border-bottom: 2px solid #112d4e;
+}
     </style>
 </head>
 <body>
     <div id="app" style="margin-top:90px;" >
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-sm pb-2" >
+        <nav class="nav navbar fixed-top navbar-expand-lg navbar-light shadow-sm pb-2" >
             <img src="{{asset('goal.png')}}" width='45'>
             <a class="navbar-brand" style="color:#112d4e" href="/">Target</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,37 +148,50 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
      <!-- Right Side Of Navbar -->
      <ul class="navbar-nav mx-auto row">
-                   <li class="nav-item active">
+                   @if(Route::currentRouteName()=='welcome') <li class="nav-item active">
+                   @else <li class="nav-item ">
+                   @endif
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     @auth
-                    <li class="nav-item ">
+                    @if(Route::currentRouteName()=='influencers.index') <li class="nav-item active">
+                    @else <li class="nav-item ">
+                    @endif                    
                     <a class="nav-link mt-2 float-left" style="color:#112d4e;" href="{{ url('/influencers') }}">Influencers<span class="sr-only">(current)</span></a>
                     </li>
                     @endauth
                     @role('Influencer')
-                    <li class="nav-item ">
+                    @if(Route::currentRouteName()=='requests.index') <li class="nav-item active">
+                    @else <li class="nav-item ">
+                    @endif
                     <a class="nav-link mt-2 float-left" style="color:#112d4e;" href="{{ url('/requests') }}">Requests<span class="sr-only">(current)</span></a>
                     </li>
                     @endrole
                     @role('Client')
-                    <li class="nav-item ">
+                    @if(Route::currentRouteName()=='requests.index') <li class="nav-item active">
+                    @else <li class="nav-item ">
+                    @endif
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/requests') }}">My Influencers<span class="sr-only">(current)</span></a>
-  
                     </li>
                     @endrole
                     @role('Admin')
-                    <li class="nav-item ">
+                    @if(Route::currentRouteName()=='users.index') <li class="nav-item active">
+                    @else <li class="nav-item ">
+                    @endif
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/users') }}">Users<span class="sr-only">(current)</span></a>
                       </li>
                       <li class="nav-item ">
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/requests') }}">System Requests<span class="sr-only">(current)</span></a>
                       </li>
                     @endrole
-                    <li class="nav-item ">
+                    @if(Route::currentRouteName()=='about') <li class="nav-item active">
+                    @else <li class="nav-item ">
+                    @endif                    
                     <a class="nav-link mt-2" style="color:#112d4e;" href="{{ url('/influencers/about') }}">About Us<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item ">
+                    @if(Route::currentRouteName()=='contact') <li class="nav-item active">
+                    @else <li class="nav-item ">
+                    @endif                    
                     <a class="nav-link mt-2 " style="color:#112d4e;" href="{{ url('/influencers/contactUs') }}">Contact Us<span class="sr-only">(current)</span></a>
 
                     </li>
@@ -356,6 +372,7 @@ document.getElementById("alert").addEventListener('click',function(e){
   @csrf
   <script>
   $('#twitter').on('show.bs.modal', function (event) {
+      console.log("hiii");
     var button = $(event.relatedTarget) ;
     var id = button.data('idtwitter');
     var name = button.data('nametwitter');
@@ -471,7 +488,12 @@ document.getElementById("alert").addEventListener('click',function(e){
         document.getElementById("#country").disabled = true;
         }
 </script>
-  
+<script src="{{url( 'vendor/jquery.min.js' )}}"></script>
+<script src="{{url( 'vendor/Chart.min.js' )}}"></script>
+<script src="{{url( 'vendor/create-followers-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-gender-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-location-chart.js' )}}"></script>
+<script src="{{url( 'vendor/create-age-chart.js' )}}"></script>
 
 </body>
 </html>

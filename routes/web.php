@@ -2,8 +2,8 @@
 //Main routes
 Route::get('/', function () { return view('welcome');})->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/influencers/about',function(){return view('about');});
-Route::get('/influencers/contactUs',function(){ return view('contactUs');});
+Route::get('/influencers/about',function(){return view('about');})->name('about');
+Route::get('/influencers/contactUs',function(){ return view('contactUs');})->name('contact');
 
 //Registerantion and login routes instead of // Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -58,6 +58,11 @@ Route::get('/tests','ChartDataController@test');
 
 
 
+
+
+
+
+
 //Requests Routes
 Route::group(['middleware'=>'auth'], function(){
 Route::get('/requests','RequestController@index')->name('requests.index');
@@ -87,14 +92,13 @@ Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit') -> m
 Route::put('/users/{user}', 'UserController@update')->name('users.update') -> middleware('auth');
 Route::delete('/users/{user}', 'UserController@destroy')->name('users.update') -> middleware('auth');
 
-
-
 //when we get the price
-//Route::get('/requests/checkout/{price}','RequestController@checkout')->name('requests.checkout');
-Route::get('/requests/checkout','RequestController@checkout')->name('requests.checkout');
+Route::get('/requests/checkout/{request}','RequestController@checkout')->name('requests.checkout');
 //Route::post('/requests/charge','RequestController@checkout')->name('requests.checkout');
 Route::post('/requests/charge','RequestController@charge');
 // ->name('requests.charge');
+
+
 
 
 //Email Routes

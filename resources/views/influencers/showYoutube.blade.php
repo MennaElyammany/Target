@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <div class='container' >
     <div class='row no-gutters'>
 
@@ -11,13 +12,13 @@
                 @foreach($data['videoList'] as $index=>$video)
                 <div class="col-6">
                <div class="card" >
-               <iframe @php echo $video->videoIframe  @endphp></iframe>
+               <iframe @php echo $video['videoIframe']  @endphp></iframe>
                <div class="card-body text-light bg-secondary " style="height:60px;">
                <span>
-               <i class="far fa-thumbs-up"></i> <span class=" text-sm"> {{convertNumber($video->videoLikes)}}</span>
-               <i class="far fa-comments"></i>  <span class=" text-sm">{{convertNumber($video->videoComments)}}</span> 
-               <i class="far fa-thumbs-down"></i>  <span class=" text-sm">{{convertNumber($video->videoDislikes)}}</span>
-               <i class="far fa-eye"></i>  <span class="text-sm">{{convertNumber($video->videoViews)}}</span>
+               <i class="far fa-thumbs-up"></i> <span class=" text-sm"> {{convertNumber($video['videoLikes'])}}</span>
+               <i class="far fa-comments"></i>  <span class=" text-sm">{{convertNumber($video['videoComments'])}}</span> 
+               <i class="far fa-thumbs-down"></i>  <span class=" text-sm">{{convertNumber($video['videoDislikes'])}}</span>
+               <i class="far fa-eye"></i>  <span class="text-sm">{{convertNumber($video['videoViews'])}}</span>
                </span>
                   </div>
                    </div>
@@ -89,25 +90,31 @@
                    <h6> <img src="https://img.icons8.com/offices/30/000000/globe.png">  {{$data['country']}} </h6>
                    <br>
                    <center>
-                   <a id="report" href="{{route('influencers.chart',['id' => $id,'data'=>$data])}}"  class="btn btn-outline-info">View Report</a>
+                   <!-- <a id="report" href="{{route('influencers.chart',['id' => $id,'data'=>$data])}}"  class="btn btn-outline-info">View Report</a> -->
                    </center>
                 </div>
-                <div class="container p-1">
-    <h3>Core Metrics</h3>
+                <div class="container p-1 mt-3">
+    <h2>Core Metrics</h2>
     <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Average Video Metrics </div>
+                <i class="fa fa-area-chart"></i> Video Metrics </div>
             <div class="card-body">
             
-        <div  style=" display:inline-block; float:left;margin-right:100px;">
-        <center>
-        <p> <b>Engagement:</b> <br> {{$engagement['engagement']}}%<p>
+            <div style="display:inline-block;float:left; margin-right:50px;margin-left:30px;" >
+            <center>
+            <p> Average Views: <br> <b style="font-size:25px;"> {{$engagement['averageViews']}}</b><p>
+
+            </center>
+            </div>
+            <div style="display:inline-block;float:left;margin-right:50px">
+            <center>
+            <p> Average Likes: <br> <b style="font-size:25px;">  {{$engagement['averageLikes']}}</b><p>
 
             </center>
             </div>
             <div style="display:inline-block;float:left;">
             <center>
-            <p> <b>Average Views:</b> <br> {{$engagement['average_views']}}<p>
+            <p> Average Comments: <br> <b style="font-size:25px;"> {{$engagement['averageComments']}} <b style="font-size:25px;"> <p>
 
             </center>
             </div>
@@ -119,7 +126,7 @@
             <div class="card-header">
                 <i class="fa fa-area-chart"></i> Subsribers Growth </div>
             <div class="card-body">
-                <canvas id="myChart" width="100%" height="30"></canvas>
+                <canvas id="myChart" width="100%" height="60"></canvas>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at @php  echo date('F j, Y', time() ) @endphp</div>
         </div>

@@ -12,7 +12,14 @@
 		},
 		ajaxGetAudienceAge: function () {
 			var url = window.location.pathname;
-            var id = url.substring(url.lastIndexOf('/') + 1);
+			if(url.match(/[0-9]+$/)){
+				var id = url.substring(url.lastIndexOf('/') + 1);
+			}
+			else{
+				var button = document.getElementById('instaButton');
+				var id= button.getAttribute('data-idinsta');
+
+			}
 			var urlPath =  '/agechart/'+id;
 			var request = $.ajax( {
 				method: 'GET',
@@ -41,7 +48,9 @@
                   datasets: [
                     {
                       label: "Audience Age",
-                      backgroundColor: ["#8e5ea2", "#8e5ea2","#8e5ea2","#8e5ea2","#8e5ea2"],
+                      backgroundColor: ["#b04669","#ca8094","#dfb8c1","#f1f1f1","#a9b6c5","#63809b","#0b4d73"
+	
+						],
                       data: response.count
                     }
                   ]
@@ -50,7 +59,10 @@
                   legend: { display: false },
                   title: {
                     display: true,
-                    text: 'Audience Age'
+					text: 'Audience Age',
+					fontSize:18,
+			        fontFamily: 'Helvetica Neue',
+			        padding:5
                   }
                 }
             });
