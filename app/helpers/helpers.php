@@ -293,11 +293,7 @@ function calcInstagramEngagement($id){
             $comments_sum = $comments_sum +$comment;
             $comments_counter++;
         }
-<<<<<<< HEAD
-        $user = User::find($id)->get();
-=======
         $user = User::findOrFail($id);
->>>>>>> 6b29262e21b04ec16c4fb6430c15f6f9791ebb04
         $followers = $user->followers;
         $engagement = round(($likes_sum+$comments_sum)/$followers,1,PHP_ROUND_HALF_UP);
         $averageLikes = round($likes_sum/$likes_counter);
