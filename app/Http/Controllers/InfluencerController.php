@@ -31,7 +31,7 @@ class InfluencerController extends Controller
         if(request()->has('sort')){
             $influencers = $influencers->orderBy('followers',request('sort'));
         }
-    $influencers = $influencers->paginate(10)
+    $influencers = $influencers->paginate(8)
                     ->appends([
                         'category_id' => request('category_id'),
                         'country_id' => request('country_id'),

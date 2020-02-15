@@ -96,18 +96,11 @@
 @elseif($request->status=='paid')
 <td style="text-align:center"> 
 <a class="btn btn-outline-success my-3  disabled"href="/requests/accept/{{$request->id}}" role="button" >Successfuly Paid</a>
-</td>
 
-@elseif($request->status=='completed')
-<td style="text-align:center">   
 
       @if(checkIfRated($request->influencer_id,$request->id)==='no')
       <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#ratingInfluencerModal" data-id="{{$request->id}}" data-influencer-name="{{$influencer->name}}" data-influencer-id="{{$influencer->id}}" data-request-id="{{$request->id}}">
       Rate your Experience</button>
-      @else 
-      <div style="margin-top:30px;">
-      <p>Thanks for rating!</p>
-      </div>
       @endif
 </td>
 <div class="modal fade" id="ratingInfluencerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

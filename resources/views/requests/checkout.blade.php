@@ -25,7 +25,7 @@
 @endsection
 @section('content')
 
-<div class="container" style="margin-top:30px;">
+<div class="container" style="margin-top:150px;">
     <div class="row">
         <div class="col-md-9">        
             <form action="/requests/charge" method="post" id="payment-form">
@@ -49,8 +49,7 @@
     </div>
 </div>
 @endsection
-
-@section('script')
+@section('scripts')
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     window.onload = function() {

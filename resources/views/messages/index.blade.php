@@ -5,8 +5,6 @@
   border-radius: 25px;
   border: 2px solid grey;
   padding: 20px; 
-  /* width: 200px;
-  height: 150px;   */
   margin-top:70px;
   
 }
@@ -66,7 +64,7 @@ function display(id,auth) {
             '_token':csrf //pass CSRF
         },
         success:function(data){
-            console.log("success");
+            console.log("success msg");
             console.log(data);
             for(i = 0; i < data.length;i++){
             if(data[i]['reciever_id']==id){
