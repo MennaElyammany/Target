@@ -327,6 +327,7 @@ document.getElementById("alert").addEventListener('click',function(e){
             '_token':csrf //pass CSRF
             },
         success:function(data){
+            console.log("hi");
             console.log("success");            
             console.log(data);
             youtubeData = document.getElementById('youtubeData');          
@@ -405,6 +406,7 @@ document.getElementById("alert").addEventListener('click',function(e){
             '_token':csrf //pass CSRF
             },
         success:function(data){
+            console.log("hi");
             console.log('success');
             console.log(data);
             console.log(typeof(id));
@@ -420,9 +422,10 @@ document.getElementById("alert").addEventListener('click',function(e){
             
             if(id == auth){
                 post.appendChild(postBtn);             
-            }
+            }             
             postBtn.onclick = function () {
-                location.href = "/influencers/posttwitter";
+                // console.log("helo")
+                location.href = "/posttwitter";
             };
             var locTwitter = document.getElementById('locTwitter');
             locTwitter.innerHTML = data[1]["location"];
@@ -494,6 +497,7 @@ document.getElementById("alert").addEventListener('click',function(e){
 <script src="{{url( 'vendor/create-gender-chart.js' )}}"></script>
 <script src="{{url( 'vendor/create-location-chart.js' )}}"></script>
 <script src="{{url( 'vendor/create-age-chart.js' )}}"></script>
+
 
 </body>
 </html>

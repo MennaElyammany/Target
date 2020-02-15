@@ -198,7 +198,7 @@ class RequestController extends Controller
         return view('requests.checkout');
     }
     function charge(Request $request){
-        dd($request->stripeToken);
+        return redirect()->route('requests.index');
     }
     function storeRating(StoreRatingRequest $request){   
             $rateableUser = User::find($request->rateable_id);
