@@ -58,7 +58,7 @@ class InfluencerController extends Controller
         $url=$influencer['youtube_url'];
         $data['influencer_id']=$id;
         $engagement = calcEngagement($data);  
-        return view('influencers.showYoutube',['data'=>$data,'id'=>$id,'engagement'=>$engagement]);  
+        return view('influencers.showYoutube',['data'=>$data,'id'=>$id,'engagement'=>$engagement,'influencer'=>$influencer]);  
       }
     function showYoutubeModal(Request $request)
     {   

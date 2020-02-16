@@ -52,6 +52,25 @@
                                   <a href="/messages/create/{{$data['influencer_id']}}"><i class='far fa-comment' style='font-size:26px;color:grey;'></i></a>
                                 @endif
                                 </h3>
+                                <div class="mt-2"style="display:flex;width:300px; margin-right:10px;">
+                    <!-- <span style="margin-bottom:0px;"> {{$influencer->averageRating}}</span> -->
+                    @php $rating = roundAverageRating($influencer->averageRating); @endphp  
+                    @foreach(range(1,5) as $i)
+                    <div class="fa-stack" style="margin-right:5px;gbackground-color:black;width:15px">
+                        <i class="far fa-star fa-stack-1x"></i>
+
+                        @if($rating>0)
+                            @if($rating>0.5)
+                            <i class="fas fa-star fa-stack-1x"></i>
+                            @else
+                            <i class="fas fa-star-half fa-stack-1x"></i>
+                        @endif
+                        @endif
+                        @php $rating--; @endphp
+                    </div>
+                    @endforeach
+
+                </div>
                             </div>
                         </div>
 
@@ -146,7 +165,9 @@
 
             <div class="card-footer small text-muted">Updated yesterday at @php  echo date('F j, Y', time() ) @endphp</div>
         </div>
+        
     </div>
+    
             </div>
         </div>
     </div>
