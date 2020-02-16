@@ -376,6 +376,11 @@ document.getElementById("alert").addEventListener('click',function(e){
       console.log("hiii");
     var button = $(event.relatedTarget) ;
     var id = button.data('idtwitter');
+    var messageLink = document.getElementById("messageLink");
+    console.log("messaggggee",messageLink);
+    var requestLink = document.getElementById("requestLink");
+    messageLink.setAttribute("href","/messages/create/"+id);
+    requestLink.setAttribute("href","requests/create?influencer_id="+id);
     var name = button.data('nametwitter');
     var auth =button.data('auth');
     var twitterImg = button.data('img');

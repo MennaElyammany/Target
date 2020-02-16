@@ -47,6 +47,7 @@ class RequestController extends Controller
      'influencer_id'=>$influencer_id,
 
     ]);
+    
   
         if($request->product_image){
          $newrequest->update(['product_image'=>$request->file('product_image')->store('product_images','public')]);

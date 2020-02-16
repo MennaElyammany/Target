@@ -343,9 +343,11 @@ $engagement=calcInstagramEngagement($influencer->id);
      
       <div style=" display: block;">
       <div style="margin-left:100px;margin-top:5px;margin-bottom:5px;">
-            <a href="/messages/create/{{$influencer->id}}"id="message">
+            <!-- <a href="/messages/create/{{$influencer->id}}"id="message"> -->
+            <a id="messageLink">
             <i class='far fa-comment' style='font-size:20px;color:grey;margin-right:15px;margin-top:10px;'></i></a>
-            <a href="{{ route('requests.create',['influencer_id'=> $influencer->id])}}">
+            <!-- <a href="{{ route('requests.create',['influencer_id'=> $influencer->id])}}"> -->
+            <a id="requestLink">
             <i class="fas fa-file-signature text-dark "></i></a>      
       </div>
       <div  style="margin-left:100px;">
