@@ -25,6 +25,6 @@
     },
     "dependencies": {
         "bootstrap-rating": "0.0.1",
-        "chart.js": "^2.9.3"
+        "chart.js": "^2.9.4"
     }
 }
